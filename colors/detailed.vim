@@ -19,6 +19,8 @@
 " TODO
 "   - More languages, other than Ruby. (Contributions will be very welcome)
 "   - Sync pry-theme to this
+"   - Figure out why the NO_SHOW__DARNIT's are no-shows
+"   - Determine if this is slow. ☺
 "   - GUI colors
 "     Perhaps redo with:
 "     http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
@@ -52,42 +54,52 @@ endfun
 
 " Color Palette {{{
 let s:c = {
-  \'basic8_red': 1,
+  \'basic8_red (TODO: use this)': 1,
   \'basic8_green': 2,
-  \'basic8_yellow': 3,
-  \'basic8_blue': 4,
+  \'basic8_yellow (TODO: use this)': 3,
+  \'basic8_blue (TODO: use this)': 4,
   \'basic8_magenta': 5,
   \'basic8_cyan': 6,
-  \'NO_SHOW__DARNIT': 160,
-  \'TOUSE: red52': 52,
+  \'NO_SHOW__DARNIT': 46,
+  \'red52 (TODO: use this)': 52,
   \'red88': 88,
   \'red124': 124,
   \'red160': 160,
-  \'red196': 196,
-  \'yellow58': 58,
+  \'red196 (TODO: use this)': 196,
+  \'yellow58 (TODO: use this)': 58,
   \'yellow100': 100,
-  \'yellow136': 136,
-  \'yellow142': 142,
+  \'yellow136 (TODO: use this)': 136,
+  \'yellow142 (TODO: use this)': 142,
   \'yellow148': 148,
   \'yellow178': 178,
-  \'yellow220': 220,
+  \'yellow190': 190,
+  \'yellow220 (TODO: use this)': 220,
   \'orange208': 208,
   \'light_yellow230': 229,
-  \'TOUSE: graygreen': 23,
+  \'graygreen': 23,
   \'green34': 34,
+  \'green71': 71,
+  \'green76 (TODO: use this)': 76,
+  \'green84': 84,
   \'seafoam': 30,
-  \'TOUSE: seafoam2': 35,
+  \'seafoam2 (TODO: use this)': 35,
   \'teal50': 50,
-  \'blue19': 19,
-  \'blue20': 20,
-  \'blue21': 21,
+  \'blue19 (TODO: use this)': 19,
+  \'blue20 (TODO: use this)': 20,
+  \'blue21 (TODO: use this)': 21,
   \'blue75': 75,
   \'lavender104': 104,
   \'purple53': 53,
   \'purple90': 90,
+  \'purple95 (TODO: use this)': 95,
+  \'purple99 (TODO: use this)': 79,
   \'purple125': 125,
   \'purple126': 126,
-  \'purple141': 141,
+  \'purple127 (TODO: use this)': 127,
+  \'purple129 (TODO: use this)': 129,
+  \'purple131': 131,
+  \'purple141 (TODO: use this)': 141,
+  \'purple201': 201,
   \'purple225': 225,
   \'gray16': 16,
   \'gray232': 232,
@@ -223,10 +235,19 @@ hi link rubyQuoteEscape  rubyStringEscape
 " hi rubyInterpolation cleared
 hi link rubyClassVariable  rubyIdentifier
 hi link rubyGlobalVariable  rubyIdentifier
-hi link rubyPredefinedVariable  rubyPredefinedIdentifier
+hi link rubyPredefinedVariable  rubyPredefinedIdentifier " Hrm?
 hi link rubyInvalidVariable  Error
 hi link rubyNoInterpolation  rubyString
+hi link rubyFunction    Function
+hi link rubyException   Exception
+hi link rubyKeyword     Keyword
+hi link rubyPredefinedIdentifier  rubyIdentifier
 "}}}
+
+" Not typically the job of a color scheme, but I typo this one too often to
+" have no special highlighting
+syn match rubyInitialize '\<initialize\>' contained containedin=rubyMethodDeclaration
+call s:fg('rubyInitialize', 'green84')
 
 call s:fg('Exception', 'orange208') " Like default yellow but more warny.
 
@@ -240,21 +261,18 @@ call s:fg('rubyInclude', 'purple53')
 call s:fg('rubyMethodBlock', 'gray250') " Contents of methods, basically
 call s:fg('rubyDoBlock', 'light_yellow230')
 call s:fg('rubyBlock', 'purple225')
-call s:fg('rubyLocalVariableOrMethod', 'NO_SHOW__DARNIT')
+" call s:fg('rubyLocalVariableOrMethod', 'NO_SHOW__DARNIT')
 call s:fg('rubyInstanceVariable', 'blue75')
 
-" hi rubyDelimEscape cleared
+"TODO: call s:fg('rubyDelimEscape', '')
 call s:fg('rubyString', 'red88')
-call s:fg('rubyInterpolationDelimiter', 'purple90')
-" hi rubyNestedParentheses cleared
-" hi rubyNestedCurlyBraces cleared
-" hi rubyNestedAngleBrackets cleared
-" hi rubyNestedSquareBrackets cleared
+call s:fg('rubyInterpolationDelimiter', 'gray244')
+
 call s:fg('rubyRegexpSpecial', 'seafoam')
 call s:fg('rubyRegexpComment', 'gray238')
 
-call s:fg('rubyRegexpParens', 'NO_SHOW__DARNIT')
-call s:fg('rubyRegexpBrackets', 'NO_SHOW__DARNIT')
+" call s:fg('rubyRegexpParens', 'NO_SHOW__DARNIT')
+" call s:fg('rubyRegexpBrackets', 'NO_SHOW__DARNIT')
 
 call s:fg('rubyRegexpCharClass', 'basic8_green')
 call s:fg('rubyRegexpQuantifier', 'yellow148')
@@ -263,65 +281,64 @@ call s:fg('rubyRegexpAnchor', 'purple90')
 call s:fg('rubyRegexpDot', 'green34')
 call s:fg('rubyRegexpDelimiter', 'red88', 'bold')
 call s:fg('rubyRegexp', 'red160')
-hi link rubyASCIICode   Character
+call s:fg('rubyASCIICode', 'green71')
 
 call s:fg('rubyPseudoVariable', 'purple125')
 call s:fg('rubyInteger', 'red124')
 call s:fg('rubyFloat', 'red160')
 
-" hi rubyBlockArgument cleared
+" call s:fg('rubyBlockArgument', 'NO_SHOW__DARNIT')
 call s:fg('rubySymbol', 'lavender104')
 call s:fg('rubyBlockParameter', 'basic8_cyan', 'bold')
-" hi rubyBlockParameterList cleared
-hi link rubyPredefinedConstant  rubyPredefinedIdentifier
-hi link rubyStringDelimiter  Delimiter
-hi link rubySymbolDelimiter  rubyStringDelimiter
-" hi rubyHeredocStart cleared
-" hi rubyAliasDeclaration2 cleared
-" hi rubyAliasDeclaration cleared
-hi link rubyBoolean     Boolean
+call s:fg('rubyBlockParameterList', 'graygreen')
+hi link rubyPredefinedConstant  rubyPredefinedIdentifier " TODO
+hi link rubyStringDelimiter  Delimiter " TODO
+hi link rubySymbolDelimiter  rubyStringDelimiter " TODO
+" call s:fg('rubyHeredocStart', 'NO_SHOW__DARNIT')
+" call s:fg('rubyAliasDeclaration2', 'NO_SHOW__DARNIT')
+" call s:fg('rubyAliasDeclaration', 'NO_SHOW__DARNIT')
+call s:fg('rubyBoolean', 'purple131')
 " hi rubyMethodDeclaration cleared
-hi link rubyOperator    Operator
-" hi rubyClassDeclaration cleared
-" hi rubyModuleDeclaration cleared
-hi link rubyFunction    Function
-hi link rubyControl     Statement
-hi link rubyKeyword     Keyword
-hi link rubyBeginEnd    Statement
-" hi rubyBlock      cleared
+hi link rubyOperator    Operator " TODO
+hi link rubyPseudoOperator  rubyOperator " -= /= **= *= etc
+" call s:fg('rubyClassDeclaration', 'NO_SHOW__DARNIT')
+" call s:fg('rubyModuleDeclaration', 'NO_SHOW__DARNIT')
+hi link rubyControl     Statement " TODO
+hi link rubyBeginEnd    Statement " TODO
 call s:fg('rubyAccess', 'yellow100')
 call s:fg('rubyAttribute', 'yellow178')
-hi link rubyEval        Statement
+call s:fg('rubyEval', 'yellow190')
 call s:fg('rubyConditionalModifier', 'yellow148', 'bold')
-hi link rubyRepeatModifier  rubyRepeat
-" hi rubyCurlyBlock cleared
-" hi rubyArrayDelimiter cleared
-" hi rubyArrayLiteral cleared
-" hi rubyBlockExpression cleared
-" hi rubyCaseExpression cleared
 " hi rubyConditionalExpression cleared
 call s:fg('rubyRepeat', 'yellow178')
-hi link rubyOptionalDo  rubyRepeat
-" hi rubyOptionalDoLine cleared
+" TODO: call s:fg('rubyOptionalDo', 'NO_SHOW__DARNIT')
+" TODO: call s:fg('rubyOptionalDoLine', 'NO_SHOW__DARNIT')
 " hi rubyRepeatExpression cleared
-hi link rubyException   Exception
 call s:fg('rubySharpBang', 'gray238')
 hi link rubySpaceError  rubyError
 call s:fg('rubyComment', 'gray241')
 " hi rubyMultilineComment cleared
 hi link rubyDocumentation  Comment
 " hi rubyKeywordAsMethod cleared
-hi link rubyDataDirective  Delimiter
-hi link rubyData        Comment
-hi link rubyIdentifier  Identifier
-hi link rubyPredefinedIdentifier  rubyIdentifier
-hi link rubyPseudoOperator  rubyOperator
-hi link rubyError       Error
-hi link rubyError       Error
+call s:fg('rubyDataDirective', 'purple201')
+call s:fg('rubyData', 'gray245')
+
+" TODO call s:fg('rubyIdentifier', 'NO_SHOW__DARNIT')
+" TODO call s:fg('rubyError', 'NO_SHOW__DARNIT')
+" TODO call s:fg('rubyRepeatModifier', 'NO_SHOW__DARNIT') " while/until
+" TODO call s:fg('rubyCurlyBlock', 'NO_SHOW__DARNIT')
+" TODO call s:fg('rubyArrayDelimiter', 'NO_SHOW__DARNIT')
+" TODO call s:fg('rubyArrayLiteral', 'NO_SHOW__DARNIT')
+" TODO call s:fg('rubyBlockExpression', 'NO_SHOW__DARNIT')
+" TODO call s:fg('rubyCaseExpression', 'NO_SHOW__DARNIT')
+" TODO call s:fg('rubyNestedParentheses', 'NO_SHOW__DARNIT')
+" TODO call s:fg('rubyNestedCurlyBraces', 'NO_SHOW__DARNIT')
+" TODO call s:fg('rubyNestedAngleBrackets', 'NO_SHOW__DARNIT')
+y TODO call s:fg('rubyNestedSquareBrackets', 'NO_SHOW__DARNIT')
+
 call s:fg('rubyRailsARAssociationMethod', 'teal50')
 
-let &cpo = s:save_cpo
-
+" Rainbow-Parens Improved {{{
 " Inlined from v2.3 of http://www.vim.org/scripts/script.php?script_id=4176
 " 1. to remove the external dep, 2. to work around vim-rails resetting it.
 " Thanks!
@@ -356,7 +373,9 @@ fun! s:fatpacked_rainbow_parens()
     exe 'hi default lv'.id.'c ctermfg='.ctermfg.' guifg='.guifg
   endfor
 endfun
-
 au Syntax * call s:fatpacked_rainbow_parens()
+" }}}
+
+let &cpo = s:save_cpo
 
 " vim:foldmethod=marker
