@@ -1,0 +1,3 @@
+#!/bin/zsh -e
+tmux source `pwd`/test/vim-detailed-dev-layout &|
+./test/example-vim

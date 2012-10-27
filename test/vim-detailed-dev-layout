@@ -1,0 +1,7 @@
+split-window -h
+send ./test/detailed-vim C-m
+select-pane -L
+split-window
+send "vim /usr/share/vim/vim??/syntax/ruby.vim" C-m
+select-pane -R
+# vim:ft=tmux

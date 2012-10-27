@@ -1,0 +1,4 @@
+#!/bin/sh
+vim .vim/colors/detailed.vim \
+    +"map <f5> :s/\\vhi \w+ (\\S*).*/call s:fg('\\1', '')/<cr>:noh<cr>" \
+    +'map <f8> :w<cr>:!tmux send -t0 ":colo detailed" C-m<cr>'
