@@ -76,7 +76,7 @@ let s:c = {
   \'yellow220 (TODO: use this)': 220,
   \'orange208': 208,
   \'light_yellow230': 229,
-  \'graygreen': 23,
+  \'graygreen (TODO: use this)': 23,
   \'green34': 34,
   \'green71': 71,
   \'green76 (TODO: use this)': 76,
@@ -87,6 +87,7 @@ let s:c = {
   \'blue19 (TODO: use this)': 19,
   \'blue20 (TODO: use this)': 20,
   \'blue21 (TODO: use this)': 21,
+  \'blue25': 25,
   \'blue75': 75,
   \'lavender104': 104,
   \'purple53': 53,
@@ -285,7 +286,7 @@ call s:fg('rubyFloat', 'red160')
 " call s:fg('rubyBlockArgument', 'NO_SHOW__DARNIT')
 call s:fg('rubySymbol', 'lavender104')
 call s:fg('rubyBlockParameter', 'basic8_cyan', 'bold')
-call s:fg('rubyBlockParameterList', 'graygreen')
+call s:fg('rubyBlockParameterList', 'blue25')
 hi link rubyPredefinedConstant  rubyPredefinedIdentifier " TODO
 hi link rubyStringDelimiter  Delimiter " TODO
 hi link rubySymbolDelimiter  rubyStringDelimiter " TODO
