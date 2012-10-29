@@ -22,9 +22,12 @@ module Outer
       end
     end
 
-    code_outside_method <<-EOT
+    DATA.code_outside_method <<-EOT
 Heeere, doccy d\xf6ccy.
     EOT
   end
 end
 here_too # TODO: distinguish from code_outside_method
+
+__END__
+Data here.
