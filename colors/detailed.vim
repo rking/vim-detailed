@@ -334,7 +334,7 @@ call s:fg('rubyData', 'gray245')
 " TODO call s:fg('rubyNestedParentheses', 'NO_SHOW__DARNIT')
 " TODO call s:fg('rubyNestedCurlyBraces', 'NO_SHOW__DARNIT')
 " TODO call s:fg('rubyNestedAngleBrackets', 'NO_SHOW__DARNIT')
-y TODO call s:fg('rubyNestedSquareBrackets', 'NO_SHOW__DARNIT')
+" TODO call s:fg('rubyNestedSquareBrackets', 'NO_SHOW__DARNIT')
 
 call s:fg('rubyRailsARAssociationMethod', 'teal50')
 
