@@ -244,11 +244,6 @@ hi link rubyKeyword     Keyword
 hi link rubyPredefinedIdentifier  rubyIdentifier
 "}}}
 
-" Not typically the job of a color scheme, but I typo this one too often to
-" have no special highlighting
-syn match rubyInitialize '\<initialize\>' contained containedin=rubyMethodDeclaration
-call s:fg('rubyInitialize', 'green84')
-
 call s:fg('Exception', 'orange208') " Like default yellow but more warny.
 
 call s:fg('rubyConstant', 'green34')
@@ -323,6 +318,13 @@ hi link rubyDocumentation  Comment
 call s:fg('rubyDataDirective', 'purple201')
 call s:fg('rubyData', 'gray245')
 
+fun! s:detailed_syntax_addtions()
+  syn match rubyInitialize '\<initialize\>' contained containedin=rubyMethodDeclaration
+endfun
+call s:detailed_syntax_addtions()
+call s:fg('rubyInitialize', 'green84')
+
+
 " TODO call s:fg('rubyIdentifier', 'NO_SHOW__DARNIT')
 " TODO call s:fg('rubyError', 'NO_SHOW__DARNIT')
 " TODO call s:fg('rubyRepeatModifier', 'NO_SHOW__DARNIT') " while/until
@@ -373,8 +375,10 @@ fun! s:fatpacked_rainbow_parens()
     exe 'hi default lv'.id.'c ctermfg='.ctermfg.' guifg='.guifg
   endfor
 endfun
-au Syntax * call s:fatpacked_rainbow_parens()
 " }}}
+
+au Syntax * call s:fatpacked_rainbow_parens()
+au Syntax ruby call s:detailed_syntax_addtions()
 
 let &cpo = s:save_cpo
 
