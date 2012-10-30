@@ -17,6 +17,8 @@
 " Indent Guides: https://github.com/nathanaelkane/vim-indent-guides
 "
 " TODO
+" ----
+"
 "   - More languages, other than Ruby. (Contributions will be very welcome)
 "   - Sync pry-theme to this
 "   - Figure out why the NO_SHOW__DARNIT's are no-shows
