@@ -1,8 +1,10 @@
 split-window -h
-send ./test/edit-detailed-vim C-m
+send ./test/default-omni-vim C-m
 select-pane -L
-# TODO: add in ./test/default-omni-vim
+split-window
+send ./test/edit-detailed-vim C-m
+select-pane -R
 split-window
 send "vim /usr/share/vim/vim??/syntax/ruby.vim" C-m
-select-pane -R
+select-pane -L
 # vim:ft=tmux

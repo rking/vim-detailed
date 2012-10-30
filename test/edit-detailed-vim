@@ -1,4 +1,4 @@
 #!/bin/sh
 vim colors/detailed.vim \
     +"map <f5> :s/\\vhi \w+ (\\S*).*/call s:fg('\\1', '')/<cr>:noh<cr>" \
-    +'map <f8> :w<cr>:!tmux send -t0 ":so colors/detailed.vim" C-m<cr>'
+    +'map <f8> :w<cr>:!tmux send -t0 :q C-m; sleep .2; tmux send -t0 ./test/omni-vim C-m<cr>'
