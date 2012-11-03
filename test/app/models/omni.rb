@@ -22,6 +22,7 @@ module Outer
 
     private
     def a_method arg1, *arg2 = nil, &hi
+      inside_method_code
       10.times do |count|
         inside_block_code; $stderr.puts "hi #{arg1}"
         raise 55 if hi.(?\C-m) % arg3[0]
