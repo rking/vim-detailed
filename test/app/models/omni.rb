@@ -8,7 +8,7 @@ module Outer
     attr_accessor :hair
     has_many :trinkets
     alias new_name old_name
-    @@foo = $bar = @baz = buz = 2
+    @@foo = $bar = @baz = buz = 2 + 1
 
     def initialize
       lvar = { key: 231.0, 123 => ((true)), 'key3': { nes: 'ted' } }
@@ -16,8 +16,8 @@ module Outer
       puts 'hi!' while 3 < @ivar
       begin; a_method rescue StandardError => e; warn 'Oops...' end
       case @ivar.class
-      when Frippy then puts 'hi'
-      end
+      when Frippy then puts 'hi' end
+      arr << 'hi'
     end
 
     private

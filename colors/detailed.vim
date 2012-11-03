@@ -47,6 +47,9 @@ set bg=dark
 " Prevent any screwy setting from causing errors:
 let s:save_cpo = &cpo | set cpo&vim
 
+" Turn on moar syntaks!
+let ruby_operators = 1
+
 " If you don't have this, rails.vim will zap the matchers when it resets
 " syntax for its own additions:
 au Syntax * call s:fatpacked_rainbow_parens()
@@ -89,6 +92,7 @@ let s:c = {
   \'green71': 71,
   \'green76 (TODO: use this)': 76,
   \'green84': 84,
+  \'green123': 123,
   \'seafoam': 30,
   \'seafoam2 (TODO: use this)': 35,
   \'teal50': 50,
@@ -327,8 +331,7 @@ fun! s:detailed_colors()
   " TODO: fix these: call s:make_obvious('rubyAliasDeclaration2')
   "                  call s:make_obvious('rubyAliasDeclaration')
   call s:fg('rubyBoolean', 'purple131')
-  " hi rubyMethodDeclaration cleared
-  hi link rubyOperator    Operator " TODO
+  call s:fg('rubyOperator', 'green123')
   hi link rubyPseudoOperator  rubyOperator " -= /= **= *= etc
   " call s:make_obvious('rubyClassDeclaration')
   " call s:make_obvious('rubyModuleDeclaration')
