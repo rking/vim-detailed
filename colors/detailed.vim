@@ -103,6 +103,7 @@ let s:c = {
   \'blue21 (TODO: use this)': 21,
   \'blue25': 25,
   \'blue27': 27,
+  \'blue37': 37,
   \'blue75': 75,
   \'blue87': 87,
   \'lavender104': 104,
@@ -258,14 +259,14 @@ hi link mailQuoted1     Type
 hi link GPGWarning      WarningMsg
 hi link GPGError        ErrorMsg
 hi link GPGHighlightUnknownRecipient  ErrorMsg
+
 hi link rubyConditional  Conditional
-hi link rubyExceptional  rubyConditional
-hi link rubyMethodExceptional  rubyDefine
+hi link rubyExceptional  rubyConditional " No-show.
+hi link rubyMethodExceptional  rubyDefine " And another.
 hi link rubyTodo        Todo
 hi link rubyStringEscape  Special
 hi link rubyQuoteEscape  rubyStringEscape
 " hi rubyInterpolation cleared
-hi link rubyPredefinedVariable  rubyPredefinedIdentifier " Hrm?
 hi link rubyInvalidVariable  Error
 hi link rubyNoInterpolation  rubyString
 hi link rubyException   Exception
@@ -325,6 +326,7 @@ fun! s:detailed_colors()
   call s:bold_fg('rubyBlockParameter', 'basic8_cyan')
   call s:fg('rubyBlockParameterList', 'blue25')
   call s:bold_fg('rubyPredefinedConstant', 'green22')
+  call s:bold_fg('rubyPredefinedVariable', 'blue37')
   hi link rubyStringDelimiter  Delimiter " TODO
   hi link rubySymbolDelimiter  rubyStringDelimiter " TODO
   " XXX no clue why this wont show up: call s:make_obvious('rubyHeredocStart')

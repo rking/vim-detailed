@@ -24,7 +24,7 @@ module Outer
     def a_method arg1, *arg2 = nil, &hi
       3.times {|e| p e}
       10.times do |count|
-        puts "hi #{arg1}"
+        $stderr.puts "hi #{arg1}"
         raise 55 if hi.(?\C-m) % arg3[0]
       end
       eval 'String'
