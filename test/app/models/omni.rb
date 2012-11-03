@@ -22,20 +22,21 @@ module Outer
 
     private
     def a_method arg1, *arg2 = nil, &hi
-      3.times {|e| p e}
       10.times do |count|
-        $stderr.puts "hi #{arg1}"
+        inside_block_code; $stderr.puts "hi #{arg1}"
         raise 55 if hi.(?\C-m) % arg3[0]
       end
-      eval 'String'
+      for i in %w(String Class Fixnum)
+        inside_loop_code; eval i
+      end
     end
 
-    DATA.code_outside_method <<-EOT
+    DATA.inside_class_code <<-EOT
 Heeere, doccy d\xf6ccy.
     EOT
   end
 end
-code_at_top_level
+top_level_code
 
 [a[2], 2. asdf] # TODO: fix rubyArrayDelimiter/rubyArrayLiteral
 

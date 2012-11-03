@@ -76,16 +76,17 @@ let s:c = {
   \'red160': 160,
   \'red161': 161,
   \'red196': 196,
-  \'yellow58 (TODO: use this)': 58,
+  \'yellow58': 58,
   \'yellow100': 100,
   \'yellow136 (TODO: use this)': 136,
   \'yellow142 (TODO: use this)': 142,
   \'yellow148': 148,
   \'yellow149': 149,
-  \'yellow178': 178,
   \'yellow190': 190,
   \'yellow220 (TODO: use this)': 220,
   \'orange208': 208,
+  \'orange178': 178,
+  \'orange222': 222,
   \'light_yellow230': 229,
   \'graygreen (TODO: use this)': 23,
   \'green22': 22,
@@ -171,9 +172,6 @@ fun! s:make_obvious(group)
   call s:fgbg(a:group, 'green84', 'red160')
 endfun
 " }}}
-
-" https://github.com/bitc/vim-bad-whitespace
-hi BadWhitespace  ctermbg=58
 
 " Basic/Default-like Palette {{{
 hi SpecialKey     term=bold ctermfg=81 guifg=Cyan
@@ -274,23 +272,6 @@ hi link rubyKeyword     Keyword
 
 " s:detailed_colors — the good stuff {{{
 fun! s:detailed_colors()
-  "* Distinguish between each of TODO/FIXME/XXX
-  call s:fgbg('detailTodo', 'green76', 'gray238')
-  call s:fgbg('detailFixme', 'gray232', 'orange208')
-  call s:fgbg('detailXxx', 'gray235', 'red196')
-
-  call s:bold_fg('rubyEncodingDirective', 'green22')
-
-  call s:fgbg('Error', 'gray235', 'red196')
-
-  call s:fgbg('detailXxx', 'gray235', 'red196')
-  "* `fail`/`raise` are default yellow but more a warny orange.
-  call s:fg('Exception', 'orange208')
-  "* class `@@vars` get ugly, cautionary color: they are troublesome.
-  call s:fgbg('rubyClassVariable', 'blue75', 'red52')
-  "* global `$vars` also get a bit of ugliness. Everyone knows they're iffy.
-  call s:fgbg('rubyGlobalVariable', 'red161', 'gray234')
-
   call s:fg('rubyConstant', 'green34')
 
   call s:bold_fg('rubyClass', 'purple126')
@@ -345,22 +326,42 @@ fun! s:detailed_colors()
   hi link rubyControl     Statement " TODO
   hi link rubyBeginEnd    Statement " TODO
   call s:fg('rubyAccess', 'yellow100')
-  call s:fg('rubyAttribute', 'yellow178')
+  call s:fg('rubyAttribute', 'orange178') " attr_{accessor,reader,writer}
   call s:fg('rubyEval', 'yellow190')
   call s:bold_fg('rubyConditionalModifier', 'yellow148') " 'Yoda if'
   call s:bold_fg('rubyRepeatModifier', 'yellow149') " …while/until
-  " hi rubyConditionalExpression cleared
-  call s:fg('rubyRepeat', 'yellow178')
+  call s:fg('rubyRepeat', 'orange178')
+  call s:fg('rubyRepeatExpression', 'orange222')
+  " TODO: call s:make_obvious('rubyConditionalExpression')
   " TODO: call s:make_obvious('rubyOptionalDo')
   " TODO: call s:make_obvious('rubyOptionalDoLine')
-  " hi rubyRepeatExpression cleared
-  call s:fg('rubySharpBang', 'gray238')
-  hi link rubySpaceError  rubyError
+  call s:fg('rubySharpBang', 'gray238') " TODO: fix (firstAndSecondLine == oops)
   call s:fg('rubyComment', 'gray241')
   " hi rubyMultilineComment cleared
   hi link rubyDocumentation  Comment
   call s:fg('rubyDataDirective', 'purple201')
   call s:fg('rubyData', 'gray245')
+
+  "* Distinguish between each of TODO/FIXME/XXX
+  call s:fgbg('detailTodo', 'green76', 'gray238')
+  call s:fgbg('detailFixme', 'gray232', 'orange208')
+  call s:fgbg('detailXxx', 'gray235', 'red196')
+
+  call s:fgbg('Error', 'gray235', 'red196')
+
+  " https://github.com/bitc/vim-bad-whitespace
+  call s:fgbg('BadWhitespace', 'gray238', 'yellow58')
+  hi link rubySpaceError BadWhitespace
+
+  call s:bold_fg('rubyEncodingDirective', 'green22')
+
+  "* `fail`/`raise` are default yellow but more a warny orange.
+  call s:fg('Exception', 'orange208')
+  "* class `@@vars` get ugly, cautionary color: they are troublesome.
+  call s:fgbg('rubyClassVariable', 'blue75', 'red52')
+  "* global `$vars` also get a bit of ugliness. Everyone knows they're iffy.
+  call s:fgbg('rubyGlobalVariable', 'red161', 'gray234')
+
 
   " rails.vim niceness:
   call s:fg('rubyRailsARAssociationMethod', 'teal50')
