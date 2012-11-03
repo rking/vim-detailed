@@ -4,9 +4,13 @@
 " This scheme is more detailed than that.
 "
 " The idea is that your eyes will learn to pick up on subtler patterns without
-" requiring as much from your conscious mind. (And, I've found, it does work).
-" Instead of the goal being merely looking cool, the goal is to maximize info
-" bandwidth from the computer to the brain.
+" requiring as much from your conscious mind.  Instead of the goal being
+" merely looking cool, the goal is to maximize info bandwidth from the
+" computer to the brain. The regexes, for example, are much easier to pick
+" out. The overall feel of a given file becomes much more intuitively
+" recognizeable (you'll know you're in foo.rb, not bar.rb, without having to
+" read any text). Certain bits will "pop" into being the right colors, such as
+" the difference between "RUBY_VERISON" and "RUBY_VERSION", or # encoding: utf-8
 "
 " Note that some small effort was taken to be similar to the default vim
 " syntax highlighting where it makes sense. That is, "def" is magenta in the
