@@ -71,6 +71,7 @@ let s:c = {
   \'red88': 88,
   \'red124': 124,
   \'red160': 160,
+  \'red161': 161,
   \'red196 (TODO: use this)': 196,
   \'yellow58 (TODO: use this)': 58,
   \'yellow100': 100,
@@ -91,6 +92,7 @@ let s:c = {
   \'seafoam': 30,
   \'seafoam2 (TODO: use this)': 35,
   \'teal50': 50,
+  \'blue17 (TODO: use this)': 17,
   \'blue19 (TODO: use this)': 19,
   \'blue20 (TODO: use this)': 20,
   \'blue21 (TODO: use this)': 21,
@@ -252,7 +254,6 @@ hi link rubyTodo        Todo
 hi link rubyStringEscape  Special
 hi link rubyQuoteEscape  rubyStringEscape
 " hi rubyInterpolation cleared
-hi link rubyGlobalVariable  rubyIdentifier
 hi link rubyPredefinedVariable  rubyPredefinedIdentifier " Hrm?
 hi link rubyInvalidVariable  Error
 hi link rubyNoInterpolation  rubyString
@@ -268,6 +269,9 @@ fun! s:detailed_colors()
   call s:fg('Exception', 'orange208')
   "* class `@@vars` get ugly, cautionary color: they are troublesome.
   call s:fgbg('rubyClassVariable', 'blue75', 'red52')
+  "* global `$vars` also get a bit of ugliness. Everyone knows they're iffy.
+  call s:fgbg('rubyGlobalVariable', 'red161', 'gray234')
+  hi link rubyGlobalVariable  rubyIdentifier
 
   call s:fg('rubyConstant', 'green34')
 
