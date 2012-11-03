@@ -267,19 +267,23 @@ hi link rubyStringEscape  Special
 hi link rubyQuoteEscape  rubyStringEscape
 " hi rubyInterpolation cleared
 hi link rubyInvalidVariable  Error
-hi link rubyNoInterpolation  rubyString
+hi link rubyNoInterpolation  rubyString " E.g. \#{} inside a string.
 hi link rubyException   Exception
 hi link rubyKeyword     Keyword
-hi link rubyPredefinedIdentifier  rubyIdentifier
-
-call s:fgbg('Error', 'gray235', 'red196')
-call s:fgbg('detailTodo', 'green76', 'gray238')
-call s:fgbg('detailFixme', 'gray232', 'orange208')
-call s:fgbg('detailXxx', 'gray235', 'red196')
 "}}}
 
 " s:detailed_colors — the good stuff {{{
 fun! s:detailed_colors()
+  "* Distinguish between each of TODO/FIXME/XXX
+  call s:fgbg('detailTodo', 'green76', 'gray238')
+  call s:fgbg('detailFixme', 'gray232', 'orange208')
+  call s:fgbg('detailXxx', 'gray235', 'red196')
+
+  call s:bold_fg('rubyEncodingDirective', 'green22')
+
+  call s:fgbg('Error', 'gray235', 'red196')
+
+  call s:fgbg('detailXxx', 'gray235', 'red196')
   "* `fail`/`raise` are default yellow but more a warny orange.
   call s:fg('Exception', 'orange208')
   "* class `@@vars` get ugly, cautionary color: they are troublesome.
@@ -330,8 +334,6 @@ fun! s:detailed_colors()
   call s:fg('rubyBlockParameterList', 'blue25')
   call s:bold_fg('rubyPredefinedConstant', 'green22')
   call s:bold_fg('rubyPredefinedVariable', 'blue37')
-  hi link rubyStringDelimiter  Delimiter " TODO
-  hi link rubySymbolDelimiter  rubyStringDelimiter " TODO
   " XXX no clue why this wont show up: call s:make_obvious('rubyHeredocStart')
   " TODO: fix these: call s:make_obvious('rubyAliasDeclaration2')
   "                  call s:make_obvious('rubyAliasDeclaration')
@@ -357,7 +359,6 @@ fun! s:detailed_colors()
   call s:fg('rubyComment', 'gray241')
   " hi rubyMultilineComment cleared
   hi link rubyDocumentation  Comment
-  " hi rubyKeywordAsMethod cleared
   call s:fg('rubyDataDirective', 'purple201')
   call s:fg('rubyData', 'gray245')
 
@@ -391,25 +392,28 @@ fun! s:detailed_colors()
   " call s:make_obvious('rubyNestedAngleBrackets')
   " call s:make_obvious('rubyNestedSquareBrackets')
   " call s:make_obvious('rubyDelimEscape')
+  " call s:make_obvious('rubyStringDelimiter')
+  " call s:make_obvious('rubySymbolDelimiter')
 endfun
 " }}}
 
 fun! s:detailed_syntax_addtions()
   call s:detailed_colors()
 
-  " Bonus!
-  syn match rubyInitialize '\<initialize\>' contained containedin=rubyMethodDeclaration
-
   " Fixes since syntax/ruby.vim declares these 'transparent':
   syn match rubyBlockArgument "&[_[:lower:]][_[:alnum:]]" contains=NONE display
 
-  " TODO: # encoding: utf-8
+  " Bonus!
+  syn match rubyInitialize '\<initialize\>' contained containedin=rubyMethodDeclaration
 
-  syn keyword detailTodo TODO
-  syn keyword detailFixme FIXME
-  syn keyword detailXxx XXX
+  syn match rubyEncodingDirective "\cencoding: *utf-8" contained
+  syn match firstAndSecondLine '\%^.*\n.*' contains=rubyEncodingDirective
+
+  syn keyword detailTodo TODO contained
+  syn keyword detailFixme FIXME contained
+  syn keyword detailXxx XXX contained
   syn match   rubyComment   "#.*" contains=rubySharpBang,rubySpaceError,
-    \detailTodo,detailFixme,detailXxx,@Spell
+    \firstAndSecondLine,detailTodo,detailFixme,detailXxx,@Spell
 endfun
 call s:detailed_syntax_addtions()
 

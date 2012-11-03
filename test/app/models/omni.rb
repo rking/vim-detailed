@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
-# Example Comment.
-require 'ostruct'
+# encoding: utf-8
+require 'ostruct' # A plain Comment.
 
 module Outer
   class Thing < ActiveRecord::Base
@@ -35,7 +35,7 @@ Heeere, doccy d\xf6ccy.
     EOT
   end
 end
-here_too # TODO: distinguish from code_outside_method
+code_at_top_level
 
 [a[2], 2. asdf] # TODO: fix rubyArrayDelimiter/rubyArrayLiteral
 
