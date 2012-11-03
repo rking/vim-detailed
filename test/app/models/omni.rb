@@ -16,8 +16,7 @@ module Outer
       puts 'hi!' while 3 < @ivar
       begin; a_method rescue StandardError => e; warn 'Oops...' end
       case @ivar.class
-      when Frippy
-        puts "hippy"
+      when Frippy then puts 'hi'
       end
     end
 

@@ -22,7 +22,6 @@
 "   - More languages, other than Ruby. (Contributions will be very welcome)
 "   - Sync pry-theme to this
 "   - Finish s:make_obvious() fillings-in
-"   - Determine if this is slow. ☺
 "   - GUI colors
 "     Perhaps redo with:
 "     http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
@@ -97,6 +96,7 @@ let s:c = {
   \'blue21 (TODO: use this)': 21,
   \'blue25': 25,
   \'blue75': 75,
+  \'blue87': 87,
   \'lavender104': 104,
   \'purple53': 53,
   \'purple89 (TODO: use this)': 89,
@@ -245,21 +245,21 @@ hi link mailQuoted1     Type
 hi link GPGWarning      WarningMsg
 hi link GPGError        ErrorMsg
 hi link GPGHighlightUnknownRecipient  ErrorMsg
-hi link detailRubyConditional  Conditional
-hi link detailRubyExceptional  detailRubyConditional
-hi link detailRubyMethodExceptional  detailRubyDefine
-hi link detailRubyTodo        Todo
-hi link detailRubyStringEscape  Special
-hi link detailRubyQuoteEscape  detailRubyStringEscape
-" hi detailRubyInterpolation cleared
-hi link detailRubyGlobalVariable  detailRubyIdentifier
-hi link detailRubyPredefinedVariable  detailRubyPredefinedIdentifier " Hrm?
-hi link detailRubyInvalidVariable  Error
-hi link detailRubyNoInterpolation  detailRubyString
-hi link detailRubyFunction    Function
-hi link detailRubyException   Exception
-hi link detailRubyKeyword     Keyword
-hi link detailRubyPredefinedIdentifier  detailRubyIdentifier
+hi link rubyConditional  Conditional
+hi link rubyExceptional  rubyConditional
+hi link rubyMethodExceptional  rubyDefine
+hi link rubyTodo        Todo
+hi link rubyStringEscape  Special
+hi link rubyQuoteEscape  rubyStringEscape
+" hi rubyInterpolation cleared
+hi link rubyGlobalVariable  rubyIdentifier
+hi link rubyPredefinedVariable  rubyPredefinedIdentifier " Hrm?
+hi link rubyInvalidVariable  Error
+hi link rubyNoInterpolation  rubyString
+hi link rubyFunction    Function
+hi link rubyException   Exception
+hi link rubyKeyword     Keyword
+hi link rubyPredefinedIdentifier  rubyIdentifier
 "}}}
 
 " s:detailed_colors — the good stuff {{{
@@ -267,120 +267,123 @@ fun! s:detailed_colors()
   "* `fail`/`raise` are default yellow but more a warny orange.
   call s:fg('Exception', 'orange208')
   "* class `@@vars` get ugly, cautionary color: they are troublesome.
-  call s:fgbg('detailRubyClassVariable', 'blue75', 'red52')
+  call s:fgbg('rubyClassVariable', 'blue75', 'red52')
 
-  call s:fg('detailRubyConstant', 'green34')
+  call s:fg('rubyConstant', 'green34')
 
-  call s:bold_fg('detailRubyClass', 'purple126')
-  call s:fg('detailRubyModule', 'purple126')
-  call s:fg('detailRubyDefine', 'basic8_magenta')
-  call s:fg('detailRubyInclude', 'purple53')
+  call s:bold_fg('rubyClass', 'purple126')
+  call s:fg('rubyModule', 'purple126')
+  call s:fg('rubyDefine', 'basic8_magenta')
+  call s:fg('rubyInclude', 'purple53')
 
-  call s:fg('detailRubyMethodBlock', 'gray250') " Contents of methods, basically
-  call s:fg('detailRubyDoBlock', 'light_yellow230')
-  call s:fg('detailRubyBlock', 'purple225')
-  call s:fg('detailRubyInstanceVariable', 'blue75')
+  call s:fg('rubyMethodBlock', 'gray250') " Contents of methods, basically
+  call s:fg('rubyDoBlock', 'light_yellow230')
+  call s:fg('rubyBlock', 'purple225')
+  call s:fg('rubyInstanceVariable', 'blue75')
 
-  "TODO: call s:fg('detailRubyDelimEscape', '')
-  call s:fg('detailRubyString', 'red88')
-  call s:fg('detailRubyInterpolationDelimiter', 'gray244')
+  "TODO: call s:fg('rubyDelimEscape', '')
+  call s:fg('rubyString', 'red88')
+  call s:fg('rubyInterpolationDelimiter', 'gray244')
 
-  call s:fg('detailRubyRegexpSpecial', 'seafoam')
-  call s:fg('detailRubyRegexpComment', 'gray238')
+  call s:fg('rubyRegexpSpecial', 'seafoam')
+  call s:fg('rubyRegexpComment', 'gray238')
 
-  " call s:make_obvious('detailRubyRegexpParens')
-  " call s:make_obvious('detailRubyRegexpBrackets')
+  " call s:make_obvious('rubyRegexpParens')
+  " call s:make_obvious('rubyRegexpBrackets')
 
-  call s:fg('detailRubyRegexpCharClass', 'basic8_green')
-  call s:fg('detailRubyRegexpQuantifier', 'yellow148')
-  call s:bold_fg('detailRubyRegexpEscape', 'purple90')
-  call s:fg('detailRubyRegexpAnchor', 'purple90')
-  call s:fg('detailRubyRegexpDot', 'green34')
-  call s:bold_fg('detailRubyRegexpDelimiter', 'red88')
-  call s:fg('detailRubyRegexp', 'red160')
-  call s:fg('detailRubyASCIICode', 'green71')
+  call s:fg('rubyRegexpCharClass', 'basic8_green')
+  call s:fg('rubyRegexpQuantifier', 'yellow148')
+  call s:bold_fg('rubyRegexpEscape', 'purple90')
+  call s:fg('rubyRegexpAnchor', 'purple90')
+  call s:fg('rubyRegexpDot', 'green34')
+  call s:bold_fg('rubyRegexpDelimiter', 'red88')
+  call s:fg('rubyRegexp', 'red160')
+  call s:fg('rubyASCIICode', 'green71')
 
-  call s:fg('detailRubyPseudoVariable', 'purple125')
-  call s:fg('detailRubyInteger', 'red124')
-  call s:fg('detailRubyFloat', 'red160')
+  call s:fg('rubyPseudoVariable', 'purple125')
+  call s:fg('rubyInteger', 'red124')
+  call s:fg('rubyFloat', 'red160')
 
-  " call s:make_obvious('detailRubyBlockArgument')
-  call s:fg('detailRubySymbol', 'lavender104')
-  call s:bold_fg('detailRubyBlockParameter', 'basic8_cyan')
-  call s:fg('detailRubyBlockParameterList', 'blue25')
-  hi link detailRubyPredefinedConstant  detailRubyPredefinedIdentifier " TODO
-  hi link detailRubyStringDelimiter  Delimiter " TODO
-  hi link detailRubySymbolDelimiter  detailRubyStringDelimiter " TODO
-  " call s:make_obvious('detailRubyHeredocStart')
-  " call s:make_obvious('detailRubyAliasDeclaration2')
-  " call s:make_obvious('detailRubyAliasDeclaration')
-  call s:fg('detailRubyBoolean', 'purple131')
-  " hi detailRubyMethodDeclaration cleared
-  hi link detailRubyOperator    Operator " TODO
-  hi link detailRubyPseudoOperator  detailRubyOperator " -= /= **= *= etc
-  " call s:make_obvious('detailRubyClassDeclaration')
-  " call s:make_obvious('detailRubyModuleDeclaration')
-  hi link detailRubyControl     Statement " TODO
-  hi link detailRubyBeginEnd    Statement " TODO
-  call s:fg('detailRubyAccess', 'yellow100')
-  call s:fg('detailRubyAttribute', 'yellow178')
-  call s:fg('detailRubyEval', 'yellow190')
-  call s:bold_fg('detailRubyConditionalModifier', 'yellow148') " 'Yoda if'
-  call s:bold_fg('detailRubyRepeatModifier', 'yellow149') " …while/until
-  " hi detailRubyConditionalExpression cleared
-  call s:fg('detailRubyRepeat', 'yellow178')
-  " TODO: call s:make_obvious('detailRubyOptionalDo')
-  " TODO: call s:make_obvious('detailRubyOptionalDoLine')
-  " hi detailRubyRepeatExpression cleared
-  call s:fg('detailRubySharpBang', 'gray238')
-  hi link detailRubySpaceError  detailRubyError
-  call s:fg('detailRubyComment', 'gray241')
-  " hi detailRubyMultilineComment cleared
-  hi link detailRubyDocumentation  Comment
-  " hi detailRubyKeywordAsMethod cleared
-  call s:fg('detailRubyDataDirective', 'purple201')
-  call s:fg('detailRubyData', 'gray245')
+  call s:fg('rubyBlockArgument', 'blue87')
+  call s:fg('rubySymbol', 'lavender104')
+  call s:bold_fg('rubyBlockParameter', 'basic8_cyan')
+  call s:fg('rubyBlockParameterList', 'blue25')
+  hi link rubyPredefinedConstant  rubyPredefinedIdentifier " TODO
+  hi link rubyStringDelimiter  Delimiter " TODO
+  hi link rubySymbolDelimiter  rubyStringDelimiter " TODO
+  " call s:make_obvious('rubyHeredocStart')
+  " call s:make_obvious('rubyAliasDeclaration2')
+  " call s:make_obvious('rubyAliasDeclaration')
+  call s:fg('rubyBoolean', 'purple131')
+  " hi rubyMethodDeclaration cleared
+  hi link rubyOperator    Operator " TODO
+  hi link rubyPseudoOperator  rubyOperator " -= /= **= *= etc
+  " call s:make_obvious('rubyClassDeclaration')
+  " call s:make_obvious('rubyModuleDeclaration')
+  hi link rubyControl     Statement " TODO
+  hi link rubyBeginEnd    Statement " TODO
+  call s:fg('rubyAccess', 'yellow100')
+  call s:fg('rubyAttribute', 'yellow178')
+  call s:fg('rubyEval', 'yellow190')
+  call s:bold_fg('rubyConditionalModifier', 'yellow148') " 'Yoda if'
+  call s:bold_fg('rubyRepeatModifier', 'yellow149') " …while/until
+  " hi rubyConditionalExpression cleared
+  call s:fg('rubyRepeat', 'yellow178')
+  " TODO: call s:make_obvious('rubyOptionalDo')
+  " TODO: call s:make_obvious('rubyOptionalDoLine')
+  " hi rubyRepeatExpression cleared
+  call s:fg('rubySharpBang', 'gray238')
+  hi link rubySpaceError  rubyError
+  call s:fg('rubyComment', 'gray241')
+  " hi rubyMultilineComment cleared
+  hi link rubyDocumentation  Comment
+  " hi rubyKeywordAsMethod cleared
+  call s:fg('rubyDataDirective', 'purple201')
+  call s:fg('rubyData', 'gray245')
 
-  " Only linked highlights, not actual syntax:
-  " call s:make_obvious('detailRubyIdentifier')
-  " call s:make_obvious('detailRubyError')
-
-  " Pretty much just the leftover default:
-  " call s:make_obvious('detailRubyLocalVariableOrMethod')
-
-  " Gets all [{()}] within any {}'s. Not very useful AFAICT:
-  " call s:make_obvious('detailRubyCurlyBlock')
-
-  " These mess up on first ] of [a[1]]. Seems plain busted.
-  " call s:make_obvious('detailRubyArrayDelimiter')
-  " call s:make_obvious('detailRubyArrayLiteral')
-
-  " TODO Figure out how to get these to show up:
-  " TODO call s:make_obvious('detailRubyBlockExpression')
-  " TODO call s:make_obvious('detailRubyCaseExpression')
-
-  " TODO call s:make_obvious('detailRubyNestedParentheses')
-  " TODO call s:make_obvious('detailRubyNestedCurlyBraces')
-  " TODO call s:make_obvious('detailRubyNestedAngleBrackets')
-  " TODO call s:make_obvious('detailRubyNestedSquareBrackets')
-
-  call s:fg('detailRubyInitialize', 'green84')
-
+  " rails.vim niceness:
   call s:fg('rubyRailsARAssociationMethod', 'teal50')
 
+  " detailed.vim especialties:
+  call s:fg('rubyInitialize', 'green84')
+
+  " Only linked highlights, not actual syntax:
+  " call s:make_obvious('rubyIdentifier')
+  " call s:make_obvious('rubyError')
+
+  " Pretty much just the leftover default:
+  " call s:make_obvious('rubyLocalVariableOrMethod')
+
+  " Gets all [{()}] within any {}'s. Not very useful AFAICT:
+  " call s:make_obvious('rubyCurlyBlock')
+
+  " These mess up on first ] of [a[1]]. Seems plain busted.
+  " call s:make_obvious('rubyArrayDelimiter')
+  " call s:make_obvious('rubyArrayLiteral')
+
+  " TODO Figure out how to get these to show up:
+  " TODO call s:make_obvious('rubyBlockExpression')
+  " TODO call s:make_obvious('rubyCaseExpression')
+
+  " A mere implementation detail, AFAICT:
+  " call s:make_obvious('rubyNestedParentheses')
+  " call s:make_obvious('rubyNestedCurlyBraces')
+  " call s:make_obvious('rubyNestedAngleBrackets')
+  " call s:make_obvious('rubyNestedSquareBrackets')
 endfun
 " }}}
 
 fun! s:detailed_syntax_addtions()
-  " For now, we're doing no caching of the syntax file. We have to redo the
-  " stock ruby.vim with no "transparent" flags, so each time the Syntax events
-  " fires we just slam it back in our way:
-  runtime mod-syntax/ruby.vim
-
   call s:detailed_colors()
 
   " Bonus!
-  syn match detailRubyInitialize '\<initialize\>' contained containedin=detailRubyMethodDeclaration
+  syn match rubyInitialize '\<initialize\>' contained containedin=rubyMethodDeclaration
+
+  " Fixes since syntax/ruby.vim declares these 'transparent':
+  syn match rubyBlockArgument "&[_[:lower:]][_[:alnum:]]" contains=NONE display
+
+  " TODO: # encoding: utf-8
+  " TODO: Distinguish TODO / FIXME / XXX
 endfun
 call s:detailed_syntax_addtions()
 
