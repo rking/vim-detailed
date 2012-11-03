@@ -355,8 +355,9 @@ fun! s:detailed_colors()
 
   call s:bold_fg('rubyEncodingDirective', 'green22')
 
-  "* `fail`/`raise` are default yellow but more a warny orange.
+  "* `fail`/`raise`/`exit` were yellow by default, but here a more warny orange.
   call s:fg('Exception', 'orange208')
+  hi link rubyExits Exception
   "* class `@@vars` get ugly, cautionary color: they are troublesome.
   call s:fgbg('rubyClassVariable', 'blue75', 'red52')
   "* global `$vars` also get a bit of ugliness. Everyone knows they're iffy.
@@ -403,6 +404,8 @@ fun! s:detailed_syntax_addtions()
 
   " Fixes since syntax/ruby.vim declares these 'transparent':
   syn match rubyBlockArgument "&[_[:lower:]][_[:alnum:]]" contains=NONE display
+  " Steal this back from the too-generic 'rubyControl':
+  syn match rubyExits "\<\%(exit!\|\%(abort\|at_exit\|exit\|fork\|trap\)\>[?!]\@!\)"
 
   " Bonus!
   syn match rubyInitialize '\<initialize\>' contained containedin=rubyMethodDeclaration

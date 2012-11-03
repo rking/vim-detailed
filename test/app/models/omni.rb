@@ -28,7 +28,7 @@ module Outer
         raise 55 if hi.(?\C-m) % arg3[0]
       end
       for i in %w(String Class Fixnum)
-        inside_loop_code; eval i
+        inside_loop_code; eval i or exit
       end
     end
 
