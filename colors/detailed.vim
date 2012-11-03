@@ -88,6 +88,7 @@ let s:c = {
   \'orange208': 208,
   \'light_yellow230': 229,
   \'graygreen (TODO: use this)': 23,
+  \'green22': 22,
   \'green34': 34,
   \'green71': 71,
   \'green76 (TODO: use this)': 76,
@@ -297,13 +298,12 @@ fun! s:detailed_colors()
   call s:fg('rubyBlock', 'purple225')
   call s:fg('rubyInstanceVariable', 'blue75')
 
-  "TODO: call s:fg('rubyDelimEscape', '')
   call s:fg('rubyString', 'red88')
   call s:fg('rubyInterpolationDelimiter', 'gray244')
 
   call s:fg('rubyRegexpSpecial', 'seafoam')
   call s:fg('rubyRegexpComment', 'gray238')
-
+  " Not quite sure why these don't show up:
   " call s:make_obvious('rubyRegexpParens')
   " call s:make_obvious('rubyRegexpBrackets')
 
@@ -324,7 +324,7 @@ fun! s:detailed_colors()
   call s:fg('rubySymbol', 'lavender104')
   call s:bold_fg('rubyBlockParameter', 'basic8_cyan')
   call s:fg('rubyBlockParameterList', 'blue25')
-  hi link rubyPredefinedConstant  rubyPredefinedIdentifier " TODO
+  call s:bold_fg('rubyPredefinedConstant', 'green22')
   hi link rubyStringDelimiter  Delimiter " TODO
   hi link rubySymbolDelimiter  rubyStringDelimiter " TODO
   " XXX no clue why this wont show up: call s:make_obvious('rubyHeredocStart')
@@ -380,11 +380,12 @@ fun! s:detailed_colors()
   " TODO call s:make_obvious('rubyBlockExpression')
   " TODO call s:make_obvious('rubyCaseExpression')
 
-  " A mere implementation detail, AFAICT:
+  " Mere implementation details, AFAICT:
   " call s:make_obvious('rubyNestedParentheses')
   " call s:make_obvious('rubyNestedCurlyBraces')
   " call s:make_obvious('rubyNestedAngleBrackets')
   " call s:make_obvious('rubyNestedSquareBrackets')
+  " call s:make_obvious('rubyDelimEscape')
 endfun
 " }}}
 
