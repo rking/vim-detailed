@@ -91,7 +91,7 @@ let s:c = {
   \'green22': 22,
   \'green34': 34,
   \'green71': 71,
-  \'green76 (TODO: use this)': 76,
+  \'green76': 76,
   \'green84': 84,
   \'green123': 123,
   \'seafoam': 30,
@@ -263,7 +263,6 @@ hi link GPGHighlightUnknownRecipient  ErrorMsg
 hi link rubyConditional  Conditional
 hi link rubyExceptional  rubyConditional " No-show.
 hi link rubyMethodExceptional  rubyDefine " And another.
-hi link rubyTodo        Todo
 hi link rubyStringEscape  Special
 hi link rubyQuoteEscape  rubyStringEscape
 " hi rubyInterpolation cleared
@@ -274,6 +273,9 @@ hi link rubyKeyword     Keyword
 hi link rubyPredefinedIdentifier  rubyIdentifier
 
 call s:fgbg('Error', 'gray235', 'red196')
+call s:fgbg('detailTodo', 'green76', 'gray238')
+call s:fgbg('detailFixme', 'gray232', 'orange208')
+call s:fgbg('detailXxx', 'gray235', 'red196')
 "}}}
 
 " s:detailed_colors — the good stuff {{{
@@ -402,7 +404,12 @@ fun! s:detailed_syntax_addtions()
   syn match rubyBlockArgument "&[_[:lower:]][_[:alnum:]]" contains=NONE display
 
   " TODO: # encoding: utf-8
-  " TODO: Distinguish TODO / FIXME / XXX
+
+  syn keyword detailTodo TODO
+  syn keyword detailFixme FIXME
+  syn keyword detailXxx XXX
+  syn match   rubyComment   "#.*" contains=rubySharpBang,rubySpaceError,
+    \detailTodo,detailFixme,detailXxx,@Spell
 endfun
 call s:detailed_syntax_addtions()
 

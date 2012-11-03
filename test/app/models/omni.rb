@@ -37,8 +37,8 @@ Heeere, doccy d\xf6ccy.
 end
 here_too # TODO: distinguish from code_outside_method
 
-$%
 [a[2], 2. asdf] # TODO: fix rubyArrayDelimiter/rubyArrayLiteral
 
+$% # TODO FIXME XXX
 __END__
 Data here.
