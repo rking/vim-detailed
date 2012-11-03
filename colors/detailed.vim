@@ -97,6 +97,7 @@ let s:c = {
   \'blue20 (TODO: use this)': 20,
   \'blue21 (TODO: use this)': 21,
   \'blue25': 25,
+  \'blue27': 27,
   \'blue75': 75,
   \'blue87': 87,
   \'lavender104': 104,
@@ -153,6 +154,11 @@ endfun
 
 fun! s:bold_fg(group, fg)
   exe 'hi '.a:group.' ctermfg='.s:c[a:fg].' cterm=bold'
+endfun
+
+" I can't decide if I want to go for this or not. Perhaps as an option?
+fun! s:underline_fg(group, fg)
+  exe 'hi '.a:group.' ctermfg='.s:c[a:fg].' cterm=underline,bold'
 endfun
 
 fun! s:make_obvious(group)
@@ -257,7 +263,6 @@ hi link rubyQuoteEscape  rubyStringEscape
 hi link rubyPredefinedVariable  rubyPredefinedIdentifier " Hrm?
 hi link rubyInvalidVariable  Error
 hi link rubyNoInterpolation  rubyString
-hi link rubyFunction    Function
 hi link rubyException   Exception
 hi link rubyKeyword     Keyword
 hi link rubyPredefinedIdentifier  rubyIdentifier
@@ -279,6 +284,9 @@ fun! s:detailed_colors()
   call s:fg('rubyModule', 'purple126')
   call s:fg('rubyDefine', 'basic8_magenta')
   call s:fg('rubyInclude', 'purple53')
+
+  call s:bold_fg('rubyFunction', 'blue27')
+  " No-show: call s:make_obvious('rubyMethodDeclaration')
 
   call s:fg('rubyMethodBlock', 'gray250') " Contents of methods, basically
   call s:fg('rubyDoBlock', 'light_yellow230')
@@ -315,9 +323,9 @@ fun! s:detailed_colors()
   hi link rubyPredefinedConstant  rubyPredefinedIdentifier " TODO
   hi link rubyStringDelimiter  Delimiter " TODO
   hi link rubySymbolDelimiter  rubyStringDelimiter " TODO
-  " call s:make_obvious('rubyHeredocStart')
-  " call s:make_obvious('rubyAliasDeclaration2')
-  " call s:make_obvious('rubyAliasDeclaration')
+  " XXX no clue why this wont show up: call s:make_obvious('rubyHeredocStart')
+  " TODO: fix these: call s:make_obvious('rubyAliasDeclaration2')
+  "                  call s:make_obvious('rubyAliasDeclaration')
   call s:fg('rubyBoolean', 'purple131')
   " hi rubyMethodDeclaration cleared
   hi link rubyOperator    Operator " TODO
