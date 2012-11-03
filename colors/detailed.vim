@@ -75,7 +75,7 @@ let s:c = {
   \'red124': 124,
   \'red160': 160,
   \'red161': 161,
-  \'red196 (TODO: use this)': 196,
+  \'red196': 196,
   \'yellow58 (TODO: use this)': 58,
   \'yellow100': 100,
   \'yellow136 (TODO: use this)': 136,
@@ -272,6 +272,8 @@ hi link rubyNoInterpolation  rubyString
 hi link rubyException   Exception
 hi link rubyKeyword     Keyword
 hi link rubyPredefinedIdentifier  rubyIdentifier
+
+call s:fgbg('Error', 'gray235', 'red196')
 "}}}
 
 " s:detailed_colors — the good stuff {{{
@@ -282,7 +284,6 @@ fun! s:detailed_colors()
   call s:fgbg('rubyClassVariable', 'blue75', 'red52')
   "* global `$vars` also get a bit of ugliness. Everyone knows they're iffy.
   call s:fgbg('rubyGlobalVariable', 'red161', 'gray234')
-  hi link rubyGlobalVariable  rubyIdentifier
 
   call s:fg('rubyConstant', 'green34')
 
