@@ -13,30 +13,17 @@
 " default, so vim-detailed makes it a shade of purple (and uses different
 " shades for all the other magenta things from the default colorscheme).
 "
-" Companions to this file are:
-" Indent Guides: https://github.com/nathanaelkane/vim-indent-guides
-"
 " TODO
 " ----
 "
 "   - More languages, other than Ruby. (Contributions will be very welcome)
 "   - Sync pry-theme to this
-"   - Finish s:make_obvious() fillings-in
 "   - GUI colors
 "     Perhaps redo with:
 "     http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
+"   - Hunt down remaining non-visible syntax items.
 "   - Distinguish between bare things versus contained things:
-"    -  class Foo < Bar is:
-"       ['rubyBlock','rubyClassDeclaration', 'rubyConstant'] and
-"       ['rubyBlock', 'rubyConstant']'
-"
-"    -  class Foo
-"         class_call # ['rubyBlock', 'rubyBlock', 'rubyLocalVariableOrMethod']
-"       end
-"       toplevel_stuff ['rubyBlock', 'rubyLocalVariableOrMethod']'
-"
-"       "osse │ rking: maybe make a new syntax rule where you fiddle with the
-"         'contains' argument to :syn"
+"    -  class Foo < Bar (Should allow different colors for Foo vs. Bar)
 
 let colors_name = 'detailed'
 
@@ -163,9 +150,9 @@ fun! s:bold_fg(group, fg)
   exe 'hi '.a:group.' ctermfg='.s:c[a:fg].' cterm=bold'
 endfun
 
-" I can't decide if I want to go for this or not. Perhaps as an option?
-fun! s:underline_fg(group, fg)
-  exe 'hi '.a:group.' ctermfg='.s:c[a:fg].' cterm=underline,bold'
+fun! s:underline_fgbg(group, fg, bg)
+  exe 'hi '.a:group.' ctermfg='.s:c[a:fg].
+    \' ctermbg='.s:c[a:bg].' cterm=underline,bold'
 endfun
 
 fun! s:make_obvious(group)
@@ -321,7 +308,8 @@ fun! s:detailed_colors()
   call s:fg('rubyBoolean', 'purple131')
   call s:fg('rubyOperator', 'green123')
   hi link rubyPseudoOperator  rubyOperator " -= /= **= *= etc
-  " call s:make_obvious('rubyClassDeclaration')
+  " TODO! call s:make_obvious('rubyClassDeclaration')
+  "       call s:make_obvious('rubyDeclaration')
   " call s:make_obvious('rubyModuleDeclaration')
   hi link rubyControl     Statement " TODO
   hi link rubyBeginEnd    Statement " TODO
@@ -348,12 +336,11 @@ fun! s:detailed_colors()
   call s:fgbg('detailXxx', 'gray235', 'red196')
 
   call s:fgbg('Error', 'gray235', 'red196')
+  call s:underline_fgbg('Search', 'gray254', 'gray235')
 
   " https://github.com/bitc/vim-bad-whitespace
   call s:fgbg('BadWhitespace', 'gray238', 'yellow58')
   hi link rubySpaceError BadWhitespace
-
-  call s:bold_fg('rubyEncodingDirective', 'green22')
 
   "* `fail`/`raise`/`exit` were yellow by default, but here a more warny orange.
   call s:fg('Exception', 'orange208')
@@ -363,12 +350,12 @@ fun! s:detailed_colors()
   "* global `$vars` also get a bit of ugliness. Everyone knows they're iffy.
   call s:fgbg('rubyGlobalVariable', 'red161', 'gray234')
 
-
   " rails.vim niceness:
   call s:fg('rubyRailsARAssociationMethod', 'teal50')
 
   " detailed.vim especialties:
   call s:fg('rubyInitialize', 'green84')
+  call s:bold_fg('rubyEncodingDirective', 'green22')
 
   " Only linked highlights, not actual syntax:
   " call s:make_obvious('rubyIdentifier')
