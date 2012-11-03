@@ -24,7 +24,7 @@ TODO
 
   - More languages, other than Ruby. (Contributions will be very welcome)
   - Sync pry-theme to this
-  - Figure out why the NO_SHOW__DARNIT's are no-shows
+  - Finish NO_SHOW fillings-in
   - Determine if this is slow. ☺
   - GUI colors
     Perhaps redo with:

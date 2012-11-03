@@ -10,362 +10,362 @@
 " Thanks to perl.vim authors, and to Reimer Behrends. :-) (MN)
 " ----------------------------------------------------------------------------
 
-if exists("b:current_syntax")
+if 0
   finish
 endif
 
-if has("folding") && exists("ruby_fold")
+if has("folding") && exists("detailRuby_fold")
   setlocal foldmethod=syntax
 endif
 
-syn cluster rubyNotTop contains=@rubyExtendedStringSpecial,@rubyRegexpSpecial,@rubyDeclaration,rubyConditional,rubyExceptional,rubyMethodExceptional,rubyTodo
+syn cluster detailRubyNotTop contains=@detailRubyExtendedStringSpecial,@detailRubyRegexpSpecial,@detailRubyDeclaration,detailRubyConditional,detailRubyExceptional,detailRubyMethodExceptional,detailRubyTodo
 
-if exists("ruby_space_errors")
-  if !exists("ruby_no_trail_space_error")
-    syn match rubySpaceError display excludenl "\s\+$"
+if exists("detailRuby_space_errors")
+  if !exists("detailRuby_no_trail_space_error")
+    syn match detailRubySpaceError display excludenl "\s\+$"
   endif
-  if !exists("ruby_no_tab_space_error")
-    syn match rubySpaceError display " \+\t"me=e-1
+  if !exists("detailRuby_no_tab_space_error")
+    syn match detailRubySpaceError display " \+\t"me=e-1
   endif
 endif
+syn match detailRubyLocalVariableOrMethod "\<[_[:lower:]][_[:alnum:]]*[?!=]\=" contains=NONE display 
 
 " Operators
-if exists("ruby_operators")
-  syn match  rubyOperator "[~!^&|*/%+-]\|\%(class\s*\)\@<!<<\|<=>\|<=\|\%(<\|\<class\s\+\u\w*\s*\)\@<!<[^<]\@=\|===\|==\|=\~\|>>\|>=\|=\@<!>\|\*\*\|\.\.\.\|\.\.\|::"
-  syn match  rubyOperator "->\|-=\|/=\|\*\*=\|\*=\|&&=\|&=\|&&\|||=\||=\|||\|%=\|+=\|!\~\|!="
-  syn region rubyBracketOperator matchgroup=rubyOperator start="\%(\w[?!]\=\|[]})]\)\@<=\[\s*" end="\s*]" contains=ALLBUT,@rubyNotTop
+if exists("detailRuby_operators")
+  syn match  detailRubyOperator "[~!^&|*/%+-]\|\%(class\s*\)\@<!<<\|<=>\|<=\|\%(<\|\<class\s\+\u\w*\s*\)\@<!<[^<]\@=\|===\|==\|=\~\|>>\|>=\|=\@<!>\|\*\*\|\.\.\.\|\.\.\|::"
+  syn match  detailRubyOperator "->\|-=\|/=\|\*\*=\|\*=\|&&=\|&=\|&&\|||=\||=\|||\|%=\|+=\|!\~\|!="
+  syn region detailRubyBracketOperator matchgroup=detailRubyOperator start="\%(\w[?!]\=\|[]})]\)\@<=\[\s*" end="\s*]" contains=ALLBUT,@detailRubyNotTop
 endif
 
 " Expression Substitution and Backslash Notation
-syn match rubyStringEscape "\\\\\|\\[abefnrstv]\|\\\o\{1,3}\|\\x\x\{1,2}"						    contained display
-syn match rubyStringEscape "\%(\\M-\\C-\|\\C-\\M-\|\\M-\\c\|\\c\\M-\|\\c\|\\C-\|\\M-\)\%(\\\o\{1,3}\|\\x\x\{1,2}\|\\\=\S\)" contained display
-syn match rubyQuoteEscape  "\\[\\']"											    contained display
+syn match detailRubyStringEscape "\\\\\|\\[abefnrstv]\|\\\o\{1,3}\|\\x\x\{1,2}"						    contained display
+syn match detailRubyStringEscape "\%(\\M-\\C-\|\\C-\\M-\|\\M-\\c\|\\c\\M-\|\\c\|\\C-\|\\M-\)\%(\\\o\{1,3}\|\\x\x\{1,2}\|\\\=\S\)" contained display
+syn match detailRubyQuoteEscape  "\\[\\']"											    contained display
 
-syn region rubyInterpolation	      matchgroup=rubyInterpolationDelimiter start="#{" end="}" contained contains=ALLBUT,@rubyNotTop
-syn match  rubyInterpolation	      "#\%(\$\|@@\=\)\w\+"    display contained contains=rubyInterpolationDelimiter,rubyInstanceVariable,rubyClassVariable,rubyGlobalVariable,rubyPredefinedVariable
-syn match  rubyInterpolationDelimiter "#\ze\%(\$\|@@\=\)\w\+" display contained
-syn match  rubyInterpolation	      "#\$\%(-\w\|\W\)"       display contained contains=rubyInterpolationDelimiter,rubyPredefinedVariable,rubyInvalidVariable
-syn match  rubyInterpolationDelimiter "#\ze\$\%(-\w\|\W\)"    display contained
-syn region rubyNoInterpolation	      start="\\#{" end="}"            contained
-syn match  rubyNoInterpolation	      "\\#{"		      display contained
-syn match  rubyNoInterpolation	      "\\#\%(\$\|@@\=\)\w\+"  display contained
-syn match  rubyNoInterpolation	      "\\#\$\W"		      display contained
+syn region detailRubyInterpolation	      matchgroup=detailRubyInterpolationDelimiter start="#{" end="}" contained contains=ALLBUT,@detailRubyNotTop
+syn match  detailRubyInterpolation	      "#\%(\$\|@@\=\)\w\+"    display contained contains=detailRubyInterpolationDelimiter,detailRubyInstanceVariable,detailRubyClassVariable,detailRubyGlobalVariable,detailRubyPredefinedVariable
+syn match  detailRubyInterpolationDelimiter "#\ze\%(\$\|@@\=\)\w\+" display contained
+syn match  detailRubyInterpolation	      "#\$\%(-\w\|\W\)"       display contained contains=detailRubyInterpolationDelimiter,detailRubyPredefinedVariable,detailRubyInvalidVariable
+syn match  detailRubyInterpolationDelimiter "#\ze\$\%(-\w\|\W\)"    display contained
+syn region detailRubyNoInterpolation	      start="\\#{" end="}"            contained
+syn match  detailRubyNoInterpolation	      "\\#{"		      display contained
+syn match  detailRubyNoInterpolation	      "\\#\%(\$\|@@\=\)\w\+"  display contained
+syn match  detailRubyNoInterpolation	      "\\#\$\W"		      display contained
 
-syn match rubyDelimEscape	"\\[(<{\[)>}\]]"  display contained contains=NONE
+syn match detailRubyDelimEscape	"\\[(<{\[)>}\]]"  display contained contains=NONE
 
-syn region rubyNestedParentheses    start="("  skip="\\\\\|\\)"  matchgroup=rubyString end=")"	 contained
-syn region rubyNestedCurlyBraces    start="{"  skip="\\\\\|\\}"  matchgroup=rubyString end="}"	 contained
-syn region rubyNestedAngleBrackets  start="<"  skip="\\\\\|\\>"  matchgroup=rubyString end=">"	 contained
-syn region rubyNestedSquareBrackets start="\[" skip="\\\\\|\\\]" matchgroup=rubyString end="\]"	 contained
+syn region detailRubyNestedParentheses    start="("  skip="\\\\\|\\)"  matchgroup=detailRubyString end=")"	 contained
+syn region detailRubyNestedCurlyBraces    start="{"  skip="\\\\\|\\}"  matchgroup=detailRubyString end="}"	 contained
+syn region detailRubyNestedAngleBrackets  start="<"  skip="\\\\\|\\>"  matchgroup=detailRubyString end=">"	 contained
+syn region detailRubyNestedSquareBrackets start="\[" skip="\\\\\|\\\]" matchgroup=detailRubyString end="\]"	 contained
 
 " These are mostly Oniguruma ready
-syn region rubyRegexpComment	matchgroup=rubyRegexpSpecial   start="(?#"								  skip="\\)"  end=")"  contained
-syn region rubyRegexpParens	matchgroup=rubyRegexpSpecial   start="(\(?:\|?<\=[=!]\|?>\|?<[a-z_]\w*>\|?[imx]*-[imx]*:\=\|\%(?#\)\@!\)" skip="\\)"  end=")"  contained  contains=@rubyRegexpSpecial
-syn region rubyRegexpBrackets	matchgroup=rubyRegexpCharClass start="\[\^\="								  skip="\\\]" end="\]" contained  contains=rubyStringEscape,rubyRegexpEscape,rubyRegexpCharClass oneline
-syn match  rubyRegexpCharClass	"\\[DdHhSsWw]"	       contained display
-syn match  rubyRegexpCharClass	"\[:\^\=\%(alnum\|alpha\|ascii\|blank\|cntrl\|digit\|graph\|lower\|print\|punct\|space\|upper\|xdigit\):\]" contained
-syn match  rubyRegexpEscape	"\\[].*?+^$|\\/(){}[]" contained
-syn match  rubyRegexpQuantifier	"[*?+][?+]\="	       contained display
-syn match  rubyRegexpQuantifier	"{\d\+\%(,\d*\)\=}?\=" contained display
-syn match  rubyRegexpAnchor	"[$^]\|\\[ABbGZz]"     contained display
-syn match  rubyRegexpDot	"\."		       contained display
-syn match  rubyRegexpSpecial	"|"		       contained display
-syn match  rubyRegexpSpecial	"\\[1-9]\d\=\d\@!"     contained display
-syn match  rubyRegexpSpecial	"\\k<\%([a-z_]\w*\|-\=\d\+\)\%([+-]\d\+\)\=>" contained display
-syn match  rubyRegexpSpecial	"\\k'\%([a-z_]\w*\|-\=\d\+\)\%([+-]\d\+\)\='" contained display
-syn match  rubyRegexpSpecial	"\\g<\%([a-z_]\w*\|-\=\d\+\)>" contained display
-syn match  rubyRegexpSpecial	"\\g'\%([a-z_]\w*\|-\=\d\+\)'" contained display
+syn region detailRubyRegexpComment	matchgroup=detailRubyRegexpSpecial   start="(?#"								  skip="\\)"  end=")"  contained
+syn region detailRubyRegexpParens	matchgroup=detailRubyRegexpSpecial   start="(\(?:\|?<\=[=!]\|?>\|?<[a-z_]\w*>\|?[imx]*-[imx]*:\=\|\%(?#\)\@!\)" skip="\\)"  end=")"  contained  contains=@detailRubyRegexpSpecial
+syn region detailRubyRegexpBrackets	matchgroup=detailRubyRegexpCharClass start="\[\^\="								  skip="\\\]" end="\]" contained  contains=detailRubyStringEscape,detailRubyRegexpEscape,detailRubyRegexpCharClass oneline
+syn match  detailRubyRegexpCharClass	"\\[DdHhSsWw]"	       contained display
+syn match  detailRubyRegexpCharClass	"\[:\^\=\%(alnum\|alpha\|ascii\|blank\|cntrl\|digit\|graph\|lower\|print\|punct\|space\|upper\|xdigit\):\]" contained
+syn match  detailRubyRegexpEscape	"\\[].*?+^$|\\/(){}[]" contained
+syn match  detailRubyRegexpQuantifier	"[*?+][?+]\="	       contained display
+syn match  detailRubyRegexpQuantifier	"{\d\+\%(,\d*\)\=}?\=" contained display
+syn match  detailRubyRegexpAnchor	"[$^]\|\\[ABbGZz]"     contained display
+syn match  detailRubyRegexpDot	"\."		       contained display
+syn match  detailRubyRegexpSpecial	"|"		       contained display
+syn match  detailRubyRegexpSpecial	"\\[1-9]\d\=\d\@!"     contained display
+syn match  detailRubyRegexpSpecial	"\\k<\%([a-z_]\w*\|-\=\d\+\)\%([+-]\d\+\)\=>" contained display
+syn match  detailRubyRegexpSpecial	"\\k'\%([a-z_]\w*\|-\=\d\+\)\%([+-]\d\+\)\='" contained display
+syn match  detailRubyRegexpSpecial	"\\g<\%([a-z_]\w*\|-\=\d\+\)>" contained display
+syn match  detailRubyRegexpSpecial	"\\g'\%([a-z_]\w*\|-\=\d\+\)'" contained display
 
-syn cluster rubyStringSpecial	      contains=rubyInterpolation,rubyNoInterpolation,rubyStringEscape
-syn cluster rubyExtendedStringSpecial contains=@rubyStringSpecial,rubyNestedParentheses,rubyNestedCurlyBraces,rubyNestedAngleBrackets,rubyNestedSquareBrackets
-syn cluster rubyRegexpSpecial	      contains=rubyInterpolation,rubyNoInterpolation,rubyStringEscape,rubyRegexpSpecial,rubyRegexpEscape,rubyRegexpBrackets,rubyRegexpCharClass,rubyRegexpDot,rubyRegexpQuantifier,rubyRegexpAnchor,rubyRegexpParens,rubyRegexpComment
+syn cluster detailRubyStringSpecial	      contains=detailRubyInterpolation,detailRubyNoInterpolation,detailRubyStringEscape
+syn cluster detailRubyExtendedStringSpecial contains=@detailRubyStringSpecial,detailRubyNestedParentheses,detailRubyNestedCurlyBraces,detailRubyNestedAngleBrackets,detailRubyNestedSquareBrackets
+syn cluster detailRubyRegexpSpecial	      contains=detailRubyInterpolation,detailRubyNoInterpolation,detailRubyStringEscape,detailRubyRegexpSpecial,detailRubyRegexpEscape,detailRubyRegexpBrackets,detailRubyRegexpCharClass,detailRubyRegexpDot,detailRubyRegexpQuantifier,detailRubyRegexpAnchor,detailRubyRegexpParens,detailRubyRegexpComment
 
 " Numbers and ASCII Codes
-syn match rubyASCIICode	"\%(\w\|[]})\"'/]\)\@<!\%(?\%(\\M-\\C-\|\\C-\\M-\|\\M-\\c\|\\c\\M-\|\\c\|\\C-\|\\M-\)\=\%(\\\o\{1,3}\|\\x\x\{1,2}\|\\\=\S\)\)"
-syn match rubyInteger	"\%(\%(\w\|[]})\"']\s*\)\@<!-\)\=\<0[xX]\x\+\%(_\x\+\)*\>"								display
-syn match rubyInteger	"\%(\%(\w\|[]})\"']\s*\)\@<!-\)\=\<\%(0[dD]\)\=\%(0\|[1-9]\d*\%(_\d\+\)*\)\>"						display
-syn match rubyInteger	"\%(\%(\w\|[]})\"']\s*\)\@<!-\)\=\<0[oO]\=\o\+\%(_\o\+\)*\>"								display
-syn match rubyInteger	"\%(\%(\w\|[]})\"']\s*\)\@<!-\)\=\<0[bB][01]\+\%(_[01]\+\)*\>"								display
-syn match rubyFloat	"\%(\%(\w\|[]})\"']\s*\)\@<!-\)\=\<\%(0\|[1-9]\d*\%(_\d\+\)*\)\.\d\+\%(_\d\+\)*\>"					display
-syn match rubyFloat	"\%(\%(\w\|[]})\"']\s*\)\@<!-\)\=\<\%(0\|[1-9]\d*\%(_\d\+\)*\)\%(\.\d\+\%(_\d\+\)*\)\=\%([eE][-+]\=\d\+\%(_\d\+\)*\)\>"	display
+syn match detailRubyASCIICode	"\%(\w\|[]})\"'/]\)\@<!\%(?\%(\\M-\\C-\|\\C-\\M-\|\\M-\\c\|\\c\\M-\|\\c\|\\C-\|\\M-\)\=\%(\\\o\{1,3}\|\\x\x\{1,2}\|\\\=\S\)\)"
+syn match detailRubyInteger	"\%(\%(\w\|[]})\"']\s*\)\@<!-\)\=\<0[xX]\x\+\%(_\x\+\)*\>"								display
+syn match detailRubyInteger	"\%(\%(\w\|[]})\"']\s*\)\@<!-\)\=\<\%(0[dD]\)\=\%(0\|[1-9]\d*\%(_\d\+\)*\)\>"						display
+syn match detailRubyInteger	"\%(\%(\w\|[]})\"']\s*\)\@<!-\)\=\<0[oO]\=\o\+\%(_\o\+\)*\>"								display
+syn match detailRubyInteger	"\%(\%(\w\|[]})\"']\s*\)\@<!-\)\=\<0[bB][01]\+\%(_[01]\+\)*\>"								display
+syn match detailRubyFloat	"\%(\%(\w\|[]})\"']\s*\)\@<!-\)\=\<\%(0\|[1-9]\d*\%(_\d\+\)*\)\.\d\+\%(_\d\+\)*\>"					display
+syn match detailRubyFloat	"\%(\%(\w\|[]})\"']\s*\)\@<!-\)\=\<\%(0\|[1-9]\d*\%(_\d\+\)*\)\%(\.\d\+\%(_\d\+\)*\)\=\%([eE][-+]\=\d\+\%(_\d\+\)*\)\>"	display
 
 " Identifiers
-syn match rubyLocalVariableOrMethod "\<[_[:lower:]][_[:alnum:]]*[?!=]\=" contains=NONE display 
-syn match rubyBlockArgument	    "&[_[:lower:]][_[:alnum:]]"		 contains=NONE display 
+syn match detailRubyBlockArgument	    "&[_[:lower:]][_[:alnum:]]"		 contains=NONE display 
 
-syn match  rubyConstant		"\%(\%([.@$]\@<!\.\)\@<!\<\|::\)\_s*\zs\u\w*\%(\>\|::\)\@=\%(\s*(\)\@!"
-syn match  rubyClassVariable	"@@\h\w*" display
-syn match  rubyInstanceVariable "@\h\w*"  display
-syn match  rubyGlobalVariable	"$\%(\h\w*\|-.\)"
-syn match  rubySymbol		"[]})\"':]\@<!:\%(\^\|\~\|<<\|<=>\|<=\|<\|===\|==\|=\~\|>>\|>=\|>\||\|-@\|-\|/\|\[]=\|\[]\|\*\*\|\*\|&\|%\|+@\|+\|`\)"
-syn match  rubySymbol		"[]})\"':]\@<!:\$\%(-.\|[`~<=>_,;:!?/.'"@$*\&+0]\)"
-syn match  rubySymbol		"[]})\"':]\@<!:\%(\$\|@@\=\)\=\h\w*"
-syn match  rubySymbol		"[]})\"':]\@<!:\h\w*\%([?!=]>\@!\)\="
-syn match  rubySymbol		"\%([{(,]\_s*\)\@<=\l\w*[!?]\=::\@!"he=e-1
-syn match  rubySymbol		"[]})\"':]\@<!\h\w*[!?]\=:\s\@="he=e-1
-syn match  rubySymbol		"\%([{(,]\_s*\)\@<=[[:space:],{]\l\w*[!?]\=::\@!"hs=s+1,he=e-1
-syn match  rubySymbol		"[[:space:],{]\h\w*[!?]\=:\s\@="hs=s+1,he=e-1
-syn region rubySymbol		start="[]})\"':]\@<!:'"  end="'"  skip="\\\\\|\\'"  contains=rubyQuoteEscape fold
-syn region rubySymbol		start="[]})\"':]\@<!:\"" end="\"" skip="\\\\\|\\\"" contains=@rubyStringSpecial fold
+syn match  detailRubyConstant		"\%(\%([.@$]\@<!\.\)\@<!\<\|::\)\_s*\zs\u\w*\%(\>\|::\)\@=\%(\s*(\)\@!"
+syn match  detailRubyClassVariable	"@@\h\w*" display
+syn match  detailRubyInstanceVariable "@\h\w*"  display
+syn match  detailRubyGlobalVariable	"$\%(\h\w*\|-.\)"
+syn match  detailRubySymbol		"[]})\"':]\@<!:\%(\^\|\~\|<<\|<=>\|<=\|<\|===\|==\|=\~\|>>\|>=\|>\||\|-@\|-\|/\|\[]=\|\[]\|\*\*\|\*\|&\|%\|+@\|+\|`\)"
+syn match  detailRubySymbol		"[]})\"':]\@<!:\$\%(-.\|[`~<=>_,;:!?/.'"@$*\&+0]\)"
+syn match  detailRubySymbol		"[]})\"':]\@<!:\%(\$\|@@\=\)\=\h\w*"
+syn match  detailRubySymbol		"[]})\"':]\@<!:\h\w*\%([?!=]>\@!\)\="
+syn match  detailRubySymbol		"\%([{(,]\_s*\)\@<=\l\w*[!?]\=::\@!"he=e-1
+syn match  detailRubySymbol		"[]})\"':]\@<!\h\w*[!?]\=:\s\@="he=e-1
+syn match  detailRubySymbol		"\%([{(,]\_s*\)\@<=[[:space:],{]\l\w*[!?]\=::\@!"hs=s+1,he=e-1
+syn match  detailRubySymbol		"[[:space:],{]\h\w*[!?]\=:\s\@="hs=s+1,he=e-1
+syn region detailRubySymbol		start="[]})\"':]\@<!:'"  end="'"  skip="\\\\\|\\'"  contains=detailRubyQuoteEscape fold
+syn region detailRubySymbol		start="[]})\"':]\@<!:\"" end="\"" skip="\\\\\|\\\"" contains=@detailRubyStringSpecial fold
 
-syn match  rubyBlockParameter	  "\h\w*" contained
-syn region rubyBlockParameterList start="\%(\%(\<do\>\|{\)\s*\)\@<=|" end="|" oneline display contains=rubyBlockParameter
+syn match  detailRubyBlockParameter	  "\h\w*" contained
+syn region detailRubyBlockParameterList start="\%(\%(\<do\>\|{\)\s*\)\@<=|" end="|" oneline display contains=detailRubyBlockParameter
 
-syn match rubyInvalidVariable	 "$[^ A-Za-z_-]"
-syn match rubyPredefinedVariable #$[!$&"'*+,./0:;<=>?@\`~]#
-syn match rubyPredefinedVariable "$\d\+"										   display
-syn match rubyPredefinedVariable "$_\>"											   display
-syn match rubyPredefinedVariable "$-[0FIKadilpvw]\>"									   display
-syn match rubyPredefinedVariable "$\%(deferr\|defout\|stderr\|stdin\|stdout\)\>"					   display
-syn match rubyPredefinedVariable "$\%(DEBUG\|FILENAME\|KCODE\|LOADED_FEATURES\|LOAD_PATH\|PROGRAM_NAME\|SAFE\|VERBOSE\)\>" display
-syn match rubyPredefinedConstant "\%(\%(\.\@<!\.\)\@<!\|::\)\_s*\zs\%(MatchingData\|ARGF\|ARGV\|ENV\)\>\%(\s*(\)\@!"
-syn match rubyPredefinedConstant "\%(\%(\.\@<!\.\)\@<!\|::\)\_s*\zs\%(DATA\|FALSE\|NIL\)\>\%(\s*(\)\@!"
-syn match rubyPredefinedConstant "\%(\%(\.\@<!\.\)\@<!\|::\)\_s*\zs\%(STDERR\|STDIN\|STDOUT\|TOPLEVEL_BINDING\|TRUE\)\>\%(\s*(\)\@!"
-syn match rubyPredefinedConstant "\%(\%(\.\@<!\.\)\@<!\|::\)\_s*\zs\%(RUBY_\%(VERSION\|RELEASE_DATE\|PLATFORM\|PATCHLEVEL\|REVISION\|DESCRIPTION\|COPYRIGHT\|ENGINE\)\)\>\%(\s*(\)\@!"
+syn match detailRubyInvalidVariable	 "$[^ A-Za-z_-]"
+syn match detailRubyPredefinedVariable #$[!$&"'*+,./0:;<=>?@\`~]#
+syn match detailRubyPredefinedVariable "$\d\+"										   display
+syn match detailRubyPredefinedVariable "$_\>"											   display
+syn match detailRubyPredefinedVariable "$-[0FIKadilpvw]\>"									   display
+syn match detailRubyPredefinedVariable "$\%(deferr\|defout\|stderr\|stdin\|stdout\)\>"					   display
+syn match detailRubyPredefinedVariable "$\%(DEBUG\|FILENAME\|KCODE\|LOADED_FEATURES\|LOAD_PATH\|PROGRAM_NAME\|SAFE\|VERBOSE\)\>" display
+syn match detailRubyPredefinedConstant "\%(\%(\.\@<!\.\)\@<!\|::\)\_s*\zs\%(MatchingData\|ARGF\|ARGV\|ENV\)\>\%(\s*(\)\@!"
+syn match detailRubyPredefinedConstant "\%(\%(\.\@<!\.\)\@<!\|::\)\_s*\zs\%(DATA\|FALSE\|NIL\)\>\%(\s*(\)\@!"
+syn match detailRubyPredefinedConstant "\%(\%(\.\@<!\.\)\@<!\|::\)\_s*\zs\%(STDERR\|STDIN\|STDOUT\|TOPLEVEL_BINDING\|TRUE\)\>\%(\s*(\)\@!"
+syn match detailRubyPredefinedConstant "\%(\%(\.\@<!\.\)\@<!\|::\)\_s*\zs\%(RUBY_\%(VERSION\|RELEASE_DATE\|PLATFORM\|PATCHLEVEL\|REVISION\|DESCRIPTION\|COPYRIGHT\|ENGINE\)\)\>\%(\s*(\)\@!"
 
 " Normal Regular Expression
-syn region rubyRegexp matchgroup=rubyRegexpDelimiter start="\%(\%(^\|\<\%(and\|or\|while\|until\|unless\|if\|elsif\|when\|not\|then\|else\)\|[;\~=!|&(,[>?:]\)\s*\)\@<=/" end="/[iomxneus]*" skip="\\\\\|\\/" contains=@rubyRegexpSpecial keepend fold
-syn region rubyRegexp matchgroup=rubyRegexpDelimiter start="\%(\h\k*\s\+\)\@<=/[ \t=]\@!" end="/[iomxneus]*" skip="\\\\\|\\/" contains=@rubyRegexpSpecial fold
+syn region detailRubyRegexp matchgroup=detailRubyRegexpDelimiter start="\%(\%(^\|\<\%(and\|or\|while\|until\|unless\|if\|elsif\|when\|not\|then\|else\)\|[;\~=!|&(,[>?:]\)\s*\)\@<=/" end="/[iomxneus]*" skip="\\\\\|\\/" contains=@detailRubyRegexpSpecial keepend fold
+syn region detailRubyRegexp matchgroup=detailRubyRegexpDelimiter start="\%(\h\k*\s\+\)\@<=/[ \t=]\@!" end="/[iomxneus]*" skip="\\\\\|\\/" contains=@detailRubyRegexpSpecial fold
 
 " Generalized Regular Expression
-syn region rubyRegexp matchgroup=rubyRegexpDelimiter start="%r\z([~`!@#$%^&*_\-+=|\:;"',.? /]\)" end="\z1[iomxneus]*" skip="\\\\\|\\\z1" contains=@rubyRegexpSpecial fold
-syn region rubyRegexp matchgroup=rubyRegexpDelimiter start="%r{"				 end="}[iomxneus]*"   skip="\\\\\|\\}"	 contains=@rubyRegexpSpecial fold
-syn region rubyRegexp matchgroup=rubyRegexpDelimiter start="%r<"				 end=">[iomxneus]*"   skip="\\\\\|\\>"	 contains=@rubyRegexpSpecial,rubyNestedAngleBrackets,rubyDelimEscape fold
-syn region rubyRegexp matchgroup=rubyRegexpDelimiter start="%r\["				 end="\][iomxneus]*"  skip="\\\\\|\\\]"	 contains=@rubyRegexpSpecial fold
-syn region rubyRegexp matchgroup=rubyRegexpDelimiter start="%r("				 end=")[iomxneus]*"   skip="\\\\\|\\)"	 contains=@rubyRegexpSpecial fold
+syn region detailRubyRegexp matchgroup=detailRubyRegexpDelimiter start="%r\z([~`!@#$%^&*_\-+=|\:;"',.? /]\)" end="\z1[iomxneus]*" skip="\\\\\|\\\z1" contains=@detailRubyRegexpSpecial fold
+syn region detailRubyRegexp matchgroup=detailRubyRegexpDelimiter start="%r{"				 end="}[iomxneus]*"   skip="\\\\\|\\}"	 contains=@detailRubyRegexpSpecial fold
+syn region detailRubyRegexp matchgroup=detailRubyRegexpDelimiter start="%r<"				 end=">[iomxneus]*"   skip="\\\\\|\\>"	 contains=@detailRubyRegexpSpecial,detailRubyNestedAngleBrackets,detailRubyDelimEscape fold
+syn region detailRubyRegexp matchgroup=detailRubyRegexpDelimiter start="%r\["				 end="\][iomxneus]*"  skip="\\\\\|\\\]"	 contains=@detailRubyRegexpSpecial fold
+syn region detailRubyRegexp matchgroup=detailRubyRegexpDelimiter start="%r("				 end=")[iomxneus]*"   skip="\\\\\|\\)"	 contains=@detailRubyRegexpSpecial fold
 
 " Normal String and Shell Command Output
-syn region rubyString matchgroup=rubyStringDelimiter start="\"" end="\"" skip="\\\\\|\\\"" contains=@rubyStringSpecial,@Spell fold
-syn region rubyString matchgroup=rubyStringDelimiter start="'"	end="'"  skip="\\\\\|\\'"  contains=rubyQuoteEscape,@Spell    fold
-syn region rubyString matchgroup=rubyStringDelimiter start="`"	end="`"  skip="\\\\\|\\`"  contains=@rubyStringSpecial fold
+syn region detailRubyString matchgroup=detailRubyStringDelimiter start="\"" end="\"" skip="\\\\\|\\\"" contains=@detailRubyStringSpecial,@Spell fold
+syn region detailRubyString matchgroup=detailRubyStringDelimiter start="'"	end="'"  skip="\\\\\|\\'"  contains=detailRubyQuoteEscape,@Spell    fold
+syn region detailRubyString matchgroup=detailRubyStringDelimiter start="`"	end="`"  skip="\\\\\|\\`"  contains=@detailRubyStringSpecial fold
 
 " Generalized Single Quoted String, Symbol and Array of Strings
-syn region rubyString matchgroup=rubyStringDelimiter start="%[qw]\z([~`!@#$%^&*_\-+=|\:;"',.?/]\)" end="\z1" skip="\\\\\|\\\z1" fold
-syn region rubyString matchgroup=rubyStringDelimiter start="%[qw]{"				   end="}"   skip="\\\\\|\\}"	fold contains=rubyNestedCurlyBraces,rubyDelimEscape
-syn region rubyString matchgroup=rubyStringDelimiter start="%[qw]<"				   end=">"   skip="\\\\\|\\>"	fold contains=rubyNestedAngleBrackets,rubyDelimEscape
-syn region rubyString matchgroup=rubyStringDelimiter start="%[qw]\["				   end="\]"  skip="\\\\\|\\\]"	fold contains=rubyNestedSquareBrackets,rubyDelimEscape
-syn region rubyString matchgroup=rubyStringDelimiter start="%[qw]("				   end=")"   skip="\\\\\|\\)"	fold contains=rubyNestedParentheses,rubyDelimEscape
-syn region rubyString matchgroup=rubyStringDelimiter start="%q "				   end=" "   skip="\\\\\|\\)"	fold
-syn region rubySymbol matchgroup=rubySymbolDelimiter start="%s\z([~`!@#$%^&*_\-+=|\:;"',.? /]\)"   end="\z1" skip="\\\\\|\\\z1" fold
-syn region rubySymbol matchgroup=rubySymbolDelimiter start="%s{"				   end="}"   skip="\\\\\|\\}"	fold contains=rubyNestedCurlyBraces,rubyDelimEscape
-syn region rubySymbol matchgroup=rubySymbolDelimiter start="%s<"				   end=">"   skip="\\\\\|\\>"	fold contains=rubyNestedAngleBrackets,rubyDelimEscape
-syn region rubySymbol matchgroup=rubySymbolDelimiter start="%s\["				   end="\]"  skip="\\\\\|\\\]"	fold contains=rubyNestedSquareBrackets,rubyDelimEscape
-syn region rubySymbol matchgroup=rubySymbolDelimiter start="%s("				   end=")"   skip="\\\\\|\\)"	fold contains=rubyNestedParentheses,rubyDelimEscape
+syn region detailRubyString matchgroup=detailRubyStringDelimiter start="%[qw]\z([~`!@#$%^&*_\-+=|\:;"',.?/]\)" end="\z1" skip="\\\\\|\\\z1" fold
+syn region detailRubyString matchgroup=detailRubyStringDelimiter start="%[qw]{"				   end="}"   skip="\\\\\|\\}"	fold contains=detailRubyNestedCurlyBraces,detailRubyDelimEscape
+syn region detailRubyString matchgroup=detailRubyStringDelimiter start="%[qw]<"				   end=">"   skip="\\\\\|\\>"	fold contains=detailRubyNestedAngleBrackets,detailRubyDelimEscape
+syn region detailRubyString matchgroup=detailRubyStringDelimiter start="%[qw]\["				   end="\]"  skip="\\\\\|\\\]"	fold contains=detailRubyNestedSquareBrackets,detailRubyDelimEscape
+syn region detailRubyString matchgroup=detailRubyStringDelimiter start="%[qw]("				   end=")"   skip="\\\\\|\\)"	fold contains=detailRubyNestedParentheses,detailRubyDelimEscape
+syn region detailRubyString matchgroup=detailRubyStringDelimiter start="%q "				   end=" "   skip="\\\\\|\\)"	fold
+syn region detailRubySymbol matchgroup=detailRubySymbolDelimiter start="%s\z([~`!@#$%^&*_\-+=|\:;"',.? /]\)"   end="\z1" skip="\\\\\|\\\z1" fold
+syn region detailRubySymbol matchgroup=detailRubySymbolDelimiter start="%s{"				   end="}"   skip="\\\\\|\\}"	fold contains=detailRubyNestedCurlyBraces,detailRubyDelimEscape
+syn region detailRubySymbol matchgroup=detailRubySymbolDelimiter start="%s<"				   end=">"   skip="\\\\\|\\>"	fold contains=detailRubyNestedAngleBrackets,detailRubyDelimEscape
+syn region detailRubySymbol matchgroup=detailRubySymbolDelimiter start="%s\["				   end="\]"  skip="\\\\\|\\\]"	fold contains=detailRubyNestedSquareBrackets,detailRubyDelimEscape
+syn region detailRubySymbol matchgroup=detailRubySymbolDelimiter start="%s("				   end=")"   skip="\\\\\|\\)"	fold contains=detailRubyNestedParentheses,detailRubyDelimEscape
 
 " Generalized Double Quoted String and Array of Strings and Shell Command Output
 " Note: %= is not matched here as the beginning of a double quoted string
-syn region rubyString matchgroup=rubyStringDelimiter start="%\z([~`!@#$%^&*_\-+|\:;"',.?/]\)"	    end="\z1" skip="\\\\\|\\\z1" contains=@rubyStringSpecial fold
-syn region rubyString matchgroup=rubyStringDelimiter start="%[QWx]\z([~`!@#$%^&*_\-+=|\:;"',.?/]\)" end="\z1" skip="\\\\\|\\\z1" contains=@rubyStringSpecial fold
-syn region rubyString matchgroup=rubyStringDelimiter start="%[QWx]\={"				    end="}"   skip="\\\\\|\\}"	 contains=@rubyStringSpecial,rubyNestedCurlyBraces,rubyDelimEscape    fold
-syn region rubyString matchgroup=rubyStringDelimiter start="%[QWx]\=<"				    end=">"   skip="\\\\\|\\>"	 contains=@rubyStringSpecial,rubyNestedAngleBrackets,rubyDelimEscape  fold
-syn region rubyString matchgroup=rubyStringDelimiter start="%[QWx]\=\["				    end="\]"  skip="\\\\\|\\\]"	 contains=@rubyStringSpecial,rubyNestedSquareBrackets,rubyDelimEscape fold
-syn region rubyString matchgroup=rubyStringDelimiter start="%[QWx]\=("				    end=")"   skip="\\\\\|\\)"	 contains=@rubyStringSpecial,rubyNestedParentheses,rubyDelimEscape    fold
-syn region rubyString matchgroup=rubyStringDelimiter start="%[Qx] "				    end=" "   skip="\\\\\|\\)"   contains=@rubyStringSpecial fold
+syn region detailRubyString matchgroup=detailRubyStringDelimiter start="%\z([~`!@#$%^&*_\-+|\:;"',.?/]\)"	    end="\z1" skip="\\\\\|\\\z1" contains=@detailRubyStringSpecial fold
+syn region detailRubyString matchgroup=detailRubyStringDelimiter start="%[QWx]\z([~`!@#$%^&*_\-+=|\:;"',.?/]\)" end="\z1" skip="\\\\\|\\\z1" contains=@detailRubyStringSpecial fold
+syn region detailRubyString matchgroup=detailRubyStringDelimiter start="%[QWx]\={"				    end="}"   skip="\\\\\|\\}"	 contains=@detailRubyStringSpecial,detailRubyNestedCurlyBraces,detailRubyDelimEscape    fold
+syn region detailRubyString matchgroup=detailRubyStringDelimiter start="%[QWx]\=<"				    end=">"   skip="\\\\\|\\>"	 contains=@detailRubyStringSpecial,detailRubyNestedAngleBrackets,detailRubyDelimEscape  fold
+syn region detailRubyString matchgroup=detailRubyStringDelimiter start="%[QWx]\=\["				    end="\]"  skip="\\\\\|\\\]"	 contains=@detailRubyStringSpecial,detailRubyNestedSquareBrackets,detailRubyDelimEscape fold
+syn region detailRubyString matchgroup=detailRubyStringDelimiter start="%[QWx]\=("				    end=")"   skip="\\\\\|\\)"	 contains=@detailRubyStringSpecial,detailRubyNestedParentheses,detailRubyDelimEscape    fold
+syn region detailRubyString matchgroup=detailRubyStringDelimiter start="%[Qx] "				    end=" "   skip="\\\\\|\\)"   contains=@detailRubyStringSpecial fold
 
 " Here Document
-syn region rubyHeredocStart matchgroup=rubyStringDelimiter start=+\%(\%(class\s*\|\%([]})"'.]\|::\)\)\_s*\|\w\)\@<!<<-\=\zs\%(\h\w*\)+	 end=+$+ oneline contains=ALLBUT,@rubyNotTop
-syn region rubyHeredocStart matchgroup=rubyStringDelimiter start=+\%(\%(class\s*\|\%([]})"'.]\|::\)\)\_s*\|\w\)\@<!<<-\=\zs"\%([^"]*\)"+ end=+$+ oneline contains=ALLBUT,@rubyNotTop
-syn region rubyHeredocStart matchgroup=rubyStringDelimiter start=+\%(\%(class\s*\|\%([]})"'.]\|::\)\)\_s*\|\w\)\@<!<<-\=\zs'\%([^']*\)'+ end=+$+ oneline contains=ALLBUT,@rubyNotTop
-syn region rubyHeredocStart matchgroup=rubyStringDelimiter start=+\%(\%(class\s*\|\%([]})"'.]\|::\)\)\_s*\|\w\)\@<!<<-\=\zs`\%([^`]*\)`+ end=+$+ oneline contains=ALLBUT,@rubyNotTop
+syn region detailRubyHeredocStart matchgroup=detailRubyStringDelimiter start=+\%(\%(class\s*\|\%([]})"'.]\|::\)\)\_s*\|\w\)\@<!<<-\=\zs\%(\h\w*\)+	 end=+$+ oneline contains=ALLBUT,@detailRubyNotTop
+syn region detailRubyHeredocStart matchgroup=detailRubyStringDelimiter start=+\%(\%(class\s*\|\%([]})"'.]\|::\)\)\_s*\|\w\)\@<!<<-\=\zs"\%([^"]*\)"+ end=+$+ oneline contains=ALLBUT,@detailRubyNotTop
+syn region detailRubyHeredocStart matchgroup=detailRubyStringDelimiter start=+\%(\%(class\s*\|\%([]})"'.]\|::\)\)\_s*\|\w\)\@<!<<-\=\zs'\%([^']*\)'+ end=+$+ oneline contains=ALLBUT,@detailRubyNotTop
+syn region detailRubyHeredocStart matchgroup=detailRubyStringDelimiter start=+\%(\%(class\s*\|\%([]})"'.]\|::\)\)\_s*\|\w\)\@<!<<-\=\zs`\%([^`]*\)`+ end=+$+ oneline contains=ALLBUT,@detailRubyNotTop
 
-syn region rubyString start=+\%(\%(class\|::\)\_s*\|\%([]})"'.]\)\s\|\w\)\@<!<<\z(\h\w*\)\ze\%(.*<<-\=['`"]\=\h\)\@!+hs=s+2	matchgroup=rubyStringDelimiter end=+^\z1$+ contains=rubyHeredocStart,rubyHeredoc,@rubyStringSpecial fold keepend
-syn region rubyString start=+\%(\%(class\|::\)\_s*\|\%([]})"'.]\)\s\|\w\)\@<!<<"\z([^"]*\)"\ze\%(.*<<-\=['`"]\=\h\)\@!+hs=s+2	matchgroup=rubyStringDelimiter end=+^\z1$+ contains=rubyHeredocStart,rubyHeredoc,@rubyStringSpecial fold keepend
-syn region rubyString start=+\%(\%(class\|::\)\_s*\|\%([]})"'.]\)\s\|\w\)\@<!<<'\z([^']*\)'\ze\%(.*<<-\=['`"]\=\h\)\@!+hs=s+2	matchgroup=rubyStringDelimiter end=+^\z1$+ contains=rubyHeredocStart,rubyHeredoc			fold keepend
-syn region rubyString start=+\%(\%(class\|::\)\_s*\|\%([]})"'.]\)\s\|\w\)\@<!<<`\z([^`]*\)`\ze\%(.*<<-\=['`"]\=\h\)\@!+hs=s+2	matchgroup=rubyStringDelimiter end=+^\z1$+ contains=rubyHeredocStart,rubyHeredoc,@rubyStringSpecial fold keepend
+syn region detailRubyString start=+\%(\%(class\|::\)\_s*\|\%([]})"'.]\)\s\|\w\)\@<!<<\z(\h\w*\)\ze\%(.*<<-\=['`"]\=\h\)\@!+hs=s+2	matchgroup=detailRubyStringDelimiter end=+^\z1$+ contains=detailRubyHeredocStart,detailRubyHeredoc,@detailRubyStringSpecial fold keepend
+syn region detailRubyString start=+\%(\%(class\|::\)\_s*\|\%([]})"'.]\)\s\|\w\)\@<!<<"\z([^"]*\)"\ze\%(.*<<-\=['`"]\=\h\)\@!+hs=s+2	matchgroup=detailRubyStringDelimiter end=+^\z1$+ contains=detailRubyHeredocStart,detailRubyHeredoc,@detailRubyStringSpecial fold keepend
+syn region detailRubyString start=+\%(\%(class\|::\)\_s*\|\%([]})"'.]\)\s\|\w\)\@<!<<'\z([^']*\)'\ze\%(.*<<-\=['`"]\=\h\)\@!+hs=s+2	matchgroup=detailRubyStringDelimiter end=+^\z1$+ contains=detailRubyHeredocStart,detailRubyHeredoc			fold keepend
+syn region detailRubyString start=+\%(\%(class\|::\)\_s*\|\%([]})"'.]\)\s\|\w\)\@<!<<`\z([^`]*\)`\ze\%(.*<<-\=['`"]\=\h\)\@!+hs=s+2	matchgroup=detailRubyStringDelimiter end=+^\z1$+ contains=detailRubyHeredocStart,detailRubyHeredoc,@detailRubyStringSpecial fold keepend
 
-syn region rubyString start=+\%(\%(class\|::\)\_s*\|\%([]}).]\)\s\|\w\)\@<!<<-\z(\h\w*\)\ze\%(.*<<-\=['`"]\=\h\)\@!+hs=s+3    matchgroup=rubyStringDelimiter end=+^\s*\zs\z1$+ contains=rubyHeredocStart,@rubyStringSpecial fold keepend
-syn region rubyString start=+\%(\%(class\|::\)\_s*\|\%([]}).]\)\s\|\w\)\@<!<<-"\z([^"]*\)"\ze\%(.*<<-\=['`"]\=\h\)\@!+hs=s+3  matchgroup=rubyStringDelimiter end=+^\s*\zs\z1$+ contains=rubyHeredocStart,@rubyStringSpecial fold keepend
-syn region rubyString start=+\%(\%(class\|::\)\_s*\|\%([]}).]\)\s\|\w\)\@<!<<-'\z([^']*\)'\ze\%(.*<<-\=['`"]\=\h\)\@!+hs=s+3  matchgroup=rubyStringDelimiter end=+^\s*\zs\z1$+ contains=rubyHeredocStart		     fold keepend
-syn region rubyString start=+\%(\%(class\|::\)\_s*\|\%([]}).]\)\s\|\w\)\@<!<<-`\z([^`]*\)`\ze\%(.*<<-\=['`"]\=\h\)\@!+hs=s+3  matchgroup=rubyStringDelimiter end=+^\s*\zs\z1$+ contains=rubyHeredocStart,@rubyStringSpecial fold keepend
+syn region detailRubyString start=+\%(\%(class\|::\)\_s*\|\%([]}).]\)\s\|\w\)\@<!<<-\z(\h\w*\)\ze\%(.*<<-\=['`"]\=\h\)\@!+hs=s+3    matchgroup=detailRubyStringDelimiter end=+^\s*\zs\z1$+ contains=detailRubyHeredocStart,@detailRubyStringSpecial fold keepend
+syn region detailRubyString start=+\%(\%(class\|::\)\_s*\|\%([]}).]\)\s\|\w\)\@<!<<-"\z([^"]*\)"\ze\%(.*<<-\=['`"]\=\h\)\@!+hs=s+3  matchgroup=detailRubyStringDelimiter end=+^\s*\zs\z1$+ contains=detailRubyHeredocStart,@detailRubyStringSpecial fold keepend
+syn region detailRubyString start=+\%(\%(class\|::\)\_s*\|\%([]}).]\)\s\|\w\)\@<!<<-'\z([^']*\)'\ze\%(.*<<-\=['`"]\=\h\)\@!+hs=s+3  matchgroup=detailRubyStringDelimiter end=+^\s*\zs\z1$+ contains=detailRubyHeredocStart		     fold keepend
+syn region detailRubyString start=+\%(\%(class\|::\)\_s*\|\%([]}).]\)\s\|\w\)\@<!<<-`\z([^`]*\)`\ze\%(.*<<-\=['`"]\=\h\)\@!+hs=s+3  matchgroup=detailRubyStringDelimiter end=+^\s*\zs\z1$+ contains=detailRubyHeredocStart,@detailRubyStringSpecial fold keepend
 
 if exists('main_syntax') && main_syntax == 'eruby'
-  let b:ruby_no_expensive = 1
+  let b:detailRuby_no_expensive = 1
 end
 
-syn match  rubyAliasDeclaration    "[^[:space:];#.()]\+" contained contains=rubySymbol,rubyGlobalVariable,rubyPredefinedVariable nextgroup=rubyAliasDeclaration2 skipwhite
-syn match  rubyAliasDeclaration2   "[^[:space:];#.()]\+" contained contains=rubySymbol,rubyGlobalVariable,rubyPredefinedVariable
-syn match  rubyMethodDeclaration   "[^[:space:];#(]\+"	 contained contains=rubyConstant,rubyBoolean,rubyPseudoVariable,rubyInstanceVariable,rubyClassVariable,rubyGlobalVariable
-syn match  rubyClassDeclaration    "[^[:space:];#<]\+"	 contained contains=rubyConstant,rubyOperator
-syn match  rubyModuleDeclaration   "[^[:space:];#<]\+"	 contained contains=rubyConstant,rubyOperator
-syn match  rubyFunction "\<[_[:alpha:]][_[:alnum:]]*[?!=]\=[[:alnum:]_.:?!=]\@!" contained containedin=rubyMethodDeclaration
-syn match  rubyFunction "\%(\s\|^\)\@<=[_[:alpha:]][_[:alnum:]]*[?!=]\=\%(\s\|$\)\@=" contained containedin=rubyAliasDeclaration,rubyAliasDeclaration2
-syn match  rubyFunction "\%([[:space:].]\|^\)\@<=\%(\[\]=\=\|\*\*\|[+-]@\=\|[*/%|&^~]\|<<\|>>\|[<>]=\=\|<=>\|===\|==\|=\~\|`\)\%([[:space:];#(]\|$\)\@=" contained containedin=rubyAliasDeclaration,rubyAliasDeclaration2,rubyMethodDeclaration
+syn match  detailRubyAliasDeclaration    "[^[:space:];#.()]\+" contained contains=detailRubySymbol,detailRubyGlobalVariable,detailRubyPredefinedVariable nextgroup=detailRubyAliasDeclaration2 skipwhite
+syn match  detailRubyAliasDeclaration2   "[^[:space:];#.()]\+" contained contains=detailRubySymbol,detailRubyGlobalVariable,detailRubyPredefinedVariable
+syn match  detailRubyMethodDeclaration   "[^[:space:];#(]\+"	 contained contains=detailRubyConstant,detailRubyBoolean,detailRubyPseudoVariable,detailRubyInstanceVariable,detailRubyClassVariable,detailRubyGlobalVariable
+syn match  detailRubyClassDeclaration    "[^[:space:];#<]\+"	 contained contains=detailRubyConstant,detailRubyOperator
+syn match  detailRubyModuleDeclaration   "[^[:space:];#<]\+"	 contained contains=detailRubyConstant,detailRubyOperator
+syn match  detailRubyFunction "\<[_[:alpha:]][_[:alnum:]]*[?!=]\=[[:alnum:]_.:?!=]\@!" contained containedin=detailRubyMethodDeclaration
+syn match  detailRubyFunction "\%(\s\|^\)\@<=[_[:alpha:]][_[:alnum:]]*[?!=]\=\%(\s\|$\)\@=" contained containedin=detailRubyAliasDeclaration,detailRubyAliasDeclaration2
+syn match  detailRubyFunction "\%([[:space:].]\|^\)\@<=\%(\[\]=\=\|\*\*\|[+-]@\=\|[*/%|&^~]\|<<\|>>\|[<>]=\=\|<=>\|===\|==\|=\~\|`\)\%([[:space:];#(]\|$\)\@=" contained containedin=detailRubyAliasDeclaration,detailRubyAliasDeclaration2,detailRubyMethodDeclaration
 
-syn cluster rubyDeclaration contains=rubyAliasDeclaration,rubyAliasDeclaration2,rubyMethodDeclaration,rubyModuleDeclaration,rubyClassDeclaration,rubyFunction,rubyBlockParameter
+syn cluster detailRubyDeclaration contains=detailRubyAliasDeclaration,detailRubyAliasDeclaration2,detailRubyMethodDeclaration,detailRubyModuleDeclaration,detailRubyClassDeclaration,detailRubyFunction,detailRubyBlockParameter
 
 " Keywords
 " Note: the following keywords have already been defined:
 " begin case class def do end for if module unless until while
-syn match   rubyControl	       "\<\%(and\|break\|in\|next\|not\|or\|redo\|rescue\|retry\|return\)\>[?!]\@!"
-syn match   rubyOperator       "\<defined?" display
-syn match   rubyKeyword	       "\<\%(super\|yield\)\>[?!]\@!"
-syn match   rubyBoolean	       "\<\%(true\|false\)\>[?!]\@!"
-syn match   rubyPseudoVariable "\<\%(nil\|self\|__ENCODING__\|__FILE__\|__LINE__\|__callee__\|__method__\)\>[?!]\@!" " TODO: reorganise
-syn match   rubyBeginEnd       "\<\%(BEGIN\|END\)\>[?!]\@!"
+syn match   detailRubyControl	       "\<\%(and\|break\|in\|next\|not\|or\|redo\|rescue\|retry\|return\)\>[?!]\@!"
+syn match   detailRubyOperator       "\<defined?" display
+syn match   detailRubyKeyword	       "\<\%(super\|yield\)\>[?!]\@!"
+syn match   detailRubyBoolean	       "\<\%(true\|false\)\>[?!]\@!"
+syn match   detailRubyPseudoVariable "\<\%(nil\|self\|__ENCODING__\|__FILE__\|__LINE__\|__callee__\|__method__\)\>[?!]\@!" " TODO: reorganise
+syn match   detailRubyBeginEnd       "\<\%(BEGIN\|END\)\>[?!]\@!"
 
 " Expensive Mode - match 'end' with the appropriate opening keyword for syntax
 " based folding and special highlighting of module/class/method definitions
-if !exists("b:ruby_no_expensive") && !exists("ruby_no_expensive")
-  syn match  rubyDefine "\<alias\>"  nextgroup=rubyAliasDeclaration  skipwhite skipnl
-  syn match  rubyDefine "\<def\>"    nextgroup=rubyMethodDeclaration skipwhite skipnl
-  syn match  rubyDefine "\<undef\>"  nextgroup=rubyFunction	     skipwhite skipnl
-  syn match  rubyClass	"\<class\>"  nextgroup=rubyClassDeclaration  skipwhite skipnl
-  syn match  rubyModule "\<module\>" nextgroup=rubyModuleDeclaration skipwhite skipnl
+if !exists("b:detailRuby_no_expensive") && !exists("detailRuby_no_expensive")
+  syn match  detailRubyDefine "\<alias\>"  nextgroup=detailRubyAliasDeclaration  skipwhite skipnl
+  syn match  detailRubyDefine "\<def\>"    nextgroup=detailRubyMethodDeclaration skipwhite skipnl
+  syn match  detailRubyDefine "\<undef\>"  nextgroup=detailRubyFunction	     skipwhite skipnl
+  syn match  detailRubyClass	"\<class\>"  nextgroup=detailRubyClassDeclaration  skipwhite skipnl
+  syn match  detailRubyModule "\<module\>" nextgroup=detailRubyModuleDeclaration skipwhite skipnl
 
-  syn region rubyMethodBlock start="\<def\>"	matchgroup=rubyDefine end="\%(\<def\_s\+\)\@<!\<end\>" contains=ALLBUT,@rubyNotTop fold
-  syn region rubyBlock	     start="\<class\>"	matchgroup=rubyClass  end="\<end\>"		       contains=ALLBUT,@rubyNotTop fold
-  syn region rubyBlock	     start="\<module\>" matchgroup=rubyModule end="\<end\>"		       contains=ALLBUT,@rubyNotTop fold
+  syn region detailRubyMethodBlock start="\<def\>"	matchgroup=detailRubyDefine end="\%(\<def\_s\+\)\@<!\<end\>" contains=ALLBUT,@detailRubyNotTop fold
+  syn region detailRubyBlock	     start="\<class\>"	matchgroup=detailRubyClass  end="\<end\>"		       contains=ALLBUT,@detailRubyNotTop fold
+  syn region detailRubyBlock	     start="\<module\>" matchgroup=detailRubyModule end="\<end\>"		       contains=ALLBUT,@detailRubyNotTop fold
 
   " modifiers
-  syn match rubyConditionalModifier "\<\%(if\|unless\)\>"    display
-  syn match rubyRepeatModifier	     "\<\%(while\|until\)\>" display
+  syn match detailRubyConditionalModifier "\<\%(if\|unless\)\>"    display
+  syn match detailRubyRepeatModifier	     "\<\%(while\|until\)\>" display
 
-  syn region rubyDoBlock      matchgroup=rubyControl start="\<do\>" end="\<end\>"                 contains=ALLBUT,@rubyNotTop fold
+  syn region detailRubyDoBlock      matchgroup=detailRubyControl start="\<do\>" end="\<end\>"                 contains=ALLBUT,@detailRubyNotTop fold
   " curly bracket block or hash literal
-  syn region rubyCurlyBlock   start="{" end="}"							  contains=ALLBUT,@rubyNotTop fold
-  syn region rubyArrayLiteral matchgroup=rubyArrayDelimiter start="\%(\w\|[\]})]\)\@<!\[" end="]" contains=ALLBUT,@rubyNotTop fold
+  syn region detailRubyCurlyBlock   start="{" end="}"							  contains=ALLBUT,@detailRubyNotTop fold
+  syn region detailRubyArrayLiteral matchgroup=detailRubyArrayDelimiter start="\%(\w\|[\]})]\)\@<!\[" end="]" contains=ALLBUT,@detailRubyNotTop fold
 
   " statements without 'do'
-  syn region rubyBlockExpression       matchgroup=rubyControl	  start="\<begin\>" end="\<end\>" contains=ALLBUT,@rubyNotTop fold
-  syn region rubyCaseExpression	       matchgroup=rubyConditional start="\<case\>"  end="\<end\>" contains=ALLBUT,@rubyNotTop fold
-  syn region rubyConditionalExpression matchgroup=rubyConditional start="\%(\%(^\|\.\.\.\=\|[{:,;([<>~\*/%&^|+=-]\|\%(\<[_[:lower:]][_[:alnum:]]*\)\@<![?!]\)\s*\)\@<=\%(if\|unless\)\>" end="\<end\>" contains=ALLBUT,@rubyNotTop fold
+  syn region detailRubyBlockExpression       matchgroup=detailRubyControl	  start="\<begin\>" end="\<end\>" contains=ALLBUT,@detailRubyNotTop fold
+  syn region detailRubyCaseExpression	       matchgroup=detailRubyConditional start="\<case\>"  end="\<end\>" contains=ALLBUT,@detailRubyNotTop fold
+  syn region detailRubyConditionalExpression matchgroup=detailRubyConditional start="\%(\%(^\|\.\.\.\=\|[{:,;([<>~\*/%&^|+=-]\|\%(\<[_[:lower:]][_[:alnum:]]*\)\@<![?!]\)\s*\)\@<=\%(if\|unless\)\>" end="\<end\>" contains=ALLBUT,@detailRubyNotTop fold
 
-  syn match rubyConditional "\<\%(then\|else\|when\)\>[?!]\@!"	contained containedin=rubyCaseExpression
-  syn match rubyConditional "\<\%(then\|else\|elsif\)\>[?!]\@!" contained containedin=rubyConditionalExpression
+  syn match detailRubyConditional "\<\%(then\|else\|when\)\>[?!]\@!"	contained containedin=detailRubyCaseExpression
+  syn match detailRubyConditional "\<\%(then\|else\|elsif\)\>[?!]\@!" contained containedin=detailRubyConditionalExpression
 
-  syn match rubyExceptional	  "\<\%(\%(\%(;\|^\)\s*\)\@<=rescue\|else\|ensure\)\>[?!]\@!" contained containedin=rubyBlockExpression
-  syn match rubyMethodExceptional "\<\%(\%(\%(;\|^\)\s*\)\@<=rescue\|else\|ensure\)\>[?!]\@!" contained containedin=rubyMethodBlock
+  syn match detailRubyExceptional	  "\<\%(\%(\%(;\|^\)\s*\)\@<=rescue\|else\|ensure\)\>[?!]\@!" contained containedin=detailRubyBlockExpression
+  syn match detailRubyMethodExceptional "\<\%(\%(\%(;\|^\)\s*\)\@<=rescue\|else\|ensure\)\>[?!]\@!" contained containedin=detailRubyMethodBlock
 
   " statements with optional 'do'
-  syn region rubyOptionalDoLine   matchgroup=rubyRepeat start="\<for\>[?!]\@!" start="\%(\%(^\|\.\.\.\=\|[{:,;([<>~\*/%&^|+-]\|\%(\<[_[:lower:]][_[:alnum:]]*\)\@<![!=?]\)\s*\)\@<=\<\%(until\|while\)\>" matchgroup=rubyOptionalDo end="\%(\<do\>\)" end="\ze\%(;\|$\)" oneline contains=ALLBUT,@rubyNotTop
-  syn region rubyRepeatExpression start="\<for\>[?!]\@!" start="\%(\%(^\|\.\.\.\=\|[{:,;([<>~\*/%&^|+-]\|\%(\<[_[:lower:]][_[:alnum:]]*\)\@<![!=?]\)\s*\)\@<=\<\%(until\|while\)\>" matchgroup=rubyRepeat end="\<end\>" contains=ALLBUT,@rubyNotTop nextgroup=rubyOptionalDoLine fold
+  syn region detailRubyOptionalDoLine   matchgroup=detailRubyRepeat start="\<for\>[?!]\@!" start="\%(\%(^\|\.\.\.\=\|[{:,;([<>~\*/%&^|+-]\|\%(\<[_[:lower:]][_[:alnum:]]*\)\@<![!=?]\)\s*\)\@<=\<\%(until\|while\)\>" matchgroup=detailRubyOptionalDo end="\%(\<do\>\)" end="\ze\%(;\|$\)" oneline contains=ALLBUT,@detailRubyNotTop
+  syn region detailRubyRepeatExpression start="\<for\>[?!]\@!" start="\%(\%(^\|\.\.\.\=\|[{:,;([<>~\*/%&^|+-]\|\%(\<[_[:lower:]][_[:alnum:]]*\)\@<![!=?]\)\s*\)\@<=\<\%(until\|while\)\>" matchgroup=detailRubyRepeat end="\<end\>" contains=ALLBUT,@detailRubyNotTop nextgroup=detailRubyOptionalDoLine fold
 
-  if !exists("ruby_minlines")
-    let ruby_minlines = 50
+  if !exists("detailRuby_minlines")
+    let detailRuby_minlines = 50
   endif
-  exec "syn sync minlines=" . ruby_minlines
+  exec "syn sync minlines=" . detailRuby_minlines
 
 else
-  syn match rubyControl "\<def\>[?!]\@!"    nextgroup=rubyMethodDeclaration skipwhite skipnl
-  syn match rubyControl "\<class\>[?!]\@!"  nextgroup=rubyClassDeclaration  skipwhite skipnl
-  syn match rubyControl "\<module\>[?!]\@!" nextgroup=rubyModuleDeclaration skipwhite skipnl
-  syn match rubyControl "\<\%(case\|begin\|do\|for\|if\|unless\|while\|until\|else\|elsif\|ensure\|then\|when\|end\)\>[?!]\@!"
-  syn match rubyKeyword "\<\%(alias\|undef\)\>[?!]\@!"
+  syn match detailRubyControl "\<def\>[?!]\@!"    nextgroup=detailRubyMethodDeclaration skipwhite skipnl
+  syn match detailRubyControl "\<class\>[?!]\@!"  nextgroup=detailRubyClassDeclaration  skipwhite skipnl
+  syn match detailRubyControl "\<module\>[?!]\@!" nextgroup=detailRubyModuleDeclaration skipwhite skipnl
+  syn match detailRubyControl "\<\%(case\|begin\|do\|for\|if\|unless\|while\|until\|else\|elsif\|ensure\|then\|when\|end\)\>[?!]\@!"
+  syn match detailRubyKeyword "\<\%(alias\|undef\)\>[?!]\@!"
 endif
 
 " Special Methods
-if !exists("ruby_no_special_methods")
-  syn keyword rubyAccess    public protected private public_class_method private_class_method module_function
+if !exists("detailRuby_no_special_methods")
+  syn keyword detailRubyAccess    public protected private public_class_method private_class_method module_function
   " attr is a common variable name
-  syn match   rubyAttribute "\%(\%(^\|;\)\s*\)\@<=attr\>\(\s*[.=]\)\@!"
-  syn keyword rubyAttribute attr_accessor attr_reader attr_writer
-  syn match   rubyControl   "\<\%(exit!\|\%(abort\|at_exit\|exit\|fork\|loop\|trap\)\>[?!]\@!\)"
-  syn keyword rubyEval	    eval class_eval instance_eval module_eval
-  syn keyword rubyException raise fail catch throw
+  syn match   detailRubyAttribute "\%(\%(^\|;\)\s*\)\@<=attr\>\(\s*[.=]\)\@!"
+  syn keyword detailRubyAttribute attr_accessor attr_reader attr_writer
+  syn match   detailRubyControl   "\<\%(exit!\|\%(abort\|at_exit\|exit\|fork\|loop\|trap\)\>[?!]\@!\)"
+  syn keyword detailRubyEval	    eval class_eval instance_eval module_eval
+  syn keyword detailRubyException raise fail catch throw
   " false positive with 'include?'
-  syn match   rubyInclude   "\<include\>[?!]\@!"
-  syn keyword rubyInclude   autoload extend load require require_relative
-  syn keyword rubyKeyword   callcc caller lambda proc
+  syn match   detailRubyInclude   "\<include\>[?!]\@!"
+  syn keyword detailRubyInclude   autoload extend load require require_relative
+  syn keyword detailRubyKeyword   callcc caller lambda proc
 endif
 
 " Comments and Documentation
-syn match   rubySharpBang "\%^#!.*" display
-syn keyword rubyTodo	  FIXME NOTE TODO OPTIMIZE XXX contained
-syn match   rubyComment   "#.*" contains=rubySharpBang,rubySpaceError,rubyTodo,@Spell
-if !exists("ruby_no_comment_fold")
-  syn region rubyMultilineComment start="\%(\%(^\s*#.*\n\)\@<!\%(^\s*#.*\n\)\)\%(\(^\s*#.*\n\)\{1,}\)\@=" end="\%(^\s*#.*\n\)\@<=\%(^\s*#.*\n\)\%(^\s*#\)\@!" contains=rubyComment  fold keepend
-  syn region rubyDocumentation	  start="^=begin\ze\%(\s.*\)\=$" end="^=end\%(\s.*\)\=$" contains=rubySpaceError,rubyTodo,@Spell fold
+syn match   detailRubySharpBang "\%^#!.*" display
+syn keyword detailRubyTodo	  FIXME NOTE TODO OPTIMIZE XXX contained
+syn match   detailRubyComment   "#.*" contains=detailRubySharpBang,detailRubySpaceError,detailRubyTodo,@Spell
+if !exists("detailRuby_no_comment_fold")
+  syn region detailRubyMultilineComment start="\%(\%(^\s*#.*\n\)\@<!\%(^\s*#.*\n\)\)\%(\(^\s*#.*\n\)\{1,}\)\@=" end="\%(^\s*#.*\n\)\@<=\%(^\s*#.*\n\)\%(^\s*#\)\@!" contains=detailRubyComment  fold keepend
+  syn region detailRubyDocumentation	  start="^=begin\ze\%(\s.*\)\=$" end="^=end\%(\s.*\)\=$" contains=detailRubySpaceError,detailRubyTodo,@Spell fold
 else
-  syn region rubyDocumentation	  start="^=begin\s*$" end="^=end\s*$" contains=rubySpaceError,rubyTodo,@Spell
+  syn region detailRubyDocumentation	  start="^=begin\s*$" end="^=end\s*$" contains=detailRubySpaceError,detailRubyTodo,@Spell
 endif
 
 " Note: this is a hack to prevent 'keywords' being highlighted as such when called as methods with an explicit receiver
-syn match rubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(alias\|and\|begin\|break\|case\|class\|def\|defined\|do\|else\)\>"		   contains=NONE
-syn match rubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(elsif\|end\|ensure\|false\|for\|if\|in\|module\|next\|nil\)\>"		   contains=NONE
-syn match rubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(not\|or\|redo\|rescue\|retry\|return\|self\|super\|then\|true\)\>"		   contains=NONE
-syn match rubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(undef\|unless\|until\|when\|while\|yield\|BEGIN\|END\|__FILE__\|__LINE__\)\>"  contains=NONE
+syn match detailRubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(alias\|and\|begin\|break\|case\|class\|def\|defined\|do\|else\)\>"		   contains=NONE
+syn match detailRubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(elsif\|end\|ensure\|false\|for\|if\|in\|module\|next\|nil\)\>"		   contains=NONE
+syn match detailRubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(not\|or\|redo\|rescue\|retry\|return\|self\|super\|then\|true\)\>"		   contains=NONE
+syn match detailRubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(undef\|unless\|until\|when\|while\|yield\|BEGIN\|END\|__FILE__\|__LINE__\)\>"  contains=NONE
 
-syn match rubyKeywordAsMethod "\<\%(alias\|begin\|case\|class\|def\|do\|end\)[?!]"  contains=NONE
-syn match rubyKeywordAsMethod "\<\%(if\|module\|undef\|unless\|until\|while\)[?!]"  contains=NONE
+syn match detailRubyKeywordAsMethod "\<\%(alias\|begin\|case\|class\|def\|do\|end\)[?!]"  contains=NONE
+syn match detailRubyKeywordAsMethod "\<\%(if\|module\|undef\|unless\|until\|while\)[?!]"  contains=NONE
 
-syn match rubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(abort\|at_exit\|attr\|attr_accessor\|attr_reader\)\>"	 contains=NONE
-syn match rubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(attr_writer\|autoload\|callcc\|catch\|caller\)\>"		 contains=NONE
-syn match rubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(eval\|class_eval\|instance_eval\|module_eval\|exit\)\>"	 contains=NONE
-syn match rubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(extend\|fail\|fork\|include\|lambda\)\>"			 contains=NONE
-syn match rubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(load\|loop\|private\|proc\|protected\)\>"			 contains=NONE
-syn match rubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(public\|require\|require_relative\|raise\|throw\|trap\)\>"	 contains=NONE
+syn match detailRubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(abort\|at_exit\|attr\|attr_accessor\|attr_reader\)\>"	 contains=NONE
+syn match detailRubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(attr_writer\|autoload\|callcc\|catch\|caller\)\>"		 contains=NONE
+syn match detailRubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(eval\|class_eval\|instance_eval\|module_eval\|exit\)\>"	 contains=NONE
+syn match detailRubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(extend\|fail\|fork\|include\|lambda\)\>"			 contains=NONE
+syn match detailRubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(load\|loop\|private\|proc\|protected\)\>"			 contains=NONE
+syn match detailRubyKeywordAsMethod "\%(\%(\.\@<!\.\)\|::\)\_s*\%(public\|require\|require_relative\|raise\|throw\|trap\)\>"	 contains=NONE
 
 " __END__ Directive
-syn region rubyData matchgroup=rubyDataDirective start="^__END__$" end="\%$" fold
+syn region detailRubyData matchgroup=detailRubyDataDirective start="^__END__$" end="\%$" fold
 
-hi def link rubyClass			rubyDefine
-hi def link rubyModule			rubyDefine
-hi def link rubyMethodExceptional	rubyDefine
-hi def link rubyDefine			Define
-hi def link rubyFunction		Function
-hi def link rubyConditional		Conditional
-hi def link rubyConditionalModifier	rubyConditional
-hi def link rubyExceptional		rubyConditional
-hi def link rubyRepeat			Repeat
-hi def link rubyRepeatModifier		rubyRepeat
-hi def link rubyOptionalDo		rubyRepeat
-hi def link rubyControl			Statement
-hi def link rubyInclude			Include
-hi def link rubyInteger			Number
-hi def link rubyASCIICode		Character
-hi def link rubyFloat			Float
-hi def link rubyBoolean			Boolean
-hi def link rubyException		Exception
-if !exists("ruby_no_identifiers")
-  hi def link rubyIdentifier		Identifier
+hi def link detailRubyClass			detailRubyDefine
+hi def link detailRubyModule			detailRubyDefine
+hi def link detailRubyMethodExceptional	detailRubyDefine
+hi def link detailRubyDefine			Define
+hi def link detailRubyFunction		Function
+hi def link detailRubyConditional		Conditional
+hi def link detailRubyConditionalModifier	detailRubyConditional
+hi def link detailRubyExceptional		detailRubyConditional
+hi def link detailRubyRepeat			Repeat
+hi def link detailRubyRepeatModifier		detailRubyRepeat
+hi def link detailRubyOptionalDo		detailRubyRepeat
+hi def link detailRubyControl			Statement
+hi def link detailRubyInclude			Include
+hi def link detailRubyInteger			Number
+hi def link detailRubyASCIICode		Character
+hi def link detailRubyFloat			Float
+hi def link detailRubyBoolean			Boolean
+hi def link detailRubyException		Exception
+if !exists("detailRuby_no_identifiers")
+  hi def link detailRubyIdentifier		Identifier
 else
-  hi def link rubyIdentifier		NONE
+  hi def link detailRubyIdentifier		NONE
 endif
-hi def link rubyClassVariable		rubyIdentifier
-hi def link rubyConstant		Type
-hi def link rubyGlobalVariable		rubyIdentifier
-hi def link rubyBlockParameter		rubyIdentifier
-hi def link rubyInstanceVariable	rubyIdentifier
-hi def link rubyPredefinedIdentifier	rubyIdentifier
-hi def link rubyPredefinedConstant	rubyPredefinedIdentifier
-hi def link rubyPredefinedVariable	rubyPredefinedIdentifier
-hi def link rubySymbol			Constant
-hi def link rubyKeyword			Keyword
-hi def link rubyOperator		Operator
-hi def link rubyBeginEnd		Statement
-hi def link rubyAccess			Statement
-hi def link rubyAttribute		Statement
-hi def link rubyEval			Statement
-hi def link rubyPseudoVariable		Constant
+hi def link detailRubyClassVariable		detailRubyIdentifier
+hi def link detailRubyConstant		Type
+hi def link detailRubyGlobalVariable		detailRubyIdentifier
+hi def link detailRubyBlockParameter		detailRubyIdentifier
+hi def link detailRubyInstanceVariable	detailRubyIdentifier
+hi def link detailRubyPredefinedIdentifier	detailRubyIdentifier
+hi def link detailRubyPredefinedConstant	detailRubyPredefinedIdentifier
+hi def link detailRubyPredefinedVariable	detailRubyPredefinedIdentifier
+hi def link detailRubySymbol			Constant
+hi def link detailRubyKeyword			Keyword
+hi def link detailRubyOperator		Operator
+hi def link detailRubyBeginEnd		Statement
+hi def link detailRubyAccess			Statement
+hi def link detailRubyAttribute		Statement
+hi def link detailRubyEval			Statement
+hi def link detailRubyPseudoVariable		Constant
 
-hi def link rubyComment			Comment
-hi def link rubyData			Comment
-hi def link rubyDataDirective		Delimiter
-hi def link rubyDocumentation		Comment
-hi def link rubyTodo			Todo
+hi def link detailRubyComment			Comment
+hi def link detailRubyData			Comment
+hi def link detailRubyDataDirective		Delimiter
+hi def link detailRubyDocumentation		Comment
+hi def link detailRubyTodo			Todo
 
-hi def link rubyQuoteEscape		rubyStringEscape
-hi def link rubyStringEscape		Special
-hi def link rubyInterpolationDelimiter	Delimiter
-hi def link rubyNoInterpolation		rubyString
-hi def link rubySharpBang		PreProc
-hi def link rubyRegexpDelimiter		rubyStringDelimiter
-hi def link rubySymbolDelimiter		rubyStringDelimiter
-hi def link rubyStringDelimiter		Delimiter
-hi def link rubyHeredoc			rubyString
-hi def link rubyString			String
-hi def link rubyRegexpEscape		rubyRegexpSpecial
-hi def link rubyRegexpQuantifier	rubyRegexpSpecial
-hi def link rubyRegexpAnchor		rubyRegexpSpecial
-hi def link rubyRegexpDot		rubyRegexpCharClass
-hi def link rubyRegexpCharClass		rubyRegexpSpecial
-hi def link rubyRegexpSpecial		Special
-hi def link rubyRegexpComment		Comment
-hi def link rubyRegexp			rubyString
+hi def link detailRubyQuoteEscape		detailRubyStringEscape
+hi def link detailRubyStringEscape		Special
+hi def link detailRubyInterpolationDelimiter	Delimiter
+hi def link detailRubyNoInterpolation		detailRubyString
+hi def link detailRubySharpBang		PreProc
+hi def link detailRubyRegexpDelimiter		detailRubyStringDelimiter
+hi def link detailRubySymbolDelimiter		detailRubyStringDelimiter
+hi def link detailRubyStringDelimiter		Delimiter
+hi def link detailRubyHeredoc			detailRubyString
+hi def link detailRubyString			String
+hi def link detailRubyRegexpEscape		detailRubyRegexpSpecial
+hi def link detailRubyRegexpQuantifier	detailRubyRegexpSpecial
+hi def link detailRubyRegexpAnchor		detailRubyRegexpSpecial
+hi def link detailRubyRegexpDot		detailRubyRegexpCharClass
+hi def link detailRubyRegexpCharClass		detailRubyRegexpSpecial
+hi def link detailRubyRegexpSpecial		Special
+hi def link detailRubyRegexpComment		Comment
+hi def link detailRubyRegexp			detailRubyString
 
-hi def link rubyInvalidVariable		Error
-hi def link rubyError			Error
-hi def link rubySpaceError		rubyError
+hi def link detailRubyInvalidVariable		Error
+hi def link detailRubyError			Error
+hi def link detailRubySpaceError		detailRubyError
 
 let b:current_syntax = "ruby"
 

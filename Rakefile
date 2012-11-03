@@ -19,6 +19,7 @@ task mod: :src do
   text = File.read SRC_SYNTAX_PATH
   text.gsub! 'transparent', ''
   text.sub! 'if exists("b:current_syntax")', 'if 0'
+  text.gsub! /\bruby(\w+)/, 'detailRuby\1'
   File.write MOD_SYNTAX_PATH, text
 end
 
