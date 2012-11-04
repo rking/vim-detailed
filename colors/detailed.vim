@@ -211,7 +211,6 @@ hi CursorColumn   term=reverse ctermbg=242 guibg=Grey40
 hi CursorLine     term=underline cterm=underline guibg=Grey40
 hi ColorColumn    term=reverse ctermfg=9 ctermbg=12 guifg=black guibg=lightgrey
 hi MatchParen     term=reverse ctermbg=6 guibg=DarkCyan
-hi Comment        term=bold ctermfg=14 guifg=#80a0ff
 hi Constant       term=underline ctermfg=13 guifg=#ffa0a0
 hi Special        term=bold ctermfg=224 guifg=Orange
 hi Identifier     term=underline cterm=bold ctermfg=14 guifg=#40ffff
@@ -222,6 +221,8 @@ hi Underlined     term=underline cterm=underline ctermfg=81 gui=underline guifg=
 hi Ignore         ctermfg=0 guifg=bg
 hi Error          term=reverse ctermfg=15 ctermbg=9 guifg=White guibg=Red
 hi Todo           term=standout ctermfg=0 ctermbg=11 guifg=Blue guibg=Yellow
+
+call s:fg('Comment', 'gray242') " In my books, comments should be quiet.
 " }}}
 
 " Default links {{{
@@ -283,7 +284,7 @@ fun! s:detailed_colors()
   call s:fg('rubyInterpolationDelimiter', 'gray244')
 
   call s:fg('rubyRegexpSpecial', 'seafoam')
-  call s:fg('rubyRegexpComment', 'gray238')
+  hi link rubyRegexpComment Comment
   " Not quite sure why these don't show up:
   " call s:make_obvious('rubyRegexpParens')
   " call s:make_obvious('rubyRegexpBrackets')
@@ -342,7 +343,7 @@ fun! s:detailed_colors()
   " TODO: call s:make_obvious('rubyOptionalDoLine')
   call s:fg('rubySharpBang', 'gray251')
   hi link rubyFirstAndSecondCommentLine rubySharpBang
-  call s:fg('rubyComment', 'gray240')
+  hi link rubyComment Comment
   " hi rubyMultilineComment cleared
   hi link rubyDocumentation  Comment
   call s:fg('rubyDataDirective', 'purple201')
