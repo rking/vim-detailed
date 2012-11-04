@@ -1,0 +1,7 @@
+#!/bin/sh -xe
+## A comment
+# another 
+echo Hi
+for n in a b c; do
+    echo Bi
+done
