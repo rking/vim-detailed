@@ -20,6 +20,7 @@
 " TODO
 " ----
 "
+"   - block &args only first two chars
 "   - More languages, other than Ruby. (Contributions will be very welcome)
 "   - Sync pry-theme to this
 "   - GUI colors
@@ -57,7 +58,7 @@ endfun
 let s:c = {
   \'basic8_red (TODO: use this)': 1,
   \'basic8_green': 2,
-  \'basic8_yellow (TODO: use this)': 3,
+  \'basic8_yellow': 3,
   \'basic8_blue (TODO: use this)': 4,
   \'basic8_magenta': 5,
   \'basic8_cyan': 6,
@@ -75,8 +76,10 @@ let s:c = {
   \'yellow149': 149,
   \'yellow190': 190,
   \'yellow220 (TODO: use this)': 220,
+  \'yellow228': 228,
   \'orange208': 208,
   \'orange178': 178,
+  \'orange180': 180,
   \'orange222': 222,
   \'light_yellow230': 229,
   \'graygreen (TODO: use this)': 23,
@@ -112,6 +115,7 @@ let s:c = {
   \'purple141 (TODO: use this)': 141,
   \'purple161 (TODO: use this)': 161,
   \'purple201': 201,
+  \'purple224': 224,
   \'purple225': 225,
   \'gray16': 16,
   \'gray232': 232,
@@ -273,9 +277,6 @@ fun! s:detailed_colors()
   call s:bold_fg('rubyFunction', 'blue27')
   " No-show: call s:make_obvious('rubyMethodDeclaration')
 
-  call s:fg('rubyMethodBlock', 'gray250') " Contents of methods, basically
-  call s:fg('rubyDoBlock', 'light_yellow230')
-  call s:fg('rubyBlock', 'purple225')
   call s:fg('rubyInstanceVariable', 'blue75')
 
   call s:fg('rubyString', 'red88')
@@ -315,20 +316,33 @@ fun! s:detailed_colors()
   " TODO! call s:make_obvious('rubyClassDeclaration')
   "       call s:make_obvious('rubyDeclaration')
   " call s:make_obvious('rubyModuleDeclaration')
-  hi link rubyControl     Statement " TODO
   hi link rubyBeginEnd    Statement " TODO
   call s:fg('rubyAccess', 'yellow100')
   call s:fg('rubyAttribute', 'orange178') " attr_{accessor,reader,writer}
   call s:fg('rubyEval', 'yellow190')
+
+  " Blocks:
+  " (basic)
+  call s:fg('rubyMethodBlock', 'purple224')
+  call s:fg('rubyBlock', 'purple225')
+  call s:fg('rubyBlockExpression', 'orange180')
+  " (conditionals)
+  call s:fg('rubyControl', 'orange178')
+  call s:bold_fg('Conditional', 'basic8_yellow')
   call s:bold_fg('rubyConditionalModifier', 'yellow148') " 'Yoda if'
-  call s:bold_fg('rubyRepeatModifier', 'yellow149') " …while/until
+  call s:fg('rubyConditionalExpression', 'light_yellow230')
+  hi link rubyCaseExpression rubyConditionalExpression
+  " (loops)
   call s:fg('rubyRepeat', 'orange178')
+  call s:bold_fg('rubyRepeatModifier', 'yellow149') " …while/until
   call s:fg('rubyRepeatExpression', 'orange222')
-  " TODO: call s:make_obvious('rubyConditionalExpression')
+  hi link rubyDoBlock rubyRepeatExpression
+
   " TODO: call s:make_obvious('rubyOptionalDo')
   " TODO: call s:make_obvious('rubyOptionalDoLine')
-  call s:fg('rubySharpBang', 'gray238') " TODO: fix (firstAndSecondLine == oops)
-  call s:fg('rubyComment', 'gray241')
+  call s:fg('rubySharpBang', 'gray251')
+  hi link rubyFirstAndSecondCommentLine rubySharpBang
+  call s:fg('rubyComment', 'gray240')
   " hi rubyMultilineComment cleared
   hi link rubyDocumentation  Comment
   call s:fg('rubyDataDirective', 'purple201')
@@ -375,10 +389,6 @@ fun! s:detailed_colors()
   " call s:make_obvious('rubyArrayDelimiter')
   " call s:make_obvious('rubyArrayLiteral')
 
-  " TODO Figure out how to get these to show up:
-  " TODO call s:make_obvious('rubyBlockExpression')
-  " TODO call s:make_obvious('rubyCaseExpression')
-
   " Mere implementation details, AFAICT:
   " call s:make_obvious('rubyNestedParentheses')
   " call s:make_obvious('rubyNestedCurlyBraces')
@@ -391,6 +401,9 @@ endfun
 " }}}
 
 fun! s:detailed_syntax_addtions()
+  " For no apparent reason they define this to only be 2 chars, fixing:
+  syn match rubyBlockArgument "&[_[:lower:]][_[:alnum:]]*"
+    \ contains=NONE display transparent
   call s:detailed_colors()
 
   " Fixes since syntax/ruby.vim declares these 'transparent':
@@ -402,13 +415,18 @@ fun! s:detailed_syntax_addtions()
   syn match rubyInitialize '\<initialize\>' contained containedin=rubyMethodDeclaration
 
   syn match rubyEncodingDirective "\cencoding: *utf-8" contained
-  syn match firstAndSecondLine '\%^.*\n.*' contains=rubyEncodingDirective
+
+  " TODO - make this more elegant.
+  syn match rubyFirstAndSecondCommentLine '\%^#.*'
+    \ contains=rubyEncodingDirective contained
+  syn match rubyFirstAndSecondCommentLine '\%^#.*\n#.*'
+    \ contains=rubyEncodingDirective contained
 
   syn keyword detailTodo TODO contained
   syn keyword detailFixme FIXME contained
   syn keyword detailXxx XXX contained
   syn match   rubyComment   "#.*" contains=rubySharpBang,rubySpaceError,
-    \firstAndSecondLine,detailTodo,detailFixme,detailXxx,@Spell
+    \rubyFirstAndSecondCommentLine,detailTodo,detailFixme,detailXxx,@Spell
 endfun
 call s:detailed_syntax_addtions()
 

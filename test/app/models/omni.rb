@@ -14,22 +14,19 @@ module Outer
       lvar = { key: 231.0, 123 => ((true)), 'key3': { nes: 'ted' } }
       @ivar = lvar.gsub /^a.c{3}[^e-f](\(g\th|i(?:j)k)(?#comment)$/i, 'hi \1'
       puts 'hi!' while 3 < @ivar
-      begin; a_method rescue StandardError => e; warn 'Oops...' end
-      case @ivar.class
-      when Frippy then puts 'hi' end
       arr << 'hi'
     end
 
     private
-    def a_method arg1, *arg2 = nil, &hi
+    def a_method arg1, *arg2 = nil, &hihi
+      raise 55 if hi.(?\C-m) % arg3[0]; eval 'String' or exit
+      $stderr.puts "hi #{arg1}"
+      begin; inside_block_code rescue StandardError => e; warn 'Oops...' end
+      10.times do |i| inside_block_code end
+      for i in [1,2,3]; inside_loop_code end
+      if x; inside_if_code end
+      case 1 when true then inside_case_code end
       inside_method_code
-      10.times do |count|
-        inside_block_code; $stderr.puts "hi #{arg1}"
-        raise 55 if hi.(?\C-m) % arg3[0]
-      end
-      for i in %w(String Class Fixnum)
-        inside_loop_code; eval i or exit
-      end
     end
 
     DATA.inside_class_code <<-EOT
