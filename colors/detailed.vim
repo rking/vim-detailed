@@ -20,7 +20,6 @@
 " TODO
 " ----
 "
-"   - block &args only first two chars
 "   - More languages, other than Ruby. (Contributions will be very welcome)
 "   - Sync pry-theme to this
 "   - GUI colors
@@ -85,7 +84,6 @@ let s:c = {
   \'graygreen (TODO: use this)': 23,
   \'green22': 22,
   \'green23': 23,
-  \'green29': 29,
   \'green34': 34,
   \'green71': 71,
   \'green76': 76,
@@ -418,13 +416,11 @@ endfun
 " }}}
 
 fun! s:detailed_syntax_addtions()
-  " For no apparent reason they define this to only be 2 chars, fixing:
-  syn match rubyBlockArgument "&[_[:lower:]][_[:alnum:]]*"
-    \ contains=NONE display transparent
   call s:detailed_colors()
 
-  " Fixes since syntax/ruby.vim declares these 'transparent':
-  syn match rubyBlockArgument "&[_[:lower:]][_[:alnum:]]" contains=NONE display
+  " The default syntax/ruby.vim gets this way wrong (only does 2 chars and is
+  " transparent):
+  syn match rubyBlockArgument "&[_[:lower:]][_[:alnum:]]*" contains=NONE display
   " Steal this back from the too-generic 'rubyControl':
   syn match rubyExits "\<\%(exit!\|\%(abort\|at_exit\|exit\|fork\|trap\)\>[?!]\@!\)"
 
@@ -444,6 +440,7 @@ fun! s:detailed_syntax_addtions()
   syn keyword detailXxx XXX contained
   syn match   rubyComment   "#.*" contains=rubySharpBang,rubySpaceError,
     \rubyFirstAndSecondCommentLine,detailTodo,detailFixme,detailXxx,@Spell
+  " TODO - somehow make the detail{Todo,Fixme,Xxx} work for non-ruby langs.
 endfun
 call s:detailed_syntax_addtions()
 
