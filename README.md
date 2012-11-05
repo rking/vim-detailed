@@ -22,14 +22,39 @@ syntax highlighting where it makes sense. That is, "def" is magenta in the
 default, so vim-detailed makes it a shade of purple (and uses different
 shades for all the other magenta things from the default colorscheme).
 
+Download
+--------
+
+ If using Pathogen,
+
+     cd ~/.vim/bundle && git clone https://github.com/rking/vim-detailed
+
+ If using no vim plugin manager:
+
+     mkdir -p ~/.vim/colors/ && cd $_ && wget https://raw.github.com/rking/vim-detailed/master/colors/detailed.vim
+
+Setup
+-----
+
+In your ~/.vimrc (or ~/.vim/plugin/colorscheme.vim if you like to organize):
+
+    colo detailed
+
+This enables it globally. If you want to just do it for a trial, as long as
+you have done one of the steps in the "Download" section, above, you can do:
+
+    vim foo.rb +colo\ detailed
+
+Or, from within vim:
+
+    :colo detailed
+
 TODO
 ----
 
+  - Distinguish Foo and Bar of "class Foo < Bar"
   - More languages, other than Ruby. (Contributions will be very welcome)
   - Sync pry-theme to this
-  - GUI colors
-    Perhaps redo with:
-    http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
+  - GUI colors: http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
+  - Add a pygments version
   - Hunt down remaining non-visible syntax items.
-  - Distinguish between bare things versus contained things:
-   -  class Foo < Bar (Should allow different colors for Foo vs. Bar)
