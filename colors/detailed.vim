@@ -52,6 +52,7 @@
 "   - Distinguish Foo and Bar of "class Foo < Bar"
 "   - More languages, other than Ruby. (Contributions will be very welcome)
 "   - Sync pry-theme to this
+"   - Light bg?  (At least warn or something: currently is illegible)
 "   - GUI colors: http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
 "   - Add a pygments version
 "   - Hunt down remaining non-visible syntax items.
