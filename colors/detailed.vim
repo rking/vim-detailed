@@ -1,3 +1,5 @@
+" Source repo: http://github.com/rking/vim-detailed
+"
 " So many 256-color schemes merely shift the palette around, displaying only 8
 " colors (even though they're a *different* set of 8 colors than default).
 "
