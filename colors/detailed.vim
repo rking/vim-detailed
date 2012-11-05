@@ -84,6 +84,8 @@ let s:c = {
   \'light_yellow230': 229,
   \'graygreen (TODO: use this)': 23,
   \'green22': 22,
+  \'green23': 23,
+  \'green29': 29,
   \'green34': 34,
   \'green71': 71,
   \'green76': 76,
@@ -148,6 +150,10 @@ let s:c = {
 " :hi funcs {{{
 fun! s:fg(group, fg)
   exe 'hi '.a:group.' ctermfg='.s:c[a:fg]
+endfun
+
+fun! s:bg(group, bg)
+  exe 'hi '.a:group.' ctermbg='.s:c[a:bg]
 endfun
 
 fun! s:fgbg(group, fg, bg)
@@ -268,6 +274,16 @@ hi link rubyKeyword     Keyword
 
 " s:detailed_colors — the good stuff {{{
 fun! s:detailed_colors()
+  " vimdiff uses Diff*
+  call s:bg('DiffChange', 'gray240')
+  call s:bg('DiffText', 'gray232')
+  call s:bg('DiffAdd', 'green23')
+  call s:bg('DiffDelete', 'yellow58')
+  " ft=diff syntax uses diff*
+  call s:fg('diffAdded', 'green34')
+  call s:fg('diffRemoved', 'yellow58')
+  " diffFile
+
   call s:fg('rubyConstant', 'green34')
 
   call s:bold_fg('rubyClass', 'purple126')
