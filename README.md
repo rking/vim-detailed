@@ -1,7 +1,7 @@
 vim-detailed
 ============
 
-Source repo: http://github.com/rking/vim-detailed
+
 
 So many 256-color schemes merely shift the palette around, displaying only 8
 colors (even though they're a *different* set of 8 colors than default).
@@ -81,3 +81,4 @@ Or, from within vim:
   - GUI colors: http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
   - Add a pygments version
   - Hunt down remaining non-visible syntax items.
+
