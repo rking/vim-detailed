@@ -1,8 +1,4 @@
 vim-detailed
 ============
 
-<%
-  text = File.read 'colors/detailed.vim'
-  text.sub! /\n\n.*/m, ''
-  text.gsub! /^" ?/, ''
-%><%= text %>
+<%= `rake parse_readme`.sub /Source repo.*/, '' %>
