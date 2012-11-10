@@ -1,5 +1,4 @@
-vim-detailed
-============
+# vim-detailed
 
 
 
@@ -72,13 +71,14 @@ Or, from within vim:
 
     :colo detailed
 
-## TODO
 
-  - Distinguish Foo and Bar of "class Foo < Bar"
-  - More languages, other than Ruby. (Contributions will be very welcome)
-  - Sync pry-theme to this
-  - Light bg?  (At least warn or something: currently is illegible)
-  - GUI colors: http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
-  - Add a pygments version
-  - Hunt down remaining non-visible syntax items.
+## Issues
+
+# rking/vim-detailed open issues
+  6: Pygments Companion
+  5: GUI Colors
+  4: Languages other than Ruby
+  3: Distinguish Foo and Bar of "class Foo < Bar"
+  2: ` " ' distinction
+  1: "DATA" matching within words
 

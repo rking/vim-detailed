@@ -68,15 +68,6 @@
 " Or, from within vim:
 "
 "     :colo detailed
-"
-" ## TODO
-"
-"   - Distinguish Foo and Bar of "class Foo < Bar"
-"   - More languages, other than Ruby. (Contributions will be very welcome)
-"   - Sync pry-theme to this
-"   - GUI colors: http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
-"   - Add a pygments version
-"   - Hunt down remaining non-visible syntax items.
 
 let colors_name = 'detailed'
 

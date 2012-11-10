@@ -15,7 +15,9 @@ task :parse_readme do
   puts parse_readme
 end
 
-task :clip do
-  IO.popen 'xsel', 'w' do |io| io.write parse_readme end
-  system 'firefox', 'http://www.vim.org/scripts/edit_script.php?script_id=4297'
+task :vimorg do
+  puts parse_readme + "\n\n" + `ghi list`
+  url = 'http://www.vim.org/scripts/edit_script.php?script_id=4297'
+  warn url
+  system 'firefox', url
 end
