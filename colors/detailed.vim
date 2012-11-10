@@ -102,6 +102,7 @@ let s:c = {
   \'basic8_blue (TODO: use this)': 4,
   \'basic8_magenta': 5,
   \'basic8_cyan': 6,
+  \'basic8_black': 0,
   \'red52': 52,
   \'red88': 88,
   \'red124': 124,
@@ -136,9 +137,9 @@ let s:c = {
   \'blue17 (TODO: use this)': 17,
   \'blue19 (TODO: use this)': 19,
   \'blue20 (TODO: use this)': 20,
-  \'blue21 (TODO: use this)': 21,
   \'blue25': 25,
   \'blue27': 27,
+  \'blue33': 33,
   \'blue37': 37,
   \'blue75': 75,
   \'blue87': 87,
@@ -335,7 +336,8 @@ fun! s:detailed_colors()
 
   call s:fg('rubyInstanceVariable', 'blue75')
 
-  call s:fg('rubyString', 'red88')
+  call s:fgbg('rubyString', 'red160', 'gray234')
+  call s:fg('rubyStringDelimiter', 'blue33')
   call s:fg('rubyInterpolationDelimiter', 'gray244')
 
   call s:fg('rubyRegexpSpecial', 'seafoam')
@@ -350,7 +352,7 @@ fun! s:detailed_colors()
   call s:fg('rubyRegexpAnchor', 'purple90')
   call s:fg('rubyRegexpDot', 'green34')
   call s:bold_fg('rubyRegexpDelimiter', 'red88')
-  call s:fg('rubyRegexp', 'red160')
+  call s:fgbg('rubyRegexp', 'red160', 'gray234')
   call s:fg('rubyASCIICode', 'green71')
 
   call s:fg('rubyPseudoVariable', 'purple125')
@@ -451,7 +453,6 @@ fun! s:detailed_colors()
   " call s:make_obvious('rubyNestedAngleBrackets')
   " call s:make_obvious('rubyNestedSquareBrackets')
   " call s:make_obvious('rubyDelimEscape')
-  " call s:make_obvious('rubyStringDelimiter')
   " call s:make_obvious('rubySymbolDelimiter')
 endfun
 " }}}
