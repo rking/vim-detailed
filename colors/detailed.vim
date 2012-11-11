@@ -74,7 +74,8 @@ let colors_name = 'detailed'
 " For now, force darkness. If you're a big fan of white bg's, let me know, and
 " we can collaborate on a solution.
 set bg=dark
-hi Normal ctermfg=254 ctermbg=233
+hi Normal ctermfg=254 ctermbg=0
+" Note: ctermbg=233 was my previous value before user feedback. Any opinions?
 
 " Prevent any screwy setting from causing errors:
 let s:save_cpo = &cpo | set cpo&vim
