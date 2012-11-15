@@ -598,7 +598,7 @@ fun! s:detailed_colors()
 
   call s:fg('rubyInstanceVariable', 'blue75')
 
-  call s:fgbg('rubyString', 'red160', 'gray234')
+  call s:fgbg('rubyString', 'red160', 'gray233')
   call s:fg('rubyStringDelimiter', 'blue33')
   call s:fg('rubyInterpolationDelimiter', 'gray244')
 
@@ -614,7 +614,7 @@ fun! s:detailed_colors()
   call s:fg('rubyRegexpAnchor', 'purple90')
   call s:fg('rubyRegexpDot', 'green34')
   call s:bold_fg('rubyRegexpDelimiter', 'red88')
-  call s:fgbg('rubyRegexp', 'red160', 'gray234')
+  call s:fgbg('rubyRegexp', 'red160', 'gray233')
   call s:fg('rubyASCIICode', 'green71')
 
   call s:fg('rubyPseudoVariable', 'purple125')
