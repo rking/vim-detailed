@@ -29,21 +29,6 @@
 " terminfo file in `~/.terminfo/`  -or- you can be totally gross and force it
 " with `:set &t_Co=256` in vim. But don't be gross. It's uncouth.
 "
-" ## Color Choices
-"
-" As a historical note, some small effort was taken to be similar to the
-" default vim syntax highlighting where it makes sense. That is, "def" is
-" magenta in the default, so vim-detailed makes it a shade of purple (and uses
-" different shades for all the other magenta things from the default
-" colorscheme). A person could modify this idea and do better:
-"
-" - Greens - The 256 color palette itself is heavy on green variants. If you
-"   used more greens, you'd be able to group similar-but-different pieces
-"   together more closely.
-" - Coolness - If you adjusted the color choices for æﬆhetic value rather than
-"   utilitarian, you could get a more stylish theme without sacrificing much
-"   detail.
-"
 " ## Download
 "
 "  If using Pathogen,
@@ -374,10 +359,12 @@ let s:c = {
   \'graygreen (TODO: use this)': 23,
   \'green22': 22,
   \'green23': 23,
+  \'green28': 28,
   \'green34': 34,
   \'green71': 71,
   \'green76': 76,
   \'green84': 84,
+  \'green114': 114,
   \'green123': 123,
   \'seafoam': 30,
   \'seafoam2 (TODO: use this)': 35,
@@ -590,7 +577,7 @@ fun! s:detailed_colors()
 
   call s:bold_fg('rubyClass', 'purple126')
   call s:fg('rubyModule', 'purple126')
-  call s:fg('rubyDefine', 'basic8_magenta')
+  call s:fg('rubyDefine', 'green23')
   call s:fg('rubyInclude', 'purple53')
 
   call s:bold_fg('rubyFunction', 'blue27')
@@ -643,7 +630,7 @@ fun! s:detailed_colors()
 
   " Blocks:
   " (basic)
-  call s:fg('rubyMethodBlock', 'purple224')
+  call s:fg('rubyMethodBlock', 'green114')
   call s:fg('rubyBlock', 'purple225')
   call s:fg('rubyBlockExpression', 'orange180')
   " (conditionals)
