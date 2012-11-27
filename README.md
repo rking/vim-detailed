@@ -57,10 +57,17 @@ Or, from within vim:
     :colo detailed
 
 
+## Language Support So Far
+
+- Ruby: 107 details detailed.
+- C: 12 details detailed.
+- Diff: 10 details detailed.
+- Vim: 4 details detailed.
+
+
 # rking/vim-detailed open issues
   7: Warn if t_Co != 256
   6: Pygments Companion
-  4: Languages other than Ruby
   3: Distinguish Foo and Bar of "class Foo < Bar"
   2: ` " ' distinction
   1: "DATA" matching within words
