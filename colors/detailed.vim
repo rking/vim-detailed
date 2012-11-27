@@ -65,8 +65,9 @@ let ruby_operators = 1
 " If you don't have this, rails.vim will zap the matchers when it resets
 " syntax for its own additions:
 au Syntax * call s:fatpacked_rainbow_parens()
+au Syntax * call s:detailed_syntax_addtions()
 
-au Syntax ruby call s:detailed_syntax_addtions()
+au Syntax ruby call s:ruby_syntax_addtions()
 
 " Show detailed syntax stack
 nmap <Leader>dets :call <SID>SynStack()<CR>
@@ -386,9 +387,11 @@ let s:c = {
   \'purple99 (TODO: use this)': 79,
   \'purple125': 125,
   \'purple126': 126,
-  \'purple127 (TODO: use this)': 127,
+  \'purple127': 127,
   \'purple129 (TODO: use this)': 129,
   \'purple131': 131,
+  \'purple132': 132,
+  \'purple134': 134,
   \'purple141 (TODO: use this)': 141,
   \'purple161 (TODO: use this)': 161,
   \'purple201': 201,
@@ -583,7 +586,7 @@ fun! s:detailed_colors()
 
   call s:fg('detailedInstanceVariable', 'blue75')
 
-  call s:fgbg('rubyString', 'red160', 'gray233')
+  call s:fgbg('detailedString', 'red160', 'gray233')
   call s:fg('detailedStringDelimiter', 'blue33')
   call s:fg('detailedInterpolationDelimiter', 'gray244')
 
@@ -602,8 +605,8 @@ fun! s:detailed_colors()
   call s:fg('detailedASCIICode', 'green71')
 
   call s:fg('detailedPseudoVariable', 'purple125')
-  call s:fg('detailedInteger', 'red124')
-  call s:fg('detailedFloat', 'red160')
+  call s:fg('detailedInteger', 'purple134')
+  call s:fg('detailedFloat', 'purple132')
 
   call s:fg('detailedBlockArgument', 'blue87')
   call s:fg('detailedSymbol', 'lavender104')
@@ -660,6 +663,20 @@ fun! s:detailed_colors()
   call s:fg('detailedInitialize', 'green84')
   call s:bold_fg('detailedEncodingDirective', 'green22')
 
+  hi link detailedExits Exception
+
+  hi link cRepeat detailedRepeat
+  hi link cUserLabel detailedRepeat
+  hi link cInclude detailedModule
+  hi link cCppString detailedString
+  hi link cStatement detailedControl " return goto asm continue break
+  hi link cConstant detailedConstant
+  hi link cNumber detailedInteger
+  " Since the C details came after Ruby, the names could be redone a bit:
+  hi link cIncluded detailedString
+  hi link cStructure detailedClass
+  hi link cStorageClass detailedClass
+  hi link cOperator detailedDefine
 
   hi link rubyConditional  Conditional
   hi link rubyExceptional  rubyConditional " No-show.
@@ -674,7 +691,6 @@ fun! s:detailed_colors()
   hi link rubyEncodingDirective detailedEncodingDirective
   hi link rubyInitialize detailedInitialize
   hi link rubyRailsARAssociationMethod detailedRailsARAssociationMethod
-  hi link rubyExits Exception
   hi link rubySpaceError BadWhitespace
   hi link rubyData detailedData
   hi link rubyDataDirective detailedDataDirective
@@ -719,6 +735,7 @@ fun! s:detailed_colors()
   hi link rubyRegexpComment Comment
   hi link rubyRegexpSpecial detailedRegexpSpecial
   hi link rubyInterpolationDelimiter detailedInterpolationDelimiter
+  hi link rubyString detailedString
   hi link rubyStringDelimiter detailedStringDelimiter
   hi link rubyInstanceVariable detailedInstanceVariable
   hi link rubyFunction detailedFunction
@@ -754,12 +771,23 @@ endfun
 fun! s:detailed_syntax_addtions()
   call s:detailed_colors()
 
+  " Steal this back from the too-generic 'rubyControl':
+  syn match detailedExits "\<\%(exit!\|\%(abort\|at_exit\|exit\|fork\|trap\)\>[?!]\@!\)"
+
+  " TODO - somehow make the detail{Todo,Fixme,Xxx} work for non-ruby langs.
+  " E.g., shTodo overrides them, so it will need something like:
+  " syn match   rubyComment   "#.*" contains=rubySharpBang,rubySpaceError,
+  "     \rubyFirstAndSecondCommentLine,detailedTodo,detailedFixme,detailedXxx,@Spell
+  syn keyword detailedTodo TODO contained
+  syn keyword detailedFixme FIXME contained
+  syn keyword detailedXxx XXX contained
+endfun
+call s:detailed_syntax_addtions()
+
+fun! s:ruby_syntax_addtions()
   " The default syntax/ruby.vim gets this way wrong (only does 2 chars and is
   " transparent):
   syn match rubyBlockArgument "&[_[:lower:]][_[:alnum:]]*" contains=NONE display
-  " Steal this back from the too-generic 'rubyControl':
-  syn match rubyExits "\<\%(exit!\|\%(abort\|at_exit\|exit\|fork\|trap\)\>[?!]\@!\)"
-
   " Bonus!
   syn match rubyInitialize '\<initialize\>' contained containedin=rubyMethodDeclaration
 
@@ -767,18 +795,13 @@ fun! s:detailed_syntax_addtions()
 
   " TODO - make this more elegant.
   syn match rubyFirstAndSecondCommentLine '\%^#.*'
-    \ contains=rubyEncodingDirective contained
+        \ contains=rubyEncodingDirective contained
   syn match rubyFirstAndSecondCommentLine '\%^#.*\n#.*'
-    \ contains=rubyEncodingDirective contained
+        \ contains=rubyEncodingDirective contained
 
-  syn keyword detailedTodo TODO contained
-  syn keyword detailedFixme FIXME contained
-  syn keyword detailedXxx XXX contained
   syn match   rubyComment   "#.*" contains=rubySharpBang,rubySpaceError,
-    \rubyFirstAndSecondCommentLine,detailedTodo,detailedFixme,detailedXxx,@Spell
-  " TODO - somehow make the detail{Todo,Fixme,Xxx} work for non-ruby langs.
+        \rubyFirstAndSecondCommentLine,detailedTodo,detailedFixme,detailedXxx,@Spell
 endfun
-call s:detailed_syntax_addtions()
 
 " Rainbow-Parens Improved {{{
 " Inlined from v2.3 of http://www.vim.org/scripts/script.php?script_id=4176
