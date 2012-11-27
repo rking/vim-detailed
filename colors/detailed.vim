@@ -504,7 +504,6 @@ hi TabLineSel     term=bold cterm=bold gui=bold
 hi TabLineFill    term=reverse cterm=reverse gui=reverse
 hi CursorColumn   term=reverse ctermbg=242 guibg=Grey40
 hi CursorLine     term=underline cterm=underline guibg=Grey40
-hi ColorColumn    term=reverse ctermfg=9 ctermbg=12 guifg=black guibg=lightgrey
 hi Constant       term=underline ctermfg=13 guifg=#ffa0a0
 hi Special        term=bold ctermfg=224 guifg=Orange
 hi Identifier     term=underline cterm=bold ctermfg=14 guifg=#40ffff
@@ -550,6 +549,9 @@ fun! s:detailed_colors()
   call s:diff_syntax_and_highlights() " For vimdiff, which uses other filetypes
 
   call s:underline_fgbg('MatchParen', 'gray255', 'gray243')
+
+  " For :set colorcolumn=80
+  call s:fgbg('ColorColumn', 'gray254', 'gray233')
 
   "* Distinguish between each of TODO/FIXME/XXX
   call s:fgbg('detailedTodo', 'green76', 'gray238')
