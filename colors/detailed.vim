@@ -523,12 +523,12 @@ call s:fg('Comment', 'gray242') " In my books, comments should be quiet.
 " Generic links {{{
 hi link String          detailedString
 hi link Character       Constant
-hi link Number          Constant
-hi link Boolean         Constant
-hi link Float           Number
+hi link Number          detailedInteger
+hi link Boolean         detailedBoolean
+hi link Float           detailedFloat
 hi link Function        Identifier
 hi link Conditional     Statement
-hi link Repeat          Statement
+hi link Repeat          detailedRepeat
 hi link Label           Statement
 hi link Operator        Statement
 hi link Keyword         Statement
@@ -544,11 +544,6 @@ hi link SpecialChar     Special
 hi link Delimiter       Special
 hi link SpecialComment  Special
 hi link Debug           Special
-hi link mailQuoted1     Type
-hi link GPGWarning      WarningMsg
-hi link GPGError        ErrorMsg
-hi link GPGHighlightUnknownRecipient  ErrorMsg
-
 "}}}
 
 " s:detailed_colors — the good stuff {{{
