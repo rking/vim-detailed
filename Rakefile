@@ -35,7 +35,8 @@ end
 
 task :vimorg do
   docs = parse_readme + "\n\n" + lang_stats + "\n\n" + `ghi list`
-  docs.gsub '##', '//'
+  docs.gsub! '##', '//'
+  IO.popen 'xsel', 'w' do |io| io.puts docs end
   url = 'http://www.vim.org/scripts/edit_script.php?script_id=4297'
   warn url
   system 'firefox', url
