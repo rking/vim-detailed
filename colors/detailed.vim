@@ -67,7 +67,9 @@ let ruby_operators = 1
 au Syntax * call s:fatpacked_rainbow_parens()
 au Syntax * call s:detailed_syntax_addtions()
 
-au Syntax ruby call s:ruby_syntax_addtions()
+au Syntax c    call s:c_syntax_and_highlights()
+au Syntax vim  call s:vim_syntax_and_highlights()
+au Syntax ruby call s:ruby_syntax_and_highlights()
 
 " Show detailed syntax stack
 nmap <Leader>dets :call <SID>SynStack()<CR>
@@ -464,7 +466,6 @@ endfun
 set bg=dark
 hi Normal ctermfg=254 ctermbg=0
 call s:fgbg('Normal', 'gray254', 'basic8_black')
-" Note: ctermbg=233 was my previous value before user feedback. Any opinions?
 
 " Basic/Default-like Palette {{{
 hi SpecialKey     term=bold ctermfg=81 guifg=Cyan
@@ -582,7 +583,6 @@ fun! s:detailed_colors()
   call s:fg('detailedInclude', 'purple53')
 
   call s:bold_fg('detailedFunction', 'blue27')
-  " No-show: call s:make_obvious('rubyMethodDeclaration')
 
   call s:fg('detailedInstanceVariable', 'blue75')
 
@@ -591,9 +591,6 @@ fun! s:detailed_colors()
   call s:fg('detailedInterpolationDelimiter', 'gray244')
 
   call s:fg('detailedRegexpSpecial', 'seafoam')
-  " Not quite sure why these don't show up:
-  " call s:make_obvious('rubyRegexpParens')
-  " call s:make_obvious('rubyRegexpBrackets')
 
   call s:fg('detailedRegexpCharClass', 'basic8_green')
   call s:fg('detailedRegexpQuantifier', 'yellow148')
@@ -614,14 +611,8 @@ fun! s:detailed_colors()
   call s:fg('detailedBlockParameterList', 'blue25')
   call s:bold_fg('detailedPredefinedConstant', 'green22')
   call s:bold_fg('detailedPredefinedVariable', 'blue37')
-  " XXX no clue why this wont show up: call s:make_obvious('rubyHeredocStart')
-  " TODO: fix these: call s:make_obvious('rubyAliasDeclaration2')
-  "                  call s:make_obvious('rubyAliasDeclaration')
   call s:fg('detailedBoolean', 'purple131')
   call s:fg('detailedOperator', 'green123')
-  " TODO! call s:make_obvious('rubyClassDeclaration')
-  "       call s:make_obvious('rubyDeclaration')
-  " call s:make_obvious('rubyModuleDeclaration')
   call s:fg('detailedAccess', 'yellow100')
   call s:fg('detailedAttribute', 'orange178') " attr_{accessor,reader,writer}
   call s:fg('detailedEval', 'yellow190')
@@ -641,8 +632,6 @@ fun! s:detailed_colors()
   call s:bold_fg('detailedRepeatModifier', 'yellow149') " …while/until
   call s:fg('detailedRepeatExpression', 'orange222')
 
-  " TODO: call s:make_obvious('rubyOptionalDo')
-  " TODO: call s:make_obvious('rubyOptionalDoLine')
   call s:fg('detailedSharpBang', 'gray251')
   " hi rubyMultilineComment cleared
   call s:fg('detailedDataDirective', 'purple201')
@@ -664,7 +653,9 @@ fun! s:detailed_colors()
   call s:bold_fg('detailedEncodingDirective', 'green22')
 
   hi link detailedExits Exception
+endfun
 
+fun! s:c_syntax_and_highlights()
   hi link cRepeat detailedRepeat
   hi link cUserLabel detailedRepeat
   hi link cInclude detailedModule
@@ -677,6 +668,47 @@ fun! s:detailed_colors()
   hi link cStructure detailedClass
   hi link cStorageClass detailedClass
   hi link cOperator detailedDefine
+endfun
+
+fun! s:vim_syntax_and_highlights()
+  hi link vimFuncKey detailedDefine
+  hi link vimFunction detailedFunction
+  "hi link vimFuncBody detailedDefine
+endfun
+
+fun! s:detailed_syntax_addtions()
+  call s:detailed_colors()
+
+  " Steal this back from the too-generic 'rubyControl':
+  syn match detailedExits "\<\%(exit!\|\%(abort\|at_exit\|exit\|fork\|trap\)\>[?!]\@!\)"
+
+  " TODO - somehow make the detail{Todo,Fixme,Xxx} work for non-ruby langs.
+  " E.g., shTodo overrides them, so it will need something like:
+  " syn match   rubyComment   "#.*" contains=rubySharpBang,rubySpaceError,
+  "     \rubyFirstAndSecondCommentLine,detailedTodo,detailedFixme,detailedXxx,@Spell
+  syn keyword detailedTodo TODO contained
+  syn keyword detailedFixme FIXME contained
+  syn keyword detailedXxx XXX contained
+endfun
+call s:detailed_syntax_addtions() " Hrm, can this not be done with aucmd?
+
+fun! s:ruby_syntax_and_highlights()
+  " The default syntax/ruby.vim gets this way wrong (only does 2 chars and is
+  " transparent):
+  syn match rubyBlockArgument "&[_[:lower:]][_[:alnum:]]*" contains=NONE display
+  " Bonus!
+  syn match rubyInitialize '\<initialize\>' contained containedin=rubyMethodDeclaration
+
+  syn match rubyEncodingDirective "\cencoding: *utf-8" contained
+
+  " TODO - make this more elegant.
+  syn match rubyFirstAndSecondCommentLine '\%^#.*'
+        \ contains=rubyEncodingDirective contained
+  syn match rubyFirstAndSecondCommentLine '\%^#.*\n#.*'
+        \ contains=rubyEncodingDirective contained
+
+  syn match   rubyComment   "#.*" contains=rubySharpBang,rubySpaceError,
+        \rubyFirstAndSecondCommentLine,detailedTodo,detailedFixme,detailedXxx,@Spell
 
   hi link rubyConditional  Conditional
   hi link rubyExceptional  rubyConditional " No-show.
@@ -765,43 +797,21 @@ fun! s:detailed_colors()
   " call s:make_obvious('rubyNestedSquareBrackets')
   " call s:make_obvious('rubyDelimEscape')
   " call s:make_obvious('rubySymbolDelimiter')
+
+  " No-show: call s:make_obvious('rubyMethodDeclaration')
+  " Not quite sure why these don't show up:
+  " call s:make_obvious('rubyRegexpParens')
+  " call s:make_obvious('rubyRegexpBrackets')
+  " XXX no clue why this wont show up: call s:make_obvious('rubyHeredocStart')
+  " TODO: fix these: call s:make_obvious('rubyAliasDeclaration2')
+  "                  call s:make_obvious('rubyAliasDeclaration')
+  " TODO! call s:make_obvious('rubyClassDeclaration')
+  "       call s:make_obvious('rubyDeclaration')
+  " call s:make_obvious('rubyModuleDeclaration')
+  " TODO: call s:make_obvious('rubyOptionalDo')
+  " TODO: call s:make_obvious('rubyOptionalDoLine')
 endfun
 " }}}
-
-fun! s:detailed_syntax_addtions()
-  call s:detailed_colors()
-
-  " Steal this back from the too-generic 'rubyControl':
-  syn match detailedExits "\<\%(exit!\|\%(abort\|at_exit\|exit\|fork\|trap\)\>[?!]\@!\)"
-
-  " TODO - somehow make the detail{Todo,Fixme,Xxx} work for non-ruby langs.
-  " E.g., shTodo overrides them, so it will need something like:
-  " syn match   rubyComment   "#.*" contains=rubySharpBang,rubySpaceError,
-  "     \rubyFirstAndSecondCommentLine,detailedTodo,detailedFixme,detailedXxx,@Spell
-  syn keyword detailedTodo TODO contained
-  syn keyword detailedFixme FIXME contained
-  syn keyword detailedXxx XXX contained
-endfun
-call s:detailed_syntax_addtions()
-
-fun! s:ruby_syntax_addtions()
-  " The default syntax/ruby.vim gets this way wrong (only does 2 chars and is
-  " transparent):
-  syn match rubyBlockArgument "&[_[:lower:]][_[:alnum:]]*" contains=NONE display
-  " Bonus!
-  syn match rubyInitialize '\<initialize\>' contained containedin=rubyMethodDeclaration
-
-  syn match rubyEncodingDirective "\cencoding: *utf-8" contained
-
-  " TODO - make this more elegant.
-  syn match rubyFirstAndSecondCommentLine '\%^#.*'
-        \ contains=rubyEncodingDirective contained
-  syn match rubyFirstAndSecondCommentLine '\%^#.*\n#.*'
-        \ contains=rubyEncodingDirective contained
-
-  syn match   rubyComment   "#.*" contains=rubySharpBang,rubySpaceError,
-        \rubyFirstAndSecondCommentLine,detailedTodo,detailedFixme,detailedXxx,@Spell
-endfun
 
 " Rainbow-Parens Improved {{{
 " Inlined from v2.3 of http://www.vim.org/scripts/script.php?script_id=4176
