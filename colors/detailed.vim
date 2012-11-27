@@ -67,9 +67,10 @@ let ruby_operators = 1
 au Syntax * call s:fatpacked_rainbow_parens()
 au Syntax * call s:detailed_syntax_addtions()
 
-au Syntax c    call s:c_syntax_and_highlights()
-au Syntax vim  call s:vim_syntax_and_highlights()
 au Syntax ruby call s:ruby_syntax_and_highlights()
+au Syntax c    call s:c_syntax_and_highlights()
+au Syntax diff call s:diff_syntax_and_highlights()
+au Syntax vim  call s:vim_syntax_and_highlights()
 
 " Show detailed syntax stack
 nmap <Leader>dets :call <SID>SynStack()<CR>
@@ -519,8 +520,8 @@ hi Todo           term=standout ctermfg=0 ctermbg=11 guifg=Blue guibg=Yellow
 call s:fg('Comment', 'gray242') " In my books, comments should be quiet.
 " }}}
 
-" Default links {{{
-hi link String          Constant
+" Generic links {{{
+hi link String          detailedString
 hi link Character       Constant
 hi link Number          Constant
 hi link Boolean         Constant
@@ -552,17 +553,9 @@ hi link GPGHighlightUnknownRecipient  ErrorMsg
 
 " s:detailed_colors — the good stuff {{{
 fun! s:detailed_colors()
-  call s:underline_fgbg('MatchParen', 'gray255', 'gray243')
+  call s:diff_syntax_and_highlights() " For vimdiff, which uses other filetypes
 
-  " vimdiff uses Diff*
-  call s:bg('DiffChange', 'gray240')
-  call s:bg('DiffText', 'gray232')
-  call s:bg('DiffAdd', 'green23')
-  call s:bg('DiffDelete', 'yellow58')
-  " ft=diff syntax uses diff*
-  call s:fg('diffAdded', 'green34')
-  call s:fg('diffRemoved', 'yellow58')
-  " diffFile
+  call s:underline_fgbg('MatchParen', 'gray255', 'gray243')
 
   "* Distinguish between each of TODO/FIXME/XXX
   call s:fgbg('detailedTodo', 'green76', 'gray238')
@@ -655,11 +648,22 @@ fun! s:detailed_colors()
   hi link detailedExits Exception
 endfun
 
+fun! s:diff_syntax_and_highlights()
+  " vimdiff uses Diff*
+  call s:bg('DiffChange', 'gray240')
+  call s:bg('DiffText', 'gray232')
+  call s:bg('DiffAdd', 'green23')
+  call s:bg('DiffDelete', 'yellow58')
+  " ft=diff syntax uses diff*
+  call s:fg('diffAdded', 'green34')
+  call s:fg('diffRemoved', 'yellow58')
+  " diffFile
+endfun
+
 fun! s:c_syntax_and_highlights()
   hi link cRepeat detailedRepeat
   hi link cUserLabel detailedRepeat
   hi link cInclude detailedModule
-  hi link cCppString detailedString
   hi link cStatement detailedControl " return goto asm continue break
   hi link cConstant detailedConstant
   hi link cNumber detailedInteger
@@ -767,7 +771,6 @@ fun! s:ruby_syntax_and_highlights()
   hi link rubyRegexpComment Comment
   hi link rubyRegexpSpecial detailedRegexpSpecial
   hi link rubyInterpolationDelimiter detailedInterpolationDelimiter
-  hi link rubyString detailedString
   hi link rubyStringDelimiter detailedStringDelimiter
   hi link rubyInstanceVariable detailedInstanceVariable
   hi link rubyFunction detailedFunction
