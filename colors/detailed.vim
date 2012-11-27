@@ -474,7 +474,6 @@ hi NonText        term=bold ctermfg=12 gui=bold guifg=Blue
 hi Directory      term=bold ctermfg=159 guifg=Cyan
 hi ErrorMsg       term=standout ctermfg=15 ctermbg=1 guifg=White guibg=Red
 hi IncSearch      term=reverse cterm=reverse gui=reverse
-hi Search         term=reverse ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
 hi MoreMsg        term=bold ctermfg=121 gui=bold guifg=SeaGreen
 hi ModeMsg        term=bold cterm=bold gui=bold
 hi LineNr         term=underline ctermfg=11 guifg=Yellow
