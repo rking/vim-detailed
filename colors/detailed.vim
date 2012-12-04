@@ -465,8 +465,7 @@ endfun
 " For now, force darkness. If you're a big fan of white bg's, let me know, and
 " we can collaborate on a solution.
 set bg=dark
-hi Normal ctermfg=254 ctermbg=0
-call s:fgbg('Normal', 'gray254', 'basic8_black')
+call s:fgbg('Normal', 'gray254', 'gray232')
 
 " Basic/Default-like Palette {{{
 hi SpecialKey     term=bold ctermfg=81 guifg=Cyan
@@ -560,6 +559,11 @@ fun! s:detailed_colors()
 
   call s:fgbg('Error', 'gray235', 'red196')
   call s:underline_fgbg('Search', 'gray254', 'gray235')
+
+  call s:fgbg('Folded', 'blue37', 'gray237')
+
+  " ^P (completion) menu
+  call s:fgbg('Pmenu', 'gray232', 'green28')
 
   " https://github.com/bitc/vim-bad-whitespace
   call s:fgbg('BadWhitespace', 'gray238', 'yellow58')
