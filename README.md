@@ -61,6 +61,7 @@ Or, from within vim:
 
 - Ruby: 107 details detailed.
 - C: 12 details detailed.
+- Go: 11 details detailed.
 - Diff: 10 details detailed.
 - Vim: 4 details detailed.
 
@@ -69,6 +70,6 @@ Or, from within vim:
   7: Warn if t_Co != 256
   6: Pygments Companion
   3: Distinguish Foo and Bar of "class Foo < Bar"
-  2: ` " ' distinction
-  1: "DATA" matching within words
+  2: ` " ' distinction [actual-user-request]
+  1: "DATA" matching within words, "exit" matching plain text
 
