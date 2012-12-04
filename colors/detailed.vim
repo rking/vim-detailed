@@ -71,6 +71,7 @@ au Syntax ruby call s:ruby_syntax_and_highlights()
 au Syntax c    call s:c_syntax_and_highlights()
 au Syntax diff call s:diff_syntax_and_highlights()
 au Syntax vim  call s:vim_syntax_and_highlights()
+au Syntax go   call s:go_syntax_and_highlights()
 
 " Show detailed syntax stack
 nmap <Leader>dets :call <SID>SynStack()<CR>
@@ -365,6 +366,7 @@ let s:c = {
   \'green23': 23,
   \'green28': 28,
   \'green34': 34,
+  \'green37': 37,
   \'green71': 71,
   \'green76': 76,
   \'green84': 84,
@@ -394,6 +396,7 @@ let s:c = {
   \'purple129 (TODO: use this)': 129,
   \'purple131': 131,
   \'purple132': 132,
+  \'purple139': 139,
   \'purple134': 134,
   \'purple141 (TODO: use this)': 141,
   \'purple161 (TODO: use this)': 161,
@@ -574,12 +577,15 @@ fun! s:detailed_colors()
   call s:fg('detailedModule', 'purple126')
   call s:fg('detailedDefine', 'green23')
   call s:fg('detailedInclude', 'purple53')
+  call s:fg('detailedDeclaration', 'yellow100') " Originally for go lang
+  call s:fg('detailedDeclType', 'green37') " Originally for go lang
 
   call s:bold_fg('detailedFunction', 'blue27')
 
   call s:fg('detailedInstanceVariable', 'blue75')
 
-  call s:fgbg('detailedString', 'red160', 'gray233')
+  call s:fgbg('detailedString', 'purple125', 'gray233')
+  call s:fgbg('detailedRawString', 'red160', 'gray233')
   call s:fg('detailedStringDelimiter', 'blue33')
   call s:fg('detailedInterpolationDelimiter', 'gray244')
 
@@ -597,6 +603,7 @@ fun! s:detailed_colors()
   call s:fg('detailedPseudoVariable', 'purple125')
   call s:fg('detailedInteger', 'purple134')
   call s:fg('detailedFloat', 'purple132')
+  call s:bold_fg('detailedImaginary', 'purple139')
 
   call s:fg('detailedBlockArgument', 'blue87')
   call s:fg('detailedSymbol', 'lavender104')
@@ -621,7 +628,7 @@ fun! s:detailed_colors()
   call s:bold_fg('detailedConditionalModifier', 'yellow148') " 'Yoda if'
   call s:fg('detailedConditionalExpression', 'light_yellow230')
   " (loops)
-  call s:fg('detailedRepeat', 'orange178')
+  call s:bold_fg('detailedRepeat', 'orange178')
   call s:bold_fg('detailedRepeatModifier', 'yellow149') " …while/until
   call s:fg('detailedRepeatExpression', 'orange222')
 
@@ -630,6 +637,7 @@ fun! s:detailed_colors()
   call s:fg('detailedDataDirective', 'purple201')
   call s:fg('detailedData', 'gray245')
 
+  call s:bold_fg('detailedDirective', 'green22')
 
   "* `fail`/`raise`/`exit` were yellow by default, but here a more warny orange.
   call s:fg('Exception', 'orange208')
@@ -643,7 +651,7 @@ fun! s:detailed_colors()
 
   " detailed.vim especialties:
   call s:fg('detailedInitialize', 'green84')
-  call s:bold_fg('detailedEncodingDirective', 'green22')
+  hi link detailedEncodingDirective detailedDirective
 
   hi link detailedExits Exception
 endfun
@@ -672,6 +680,19 @@ fun! s:c_syntax_and_highlights()
   hi link cStructure detailedClass
   hi link cStorageClass detailedClass
   hi link cOperator detailedDefine
+endfun
+
+fun! s:go_syntax_and_highlights()
+  
+  " hi link goBlock detailedBlock
+  hi link goDirective detailedDirective
+  hi link goDeclaration detailedDeclaration
+  hi link goDeclType detailedDeclType
+  hi link goConstants detailedBoolean
+  hi link goStatement detailedControl
+  hi link goRawString detailedRawString
+  hi link goImaginary detailedImaginary
+  hi link goSpaceError BadWhitespace
 endfun
 
 fun! s:vim_syntax_and_highlights()
