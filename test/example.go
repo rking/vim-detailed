@@ -10,11 +10,6 @@ package goplay
 import (
 	"bytes"
 	"encoding/json"
-	"go/ast"
-	"go/parser"
-	"go/printer"
-	"go/token"
-	"net/http"
 )
 
 type fmtResponse struct {
