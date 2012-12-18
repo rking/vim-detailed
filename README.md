@@ -67,7 +67,8 @@ Or, from within vim:
 
 
 # rking/vim-detailed open issues
-  7: Warn if t_Co != 256
+  9: Detail Python [actual-user-request] 1
+  7: Handle t_Co != 256
   6: Pygments Companion
   3: Distinguish Foo and Bar of "class Foo < Bar"
   2: ` " ' distinction [actual-user-request]
