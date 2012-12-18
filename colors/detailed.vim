@@ -566,7 +566,11 @@ fun! s:detailed_colors()
   call s:fgbg('Folded', 'blue37', 'gray237')
 
   " ^P (completion) menu
-  call s:fgbg('Pmenu', 'gray232', 'green28')
+  call s:fgbg('Pmenu', 'gray232', 'gray246')
+  call s:fgbg('PmenuSel', 'gray232', 'green28')
+
+  " Tone this one down a bit. The color lowers contrast and is too obtrusive.
+  call s:bg('Conceal', 'gray235')
 
   " https://github.com/bitc/vim-bad-whitespace
   call s:fgbg('BadWhitespace', 'gray238', 'yellow58')
