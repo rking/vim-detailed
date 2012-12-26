@@ -543,6 +543,10 @@ fun! s:detailed_colors()
 
   call s:underline_fgbg('MatchParen', 'gray255', 'gray243')
 
+  " for :set cursorline
+  call s:bg('CursorLine', 'gray233')
+  hi CursorLine cterm=none " Get rid of the underline
+
   " For :set colorcolumn=80
   call s:fgbg('ColorColumn', 'gray254', 'gray233')
 
