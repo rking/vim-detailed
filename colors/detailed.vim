@@ -496,7 +496,6 @@ hi TabLine        term=underline cterm=underline ctermfg=15 ctermbg=242 gui=unde
 hi TabLineSel     term=bold cterm=bold gui=bold
 hi TabLineFill    term=reverse cterm=reverse gui=reverse
 hi CursorColumn   term=reverse ctermbg=242 guibg=Grey40
-hi CursorLine     term=underline cterm=underline guibg=Grey40
 hi Constant       term=underline ctermfg=13 guifg=#ffa0a0
 hi Special        term=bold ctermfg=224 guifg=Orange
 hi Identifier     term=underline cterm=bold ctermfg=14 guifg=#40ffff
