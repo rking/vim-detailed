@@ -491,16 +491,11 @@ hi WarningMsg     term=standout ctermfg=224 guifg=Red
 hi WildMenu       term=standout ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
 hi Folded         term=standout ctermfg=14 ctermbg=242 guifg=Cyan guibg=DarkGrey
 hi FoldColumn     term=standout ctermfg=14 ctermbg=242 guifg=Cyan guibg=Grey
-hi SignColumn     term=standout ctermfg=14 ctermbg=242 guifg=Cyan guibg=Grey
 hi Conceal        ctermfg=7 ctermbg=242 guifg=LightGrey guibg=DarkGrey
 hi SpellBad       term=reverse ctermbg=9 gui=undercurl guisp=Red
 hi SpellCap       term=reverse ctermbg=12 gui=undercurl guisp=Blue
 hi SpellRare      term=reverse ctermbg=13 gui=undercurl guisp=Magenta
 hi SpellLocal     term=underline ctermbg=14 gui=undercurl guisp=Cyan
-hi Pmenu          ctermfg=0 ctermbg=13 guibg=Magenta
-hi PmenuSel       ctermfg=0 ctermbg=242 guibg=DarkGrey
-hi PmenuSbar      ctermbg=248 guibg=Grey
-hi PmenuThumb     ctermbg=15 guibg=White
 hi TabLine        term=underline cterm=underline ctermfg=15 ctermbg=242 gui=underline guibg=DarkGrey
 hi TabLineSel     term=bold cterm=bold gui=bold
 hi TabLineFill    term=reverse cterm=reverse gui=reverse
@@ -571,6 +566,8 @@ fun! s:detailed_colors()
   " ^P (completion) menu
   call s:fgbg('Pmenu', 'gray232', 'gray246')
   call s:fgbg('PmenuSel', 'gray232', 'green28')
+  call s:bg('PmenuSbar', 'gray234')
+  call s:bg('PmenuThumb', 'gray232')
 
   " Tone this one down a bit. The color lowers contrast and is too obtrusive.
   call s:bg('Conceal', 'gray235')
@@ -690,7 +687,7 @@ fun! s:c_syntax_and_highlights()
 endfun
 
 fun! s:go_syntax_and_highlights()
-  
+
   " hi link goBlock detailedBlock
   hi link goDirective detailedDirective
   hi link goDeclaration detailedDeclaration
