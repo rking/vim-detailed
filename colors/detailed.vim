@@ -485,8 +485,6 @@ hi StatusLine     term=bold,reverse cterm=bold,reverse gui=bold,reverse
 hi StatusLineNC   term=reverse cterm=reverse gui=reverse
 hi VertSplit      term=reverse cterm=reverse gui=reverse
 hi Title          term=bold ctermfg=225 gui=bold guifg=Magenta
-hi Visual         term=reverse ctermbg=242 guibg=DarkGrey
-hi VisualNOS      term=bold,underline cterm=bold,underline gui=bold,underline
 hi WarningMsg     term=standout ctermfg=224 guifg=Red
 hi WildMenu       term=standout ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
 hi Folded         term=standout ctermfg=14 ctermbg=242 guifg=Cyan guibg=DarkGrey
@@ -568,6 +566,10 @@ fun! s:detailed_colors()
   call s:fgbg('PmenuSel', 'gray232', 'green28')
   call s:bg('PmenuSbar', 'gray234')
   call s:bg('PmenuThumb', 'gray232')
+
+  " Visual selections
+  call s:bg('Visual', 'gray234')
+  hi VisualNOS term=bold,underline cterm=bold,underline gui=bold,underline
 
   " Tone this one down a bit. The color lowers contrast and is too obtrusive.
   call s:bg('Conceal', 'gray235')
