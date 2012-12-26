@@ -487,9 +487,7 @@ hi VertSplit      term=reverse cterm=reverse gui=reverse
 hi Title          term=bold ctermfg=225 gui=bold guifg=Magenta
 hi WarningMsg     term=standout ctermfg=224 guifg=Red
 hi WildMenu       term=standout ctermfg=0 ctermbg=11 guifg=Black guibg=Yellow
-hi Folded         term=standout ctermfg=14 ctermbg=242 guifg=Cyan guibg=DarkGrey
 hi FoldColumn     term=standout ctermfg=14 ctermbg=242 guifg=Cyan guibg=Grey
-hi Conceal        ctermfg=7 ctermbg=242 guifg=LightGrey guibg=DarkGrey
 hi SpellBad       term=reverse ctermbg=9 gui=undercurl guisp=Red
 hi SpellCap       term=reverse ctermbg=12 gui=undercurl guisp=Blue
 hi SpellRare      term=reverse ctermbg=13 gui=undercurl guisp=Magenta
