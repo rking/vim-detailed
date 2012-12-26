@@ -555,6 +555,9 @@ fun! s:detailed_colors()
   " For :set colorcolumn=80
   call s:fgbg('ColorColumn', 'gray254', 'gray233')
 
+  " For the Syntastic and quickfixsigns plugins:
+  call s:bg('SignColumn', 'gray233')
+
   "* Distinguish between each of TODO/FIXME/XXX
   call s:fgbg('detailedTodo', 'green76', 'gray238')
   call s:fgbg('detailedFixme', 'gray232', 'orange208')
