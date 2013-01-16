@@ -711,9 +711,6 @@ endfun
 fun! s:detailed_syntax_addtions()
   call s:detailed_colors()
 
-  " Steal this back from the too-generic 'rubyControl':
-  syn match detailedExits "\<\%(exit!\|\%(abort\|at_exit\|exit\|fork\|trap\)\>[?!]\@!\)"
-
   " TODO - somehow make the detail{Todo,Fixme,Xxx} work for non-ruby langs.
   " E.g., shTodo overrides them, so it will need something like:
   " syn match   rubyComment   "#.*" contains=rubySharpBang,rubySpaceError,
@@ -725,6 +722,9 @@ endfun
 call s:detailed_syntax_addtions() " Hrm, can this not be done with aucmd?
 
 fun! s:ruby_syntax_and_highlights()
+  " Steal this back from the too-generic 'rubyControl':
+  syn match detailedExits "\<\%(exit!\|\%(abort\|at_exit\|exit\|fork\|trap\)\>[?!]\@!\)"
+
   " The default syntax/ruby.vim gets this way wrong (only does 2 chars and is
   " transparent):
   syn match rubyBlockArgument "&[_[:lower:]][_[:alnum:]]*" contains=NONE display
