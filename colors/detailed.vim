@@ -602,7 +602,7 @@ fun! s:detailed_colors()
   call s:fg('detailedInstanceVariable', 'blue75')
 
   call s:fgbg('detailedString', 'purple125', 'gray233')
-  call s:fgbg('detailedInterpolatedString', 'purple126', 'gray232')
+  call s:fgbg('detailedInterpolatedString', 'purple126', 'gray233')
   call s:bold_fgbg('detailedExecutedString', 'green34', 'purple53')
   call s:fgbg('detailedRawString', 'red160', 'gray233')
   call s:fg('detailedStringDelimiter', 'blue33')
