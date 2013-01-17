@@ -393,7 +393,6 @@ let s:c = {
   \'purple125': 125,
   \'purple126': 126,
   \'purple127': 127,
-  \'purple129 (TODO: use this)': 129,
   \'purple131': 131,
   \'purple132': 132,
   \'purple139': 139,
@@ -449,6 +448,10 @@ endfun
 
 fun! s:fgbg(group, fg, bg)
   exe 'hi '.a:group.' '.s:color_for(a:fg,'fg').' '.s:color_for(a:bg,'bg')
+endfun
+
+fun! s:bold(group)
+  exe 'hi '.a:group.' cterm=bold gui=bold'
 endfun
 
 fun! s:bold_fg(group, fg)
@@ -544,6 +547,7 @@ fun! s:detailed_colors()
 
   " for :set cursorline
   call s:bg('CursorLine', 'gray233')
+
   hi CursorLine cterm=none " Get rid of the underline
 
   " For :set colorcolumn=80
@@ -591,7 +595,10 @@ fun! s:detailed_colors()
 
   call s:fg('detailedInstanceVariable', 'blue75')
 
-  call s:fgbg('detailedString', 'purple125', 'gray233')
+  call s:fgbg('detailedString', 'red124', 'gray233')
+  call s:fgbg('detailedInterpolatedString', 'purple125', 'gray233')
+  call s:fgbg('detailedExecutedString', 'green34', 'purple53')
+  call s:bold('detailedExecutedString')
   call s:fgbg('detailedRawString', 'red160', 'gray233')
   call s:fg('detailedStringDelimiter', 'blue33')
   call s:fg('detailedInterpolationDelimiter', 'gray244')
@@ -724,6 +731,11 @@ call s:detailed_syntax_addtions() " Hrm, can this not be done with aucmd?
 fun! s:ruby_syntax_and_highlights()
   " Steal this back from the too-generic 'rubyControl':
   syn match detailedExits "\<\%(exit!\|\%(abort\|at_exit\|exit\|fork\|trap\)\>[?!]\@!\)"
+
+  " TODO: also handle %(…), etc
+  syn region detailedInterpolatedString matchgroup=detailedInterpolatedStringDelimiter start="\"" end="\"" skip="\\\\\|\\\"" contains=@rubyStringSpecial,@Spell fold
+  " TODO: Also, %x(). Anything else?
+  syn region detailedExecutedString matchgroup=detailedExecutedStringDelimiter start="`" end="`"  skip="\\\\\|\\`"  contains=@rubyStringSpecial fold
 
   " The default syntax/ruby.vim gets this way wrong (only does 2 chars and is
   " transparent):

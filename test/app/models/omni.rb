@@ -11,10 +11,10 @@ module Outer
     @@foo = $bar = @baz = buz = 2 + 1
 
     def initialize
-      lvar = { key: 231.0, 123 => ((true)), 'key3': { nes: 'ted' } }
+      lvar = { key: 231.0, 123 => ((true)), 'key3' => { nes: 'ted' } }
       @ivar = lvar.gsub /^a.c{3}[^e-f](\(g\th|i(?:j)k)(?#comment)$/i, 'hi \1'
       puts 'hi!' while 3 < @ivar
-      arr << 'hi'
+      arr << 'hi' << "hih#{i}" << `hi`
     end
 
     private
