@@ -455,7 +455,13 @@ fun! s:bold(group)
 endfun
 
 fun! s:bold_fg(group, fg)
-  exe 'hi '.a:group.' '.s:color_for(a:fg,'fg').' cterm=bold gui=bold'
+  call s:fg(a:group, a:fg)
+  call s:bold(a:group)
+endfun
+
+fun! s:bold_fgbg(group, fg, bg)
+  call s:fgbg(a:group, a:fg, a:bg)
+  call s:bold(a:group)
 endfun
 
 fun! s:underline_fgbg(group, fg, bg)
@@ -597,8 +603,7 @@ fun! s:detailed_colors()
 
   call s:fgbg('detailedString', 'red124', 'gray233')
   call s:fgbg('detailedInterpolatedString', 'purple125', 'gray233')
-  call s:fgbg('detailedExecutedString', 'green34', 'purple53')
-  call s:bold('detailedExecutedString')
+  call s:bold_fgbg('detailedExecutedString', 'green34', 'purple53')
   call s:fgbg('detailedRawString', 'red160', 'gray233')
   call s:fg('detailedStringDelimiter', 'blue33')
   call s:fg('detailedInterpolationDelimiter', 'gray244')
