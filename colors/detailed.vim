@@ -579,7 +579,7 @@ fun! s:detailed_colors()
   call s:bg('PmenuThumb', 'gray232')
 
   " Visual selections
-  call s:bg('Visual', 'gray234')
+  call s:bg('Visual', 'green22')
   hi VisualNOS term=bold,underline cterm=bold,underline gui=bold,underline
 
   " Tone this one down a bit. The color lowers contrast and is too obtrusive.
