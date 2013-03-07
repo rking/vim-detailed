@@ -1,5 +1,7 @@
 # vim-detailed
 
+![behaving](img/vim-detailed.png)
+
 
 
 So many 256-color schemes merely shift the palette around, displaying only 8
@@ -66,11 +68,8 @@ Or, from within vim:
 - Vim: 4 details detailed.
 
 
-# rking/vim-detailed open issues
-  10: Sync Rainbow-Parens to Pharo
-   9: Detail Python [actual-user-request] 2
-   7: Handle t_Co != 256
-   6: Pygments Companion
-   3: Distinguish Foo and Bar of "class Foo < Bar"
-   2: ` " ' distinction [actual-user-request] 1
+## Troubleshooting
 
+This is wrong:
+
+![misbehaving](img/misbehaving-detailed.png)
