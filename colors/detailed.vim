@@ -871,10 +871,10 @@ fun! s:fatpacked_rainbow_parens()
         \ 'DarkOrange3', 'FireBrick',
         \ ]
 
+  " From Pharo Smalltalk:
+  " Black, Green, Purple, Maroon, LightGreen, Orange, Red, Blue
   let ctermfgs = exists('g:rainbow_ctermfgs')? g:rainbow_ctermfgs : [
-        \ 'darkgray', 'Darkblue', 'darkmagenta',
-        \ 'darkcyan', 'darkred', 'darkgreen',
-        \ ]
+        \ '19', '238', '22', '56', '52', '72', '166', '88' ]
 
   let max = has('gui_running')? len(guifgs) : len(ctermfgs)
 
