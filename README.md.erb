@@ -6,6 +6,21 @@
 
 <%= `rake lang_stats` %>
 
+Note that for fully supported languages (Ruby), you get the whole experience of having the subtle color shades that fingerprint and lint the code when you glance at it.
+
+For the lesser grades mentioned above, you should get a bit more, but know that the `syntax/[yourlang].vim` has to have enough semantic parsing to make this possible. If you want to go further, you can certainly get a patch in that enhances the syntax parsing inside vim-detailed's `colors/detailed.vim` file.
+
+For all other languages, even the ones not listed above, you should at least get:
+- Rainbow parens/brackets/curlies (which can be very helpful when the syntax gets deep)
+- Quiet comments (grey, because "a comment is a lie waiting to happen")
+- Strings with gray background (so it looks like a solid chunk)
+- Muted colorcolumn (gray instead of GIANT LOUD RED)
+- A color palette somewhat consistent with the detailed ones
+
+## Issues:
+
+<%= `ghi list` %>
+
 ## Troubleshooting
 
 This is wrong:
