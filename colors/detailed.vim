@@ -71,6 +71,7 @@ au Syntax ruby call s:ruby_syntax_and_highlights()
 au Syntax c    call s:c_syntax_and_highlights()
 au Syntax diff call s:diff_syntax_and_highlights()
 au Syntax vim  call s:vim_syntax_and_highlights()
+au Syntax javascript call s:javascript_syntax_and_highlights()
 au Syntax go   call s:go_syntax_and_highlights()
 
 " Show detailed syntax stack
@@ -718,6 +719,12 @@ fun! s:vim_syntax_and_highlights()
   hi link vimFuncKey detailedDefine
   hi link vimFunction detailedFunction
   "hi link vimFuncBody detailedDefine
+endfun
+
+fun! s:javascript_syntax_and_highlights()
+  hi link javascriptFunction detailedDefine
+  hi link javascriptIdentifier Type
+  hi link javascriptRailsFunction detailedInstanceVariable
 endfun
 
 fun! s:detailed_syntax_addtions()
