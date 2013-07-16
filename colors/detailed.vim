@@ -488,7 +488,7 @@ hi ErrorMsg       term=standout ctermfg=15 ctermbg=1 guifg=White guibg=Red
 hi IncSearch      term=reverse cterm=reverse gui=reverse
 hi MoreMsg        term=bold ctermfg=121 gui=bold guifg=SeaGreen
 hi ModeMsg        term=bold cterm=bold gui=bold
-hi LineNr         term=underline ctermfg=11 guifg=Yellow
+hi LineNr gui=NONE term=NONE guifg=#005f87 ctermfg=24
 hi CursorLineNr   term=bold ctermfg=11 gui=bold guifg=Yellow
 hi Question       term=standout ctermfg=121 gui=bold guifg=Green
 hi StatusLine     term=bold,reverse cterm=bold,reverse gui=bold,reverse
