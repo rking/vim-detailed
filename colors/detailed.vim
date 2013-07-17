@@ -723,6 +723,34 @@ fun! s:javascript_syntax_and_highlights()
   hi link javascriptRailsFunction detailedInstanceVariable
 endfun
 
+fun! s:markdown_syntax_and_highlights()
+  " # ...
+  hi link markdownH1 detailedRawString
+  " ## ...
+  hi link markdownH2 detailedBoolean
+  " ### ...
+  hi link markdownH3 detailedBoolean
+  " backticks code examples like:
+  " `I18n
+  hi link markdownCode detailedBoolean
+  hi link markdownCodeDelimiter detailedRawString
+  " code intendation
+  "     code
+  hi link markdownCodeBlock detailedBoolean
+
+  " Links like: [Sinatra framework](http://www.sinatrarb.com/ "Sinatra")
+  syn region markdownIdDeclaration matchgroup=markdownLinkDelimiter start="\[" end="\]" oneline keepend nextgroup=markdownUrl skipwhite
+  syn match markdownUrl "\S\+" nextgroup=markdownUrlTitle skipwhite contained
+  syn region markdownUrl matchgroup=markdownUrlDelimiter start="<" end=">" oneline keepend nextgroup=markdownUrlTitle skipwhite contained
+  syn region markdownUrlTitle matchgroup=markdownUrlTitleDelimiter start=+(+ end=+)+ keepend contained
+  hi link markdownIdDeclaration detailedDefine
+  hi link markdownLinkDelimiter detailedConstant
+  hi link markdownUrl detailedFloat
+  hi link markdownUrlDelimiter Type
+  hi link markdownUrlTitle detailedBoolean
+  hi link markdownUrlTitleDelimiter detailedRawString
+endfun
+
 fun! s:detailed_syntax_addtions()
   call s:detailed_colors()
 
