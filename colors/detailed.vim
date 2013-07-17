@@ -67,12 +67,13 @@ let ruby_operators = 1
 au Syntax * call s:fatpacked_rainbow_parens()
 au Syntax * call s:detailed_syntax_addtions()
 
-au Syntax ruby call s:ruby_syntax_and_highlights()
-au Syntax c    call s:c_syntax_and_highlights()
-au Syntax diff call s:diff_syntax_and_highlights()
-au Syntax vim  call s:vim_syntax_and_highlights()
+au Syntax c          call s:c_syntax_and_highlights()
+au Syntax diff       call s:diff_syntax_and_highlights()
+au Syntax go         call s:go_syntax_and_highlights()
 au Syntax javascript call s:javascript_syntax_and_highlights()
-au Syntax go   call s:go_syntax_and_highlights()
+au Syntax markdown   call s:markdown_syntax_and_highlights()
+au Syntax ruby       call s:ruby_syntax_and_highlights()
+au Syntax vim        call s:vim_syntax_and_highlights()
 
 " Show detailed syntax stack
 nmap <Leader>dets :call <SID>SynStack()<CR>
