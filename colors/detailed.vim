@@ -598,7 +598,7 @@ fun! s:detailed_colors()
   call s:fg('detailedInstanceVariable', 'blue75')
 
   call s:fgbg('detailedString', 'purple125', 'gray233')
-  call s:fgbg('detailedInterpolatedString', 'purple126', 'gray233')
+  call s:fgbg('rubyString', 'purple126', 'gray233')
   call s:bold_fgbg('detailedExecutedString', 'green34', 'purple53')
   call s:fgbg('detailedRawString', 'red160', 'gray233')
   call s:fg('detailedStringDelimiter', 'blue33')
@@ -740,7 +740,7 @@ fun! s:ruby_syntax_and_highlights()
   syn match detailedExits "\<\%(exit!\|\%(abort\|at_exit\|exit\|fork\|trap\)\>[?!]\@!\)"
 
   " TODO: also handle %(…), etc
-  syn region detailedInterpolatedString matchgroup=detailedInterpolatedStringDelimiter start="\"" end="\"" skip="\\\\\|\\\"" contains=@rubyStringSpecial,@Spell fold
+  syn region rubyString matchgroup=detailedInterpolatedStringDelimiter start="\"" end="\"" skip="\\\\\|\\\"" contains=@rubyStringSpecial,@Spell fold
   " TODO: Also, %x(). Anything else?
   syn region detailedExecutedString matchgroup=detailedExecutedStringDelimiter start="`" end="`"  skip="\\\\\|\\`"  contains=@rubyStringSpecial fold
 
