@@ -740,7 +740,7 @@ fun! s:ruby_syntax_and_highlights()
   syn match detailedExits "\<\%(exit!\|\%(abort\|at_exit\|exit\|fork\|trap\)\>[?!]\@!\)"
 
   " TODO: also handle %(…), etc
-  syn region detailedInterpolatedString matchgroup=detailedInterpolatedStringDelimiter start="\"" end="\"" skip="\\\\\|\\\"" contains=@rubyStringSpecial,@Spell fold
+  " syn region detailedInterpolatedString matchgroup=detailedInterpolatedStringDelimiter start="\"" end="\"" skip="\\\\\|\\\"" contains=@rubyStringSpecial,@Spell fold
   " TODO: Also, %x(). Anything else?
   syn region detailedExecutedString matchgroup=detailedExecutedStringDelimiter start="`" end="`"  skip="\\\\\|\\`"  contains=@rubyStringSpecial fold
 
