@@ -64,7 +64,6 @@ let ruby_operators = 1
 
 " If you don't have this, rails.vim will zap the matchers when it resets
 " syntax for its own additions:
-au Syntax * call s:fatpacked_rainbow_parens()
 au Syntax * call s:detailed_syntax_addtions()
 
 au Syntax ruby call s:ruby_syntax_and_highlights()
@@ -860,43 +859,6 @@ fun! s:ruby_syntax_and_highlights()
   " call s:make_obvious('rubyModuleDeclaration')
   " TODO: call s:make_obvious('rubyOptionalDo')
   " TODO: call s:make_obvious('rubyOptionalDoLine')
-endfun
-" }}}
-
-" Rainbow-Parens Improved {{{
-" Inlined from v2.3 of http://www.vim.org/scripts/script.php?script_id=4176
-" 1. to remove the external dep, 2. to work around vim-rails resetting it.
-" Thanks!
-fun! s:fatpacked_rainbow_parens()
-  let guifgs = exists('g:rainbow_guifgs')? g:rainbow_guifgs : [
-        \ 'DarkOrchid3', 'RoyalBlue3', 'SeaGreen3',
-        \ 'DarkOrange3', 'FireBrick',
-        \ ]
-
-  " From Pharo Smalltalk:
-  " Black, Green, Purple, Maroon, LightGreen, Orange, Red, Blue
-  let ctermfgs = exists('g:rainbow_ctermfgs')? g:rainbow_ctermfgs : [
-        \ '241', '22', '56', '124', '72', '166', '126', '38', ]
-
-  let max = has('gui_running')? len(guifgs) : len(ctermfgs)
-
-  let cmd = 'syn region %s matchgroup=%s start=/%s/ end=/%s/ containedin=%s contains=%s'
-  let str = 'TOP'
-  for each in range(1, max)
-    let str .= ',lv'.each
-  endfor
-  for [left , right] in [['(',')'],['\[','\]'],['{','}']]
-    for each in range(1, max - 1)
-      exe printf(cmd, 'lv'.each, 'lv'.each.'c', left, right, 'lv'.(each+1) , str)
-    endfor
-    exe printf(cmd, 'lv'.max, 'lv'.max.'c', left, right, 'lv1' , str)
-  endfor
-
-  for id in range(1 , max)
-    let ctermfg = ctermfgs[(max - id) % len(ctermfgs)]
-    let guifg = guifgs[(max - id) % len(guifgs)]
-    exe 'hi default lv'.id.'c ctermfg='.ctermfg.' guifg='.guifg
-  endfor
 endfun
 " }}}
 
