@@ -716,9 +716,50 @@ fun! s:vim_syntax_and_highlights()
 endfun
 
 fun! s:javascript_syntax_and_highlights()
+  syn clear jsFuncArgs
+  syn clear jsFuncCall
+  syn clear jsObjectKey
+  syn match jsPropertyAccess '\.[$_[:alnum:]]\+' contains=jsPrototype,jsProbablyAClass
+  syn match jsFuncCall '\.\?\([$_[:alnum:]]\+\)(\@=' contains=jsPrototype,jsProbablyAClass
+  syn match jsProbablyAClass "\<[A-Z][_[:alnum:]]\{-}\>" contains=NONE
+  syn match jsFunctionKey '\<[a-zA-Z_$][0-9a-zA-Z_$]*\>\(\s*:\s*function\s*\)\@='
+  syn match jsObjectKey '\<[a-zA-Z_$][0-9a-zA-Z_$]*\>\(\s*:\)\@=' contains=jsFunctionKey
+  syn keyword jsFunction function
+  syn keyword jsPrototype prototype hasOwnProperty
+  syn region jsFuncArgs start='\(function\s*[$_[:alnum:]]\{-}(\)\@<=[$_a-zA-Z]' end='[$_[:alnum:]])\@='lc=1 contains=jsProbablyAClass, jsUndefined, jsNull, jsNamedFunction
+
+  syn match jsNamedFunction '\(function\s\)\@<=[$_[:alnum:]]\{-}\ze('
+
   hi link javascriptFunction detailedDefine
   hi link javascriptIdentifier Type
   hi link javascriptRailsFunction detailedInstanceVariable
+  hi link jsFunction detailedDefine
+  hi link jsFunctionKey detailedFunction
+  hi link jsNamedFunction detailedFunction
+  hi link jsFuncCall detailedMethodBlock
+  hi link jsConditional Conditional
+  hi link jsFunction detailedDefine
+  hi link jsThis detailedPseudoVariable
+  hi link jsStorageClass detailedInstanceVariable
+  hi link jsOperator detailedOperator
+  hi link jsStringS detailedString
+  hi link jsStringD detailedInterpolatedString
+  hi link jsBooleanTrue detailedBoolean
+  hi link jsBooleanFalse detailedBoolean
+  hi link jsObjectKey detailedSymbol
+  hi link jsFuncName detailedInitialize
+  hi link jsReturn detailedControl
+  hi link jsFuncArgs detailedBlockParameter
+  hi link jsProbablyAClass detailedConstant
+  hi link jsGlobalObjects Type
+  hi link jsPrototype detailedPseudoVariable
+  hi link jsNoise Comment
+  hi link jsPropertyAccess detailedRepeatExpression
+  hi link jsLocal detailedMethodBlock
+endfun
+
+fun! JavascriptRefresh()
+  call s:javascript_syntax_and_highlights()
 endfun
 
 fun! s:detailed_syntax_addtions()
