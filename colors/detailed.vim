@@ -54,25 +54,19 @@
 "
 "     :colo detailed
 
-let colors_name = 'detailed'
+" highlight clear
+source $VIMRUNTIME/colors/vim.lua " Nvim: revert to Vim default color scheme
+let g:colors_name = 'detailed'
 
 " Prevent any screwy setting from causing errors:
-let s:save_cpo = &cpo | set cpo&vim
+let s:save_cpoptions = &cpoptions | set cpoptions&vim
 
 " Turn on moar syntaks!
-let ruby_operators = 1
 
 " If you don't have this, rails.vim will zap the matchers when it resets
 " syntax for its own additions:
-au Syntax * call s:fatpacked_rainbow_parens()
+" au Syntax * call s:fatpacked_rainbow_parens()
 au Syntax * call s:detailed_syntax_addtions()
-
-au Syntax ruby call s:ruby_syntax_and_highlights()
-au Syntax c    call s:c_syntax_and_highlights()
-au Syntax diff call s:diff_syntax_and_highlights()
-au Syntax vim  call s:vim_syntax_and_highlights()
-au Syntax javascript call s:javascript_syntax_and_highlights()
-au Syntax go   call s:go_syntax_and_highlights()
 
 " Show detailed syntax stack
 nmap <Leader>dets :call <SID>SynStack()<CR>
@@ -84,253 +78,253 @@ endfun
 
 " Boring ctermfg ⇒ guifg map {{{
 let s:cterm_gui_map = {
-  \0: '000000',
-  \1: 'ff0000',
-  \2: '00ff00',
-  \3: 'ffff00',
-  \4: '0000ff',
-  \5: 'ff00ff',
-  \6: '00ffff',
-  \16: '000000',
-  \17: '00005f',
-  \18: '000087',
-  \19: '0000af',
-  \20: '0000d7',
-  \21: '0000ff',
-  \22: '005f00',
-  \23: '005f5f',
-  \24: '005f87',
-  \25: '005faf',
-  \26: '005fd7',
-  \27: '005fff',
-  \28: '008700',
-  \29: '00875f',
-  \30: '008787',
-  \31: '0087af',
-  \32: '0087d7',
-  \33: '0087ff',
-  \34: '00af00',
-  \35: '00af5f',
-  \36: '00af87',
-  \37: '00afaf',
-  \38: '00afd7',
-  \39: '00afff',
-  \40: '00d700',
-  \41: '00d75f',
-  \42: '00d787',
-  \43: '00d7af',
-  \44: '00d7d7',
-  \45: '00d7ff',
-  \46: '00ff00',
-  \47: '00ff5f',
-  \48: '00ff87',
-  \49: '00ffaf',
-  \50: '00ffd7',
-  \51: '00ffff',
-  \52: '5f0000',
-  \53: '5f005f',
-  \54: '5f0087',
-  \55: '5f00af',
-  \56: '5f00d7',
-  \57: '5f00ff',
-  \58: '5f5f00',
-  \59: '5f5f5f',
-  \60: '5f5f87',
-  \61: '5f5faf',
-  \62: '5f5fd7',
-  \63: '5f5fff',
-  \64: '5f8700',
-  \65: '5f875f',
-  \66: '5f8787',
-  \67: '5f87af',
-  \68: '5f87d7',
-  \69: '5f87ff',
-  \70: '5faf00',
-  \71: '5faf5f',
-  \72: '5faf87',
-  \73: '5fafaf',
-  \74: '5fafd7',
-  \75: '5fafff',
-  \76: '5fd700',
-  \77: '5fd75f',
-  \78: '5fd787',
-  \79: '5fd7af',
-  \80: '5fd7d7',
-  \81: '5fd7ff',
-  \82: '5fff00',
-  \83: '5fff5f',
-  \84: '5fff87',
-  \85: '5fffaf',
-  \86: '5fffd7',
-  \87: '5fffff',
-  \88: '870000',
-  \89: '87005f',
-  \90: '870087',
-  \91: '8700af',
-  \92: '8700d7',
-  \93: '8700ff',
-  \94: '875f00',
-  \95: '875f5f',
-  \96: '875f87',
-  \97: '875faf',
-  \98: '875fd7',
-  \99: '875fff',
-  \100: '878700',
-  \101: '87875f',
-  \102: '878787',
-  \103: '8787af',
-  \104: '8787d7',
-  \105: '8787ff',
-  \106: '87af00',
-  \107: '87af5f',
-  \108: '87af87',
-  \109: '87afaf',
-  \110: '87afd7',
-  \111: '87afff',
-  \112: '87d700',
-  \113: '87d75f',
-  \114: '87d787',
-  \115: '87d7af',
-  \116: '87d7d7',
-  \117: '87d7ff',
-  \118: '87ff00',
-  \119: '87ff5f',
-  \120: '87ff87',
-  \121: '87ffaf',
-  \122: '87ffd7',
-  \123: '87ffff',
-  \124: 'af0000',
-  \125: 'af005f',
-  \126: 'af0087',
-  \127: 'af00af',
-  \128: 'af00d7',
-  \129: 'af00ff',
-  \130: 'af5f00',
-  \131: 'af5f5f',
-  \132: 'af5f87',
-  \133: 'af5faf',
-  \134: 'af5fd7',
-  \135: 'af5fff',
-  \136: 'af8700',
-  \137: 'af875f',
-  \138: 'af8787',
-  \139: 'af87af',
-  \140: 'af87d7',
-  \141: 'af87ff',
-  \142: 'afaf00',
-  \143: 'afaf5f',
-  \144: 'afaf87',
-  \145: 'afafaf',
-  \146: 'afafd7',
-  \147: 'afafff',
-  \148: 'afd700',
-  \149: 'afd75f',
-  \150: 'afd787',
-  \151: 'afd7af',
-  \152: 'afd7d7',
-  \153: 'afd7ff',
-  \154: 'afff00',
-  \155: 'afff5f',
-  \156: 'afff87',
-  \157: 'afffaf',
-  \158: 'afffd7',
-  \159: 'afffff',
-  \160: 'd70000',
-  \161: 'd7005f',
-  \162: 'd70087',
-  \163: 'd700af',
-  \164: 'd700d7',
-  \165: 'd700ff',
-  \166: 'd75f00',
-  \167: 'd75f5f',
-  \168: 'd75f87',
-  \169: 'd75faf',
-  \170: 'd75fd7',
-  \171: 'd75fff',
-  \172: 'd78700',
-  \173: 'd7875f',
-  \174: 'd78787',
-  \175: 'd787af',
-  \176: 'd787d7',
-  \177: 'd787ff',
-  \178: 'd7af00',
-  \179: 'd7af5f',
-  \180: 'd7af87',
-  \181: 'd7afaf',
-  \182: 'd7afd7',
-  \183: 'd7afff',
-  \184: 'd7d700',
-  \185: 'd7d75f',
-  \186: 'd7d787',
-  \187: 'd7d7af',
-  \188: 'd7d7d7',
-  \189: 'd7d7ff',
-  \190: 'd7ff00',
-  \191: 'd7ff5f',
-  \192: 'd7ff87',
-  \193: 'd7ffaf',
-  \194: 'd7ffd7',
-  \195: 'd7ffff',
-  \196: 'ff0000',
-  \197: 'ff005f',
-  \198: 'ff0087',
-  \199: 'ff00af',
-  \200: 'ff00d7',
-  \201: 'ff00ff',
-  \202: 'ff5f00',
-  \203: 'ff5f5f',
-  \204: 'ff5f87',
-  \205: 'ff5faf',
-  \206: 'ff5fd7',
-  \207: 'ff5fff',
-  \208: 'ff8700',
-  \209: 'ff875f',
-  \210: 'ff8787',
-  \211: 'ff87af',
-  \212: 'ff87d7',
-  \213: 'ff87ff',
-  \214: 'ffaf00',
-  \215: 'ffaf5f',
-  \216: 'ffaf87',
-  \217: 'ffafaf',
-  \218: 'ffafd7',
-  \219: 'ffafff',
-  \220: 'ffd700',
-  \221: 'ffd75f',
-  \222: 'ffd787',
-  \223: 'ffd7af',
-  \224: 'ffd7d7',
-  \225: 'ffd7ff',
-  \226: 'ffff00',
-  \227: 'ffff5f',
-  \228: 'ffff87',
-  \229: 'ffffaf',
-  \230: 'ffffd7',
-  \231: 'ffffff',
-  \232: '080808',
-  \233: '121212',
-  \234: '1c1c1c',
-  \235: '262626',
-  \236: '303030',
-  \237: '3a3a3a',
-  \238: '444444',
-  \239: '4e4e4e',
-  \240: '585858',
-  \241: '626262',
-  \242: '6c6c6c',
-  \243: '767676',
-  \244: '808080',
-  \245: '8a8a8a',
-  \246: '949494',
-  \247: '9e9e9e',
-  \248: 'a8a8a8',
-  \249: 'b2b2b2',
-  \250: 'bcbcbc',
-  \251: 'c6c6c6',
-  \252: 'd0d0d0',
-  \253: 'dadada',
-  \254: 'e4e4e4',
-  \255: 'eeeeee',
+  \0: '#000000',
+  \1: '#ff0000',
+  \2: '#00ff00',
+  \3: '#ffff00',
+  \4: '#0000ff',
+  \5: '#ff00ff',
+  \6: '#00ffff',
+  \16: '#000000',
+  \17: '#00005f',
+  \18: '#000087',
+  \19: '#0000af',
+  \20: '#0000d7',
+  \21: '#0000ff',
+  \22: '#005f00',
+  \23: '#005f5f',
+  \24: '#005f87',
+  \25: '#005faf',
+  \26: '#005fd7',
+  \27: '#005fff',
+  \28: '#008700',
+  \29: '#00875f',
+  \30: '#008787',
+  \31: '#0087af',
+  \32: '#0087d7',
+  \33: '#0087ff',
+  \34: '#00af00',
+  \35: '#00af5f',
+  \36: '#00af87',
+  \37: '#00afaf',
+  \38: '#00afd7',
+  \39: '#00afff',
+  \40: '#00d700',
+  \41: '#00d75f',
+  \42: '#00d787',
+  \43: '#00d7af',
+  \44: '#00d7d7',
+  \45: '#00d7ff',
+  \46: '#00ff00',
+  \47: '#00ff5f',
+  \48: '#00ff87',
+  \49: '#00ffaf',
+  \50: '#00ffd7',
+  \51: '#00ffff',
+  \52: '#5f0000',
+  \53: '#5f005f',
+  \54: '#5f0087',
+  \55: '#5f00af',
+  \56: '#5f00d7',
+  \57: '#5f00ff',
+  \58: '#5f5f00',
+  \59: '#5f5f5f',
+  \60: '#5f5f87',
+  \61: '#5f5faf',
+  \62: '#5f5fd7',
+  \63: '#5f5fff',
+  \64: '#5f8700',
+  \65: '#5f875f',
+  \66: '#5f8787',
+  \67: '#5f87af',
+  \68: '#5f87d7',
+  \69: '#5f87ff',
+  \70: '#5faf00',
+  \71: '#5faf5f',
+  \72: '#5faf87',
+  \73: '#5fafaf',
+  \74: '#5fafd7',
+  \75: '#5fafff',
+  \76: '#5fd700',
+  \77: '#5fd75f',
+  \78: '#5fd787',
+  \79: '#5fd7af',
+  \80: '#5fd7d7',
+  \81: '#5fd7ff',
+  \82: '#5fff00',
+  \83: '#5fff5f',
+  \84: '#5fff87',
+  \85: '#5fffaf',
+  \86: '#5fffd7',
+  \87: '#5fffff',
+  \88: '#870000',
+  \89: '#87005f',
+  \90: '#870087',
+  \91: '#8700af',
+  \92: '#8700d7',
+  \93: '#8700ff',
+  \94: '#875f00',
+  \95: '#875f5f',
+  \96: '#875f87',
+  \97: '#875faf',
+  \98: '#875fd7',
+  \99: '#875fff',
+  \100: '#878700',
+  \101: '#87875f',
+  \102: '#878787',
+  \103: '#8787af',
+  \104: '#8787d7',
+  \105: '#8787ff',
+  \106: '#87af00',
+  \107: '#87af5f',
+  \108: '#87af87',
+  \109: '#87afaf',
+  \110: '#87afd7',
+  \111: '#87afff',
+  \112: '#87d700',
+  \113: '#87d75f',
+  \114: '#87d787',
+  \115: '#87d7af',
+  \116: '#87d7d7',
+  \117: '#87d7ff',
+  \118: '#87ff00',
+  \119: '#87ff5f',
+  \120: '#87ff87',
+  \121: '#87ffaf',
+  \122: '#87ffd7',
+  \123: '#87ffff',
+  \124: '#af0000',
+  \125: '#af005f',
+  \126: '#af0087',
+  \127: '#af00af',
+  \128: '#af00d7',
+  \129: '#af00ff',
+  \130: '#af5f00',
+  \131: '#af5f5f',
+  \132: '#af5f87',
+  \133: '#af5faf',
+  \134: '#af5fd7',
+  \135: '#af5fff',
+  \136: '#af8700',
+  \137: '#af875f',
+  \138: '#af8787',
+  \139: '#af87af',
+  \140: '#af87d7',
+  \141: '#af87ff',
+  \142: '#afaf00',
+  \143: '#afaf5f',
+  \144: '#afaf87',
+  \145: '#afafaf',
+  \146: '#afafd7',
+  \147: '#afafff',
+  \148: '#afd700',
+  \149: '#afd75f',
+  \150: '#afd787',
+  \151: '#afd7af',
+  \152: '#afd7d7',
+  \153: '#afd7ff',
+  \154: '#afff00',
+  \155: '#afff5f',
+  \156: '#afff87',
+  \157: '#afffaf',
+  \158: '#afffd7',
+  \159: '#afffff',
+  \160: '#d70000',
+  \161: '#d7005f',
+  \162: '#d70087',
+  \163: '#d700af',
+  \164: '#d700d7',
+  \165: '#d700ff',
+  \166: '#d75f00',
+  \167: '#d75f5f',
+  \168: '#d75f87',
+  \169: '#d75faf',
+  \170: '#d75fd7',
+  \171: '#d75fff',
+  \172: '#d78700',
+  \173: '#d7875f',
+  \174: '#d78787',
+  \175: '#d787af',
+  \176: '#d787d7',
+  \177: '#d787ff',
+  \178: '#d7af00',
+  \179: '#d7af5f',
+  \180: '#d7af87',
+  \181: '#d7afaf',
+  \182: '#d7afd7',
+  \183: '#d7afff',
+  \184: '#d7d700',
+  \185: '#d7d75f',
+  \186: '#d7d787',
+  \187: '#d7d7af',
+  \188: '#d7d7d7',
+  \189: '#d7d7ff',
+  \190: '#d7ff00',
+  \191: '#d7ff5f',
+  \192: '#d7ff87',
+  \193: '#d7ffaf',
+  \194: '#d7ffd7',
+  \195: '#d7ffff',
+  \196: '#ff0000',
+  \197: '#ff005f',
+  \198: '#ff0087',
+  \199: '#ff00af',
+  \200: '#ff00d7',
+  \201: '#ff00ff',
+  \202: '#ff5f00',
+  \203: '#ff5f5f',
+  \204: '#ff5f87',
+  \205: '#ff5faf',
+  \206: '#ff5fd7',
+  \207: '#ff5fff',
+  \208: '#ff8700',
+  \209: '#ff875f',
+  \210: '#ff8787',
+  \211: '#ff87af',
+  \212: '#ff87d7',
+  \213: '#ff87ff',
+  \214: '#ffaf00',
+  \215: '#ffaf5f',
+  \216: '#ffaf87',
+  \217: '#ffafaf',
+  \218: '#ffafd7',
+  \219: '#ffafff',
+  \220: '#ffd700',
+  \221: '#ffd75f',
+  \222: '#ffd787',
+  \223: '#ffd7af',
+  \224: '#ffd7d7',
+  \225: '#ffd7ff',
+  \226: '#ffff00',
+  \227: '#ffff5f',
+  \228: '#ffff87',
+  \229: '#ffffaf',
+  \230: '#ffffd7',
+  \231: '#ffffff',
+  \232: '#080808',
+  \233: '#121212',
+  \234: '#1c1c1c',
+  \235: '#262626',
+  \236: '#303030',
+  \237: '#3a3a3a',
+  \238: '#444444',
+  \239: '#4e4e4e',
+  \240: '#585858',
+  \241: '#626262',
+  \242: '#6c6c6c',
+  \243: '#767676',
+  \244: '#808080',
+  \245: '#8a8a8a',
+  \246: '#949494',
+  \247: '#9e9e9e',
+  \248: '#a8a8a8',
+  \249: '#b2b2b2',
+  \250: '#bcbcbc',
+  \251: '#c6c6c6',
+  \252: '#d0d0d0',
+  \253: '#dadada',
+  \254: '#e4e4e4',
+  \255: '#eeeeee',
   \}
 " }}}
 
@@ -436,7 +430,7 @@ let s:c = {
 fun! s:color_for(id, fgbg)
   let num = s:c[a:id]
   let gui = s:cterm_gui_map[l:num]
-  return 'cterm'.a:fgbg.'='.l:num.' gui'.a:fgbg.'=#'.l:gui
+  return 'cterm'.a:fgbg.'='.l:num.' gui'.a:fgbg.'='.l:gui
 endfun
 
 fun! s:fg(group, fg)
@@ -488,7 +482,7 @@ hi ErrorMsg       term=standout ctermfg=15 ctermbg=1 guifg=White guibg=Red
 hi IncSearch      term=reverse cterm=reverse gui=reverse
 hi MoreMsg        term=bold ctermfg=121 gui=bold guifg=SeaGreen
 hi ModeMsg        term=bold cterm=bold gui=bold
-hi LineNr gui=NONE term=NONE guifg=#005f87 ctermfg=24
+hi LineNr term=NONE guifg=#005f87 ctermfg=24
 hi CursorLineNr   term=bold ctermfg=11 gui=bold guifg=Yellow
 hi Question       term=standout ctermfg=121 gui=bold guifg=Green
 hi StatusLine     term=bold,reverse cterm=bold,reverse gui=bold,reverse
@@ -521,18 +515,18 @@ call s:fg('Comment', 'gray242') " In my books, comments should be quiet.
 " }}}
 
 " Generic links {{{
-hi link String          detailedString
+hi link detailedString  String
 hi link Character       Constant
-hi link Number          detailedInteger
-hi link Boolean         detailedBoolean
-hi link Float           detailedFloat
+hi link detailedInteger Number
+hi link detailedBoolean Boolean
+hi link detailedFloat Float
 hi link Function        Identifier
 hi link Conditional     Statement
-hi link Repeat          detailedRepeat
+hi link detailedRepeat Repeat
 hi link Label           Statement
 hi link Operator        Statement
 hi link Keyword         Statement
-hi link Include         PreProc
+" hi link Include         PreProc
 hi link Define          PreProc
 hi link Macro           PreProc
 hi link PreCondit       PreProc
@@ -548,7 +542,7 @@ hi link Debug           Special
 
 " s:detailed_colors — the good stuff {{{
 fun! s:detailed_colors()
-  call s:diff_syntax_and_highlights() " For vimdiff, which uses other filetypes
+  " call s:diff_syntax_and_highlights() " For vimdiff, which uses other filetypes
 
   call s:underline_fgbg('MatchParen', 'gray255', 'gray243')
 
@@ -589,7 +583,7 @@ fun! s:detailed_colors()
   call s:bold_fg('detailedClass', 'purple126')
   call s:fg('detailedModule', 'purple126')
   call s:fg('detailedDefine', 'green23')
-  call s:fg('detailedInclude', 'purple53')
+  call s:fg('Include', 'purple53')
   call s:fg('detailedDeclaration', 'yellow100') " Originally for go lang
   call s:fg('detailedDeclType', 'green37') " Originally for go lang
 
@@ -597,7 +591,7 @@ fun! s:detailed_colors()
 
   call s:fg('detailedInstanceVariable', 'blue75')
 
-  call s:fgbg('detailedString', 'purple125', 'gray233')
+  call s:fgbg('String', 'purple125', 'gray233')
   call s:fgbg('detailedInterpolatedString', 'purple126', 'gray233')
   call s:bold_fgbg('detailedExecutedString', 'green34', 'purple53')
   call s:fgbg('detailedRawString', 'red160', 'gray233')
@@ -616,8 +610,8 @@ fun! s:detailed_colors()
   call s:fg('detailedASCIICode', 'green71')
 
   call s:fg('detailedPseudoVariable', 'purple125')
-  call s:fg('detailedInteger', 'purple134')
-  call s:fg('detailedFloat', 'purple132')
+  call s:fg('Number', 'purple134')
+  call s:fg('Float', 'purple132')
   call s:bold_fg('detailedImaginary', 'purple139')
 
   call s:fg('detailedBlockArgument', 'blue87')
@@ -626,7 +620,7 @@ fun! s:detailed_colors()
   call s:fg('detailedBlockParameterList', 'blue25')
   call s:bold_fg('detailedPredefinedConstant', 'green22')
   call s:bold_fg('detailedPredefinedVariable', 'blue37')
-  call s:fg('detailedBoolean', 'purple131')
+  call s:fg('Boolean', 'purple131')
   call s:fg('detailedOperator', 'green123')
   call s:fg('detailedAccess', 'yellow100')
   call s:fg('detailedAttribute', 'orange178') " attr_{accessor,reader,writer}
@@ -643,7 +637,7 @@ fun! s:detailed_colors()
   call s:bold_fg('detailedConditionalModifier', 'yellow148') " 'Yoda if'
   call s:fg('detailedConditionalExpression', 'light_yellow230')
   " (loops)
-  call s:bold_fg('detailedRepeat', 'orange178')
+  call s:bold_fg('Repeat', 'orange178')
   call s:bold_fg('detailedRepeatModifier', 'yellow149') " …while/until
   call s:fg('detailedRepeatExpression', 'orange222')
 
@@ -657,18 +651,15 @@ fun! s:detailed_colors()
   "* `fail`/`raise`/`exit` were yellow by default, but here a more warny orange.
   call s:fg('Exception', 'orange208')
   "* class `@@vars` get ugly, cautionary color: they are troublesome.
-  call s:fgbg('rubyClassVariable', 'blue75', 'red52')
+  call s:fgbg('detailedClassVariable', 'blue75', 'red52')
   "* global `$vars` also get a bit of ugliness. Everyone knows they're iffy.
-  call s:fgbg('rubyGlobalVariable', 'red161', 'gray234')
+  call s:fgbg('detailedGlobalVariable', 'red161', 'gray234')
 
   " rails.vim niceness:
   call s:fg('detailedRailsARAssociationMethod', 'teal50')
 
   " detailed.vim especialties:
   call s:fg('detailedInitialize', 'green84')
-  hi link detailedEncodingDirective detailedDirective
-
-  hi link detailedExits Exception
 endfun
 
 fun! s:diff_syntax_and_highlights()
@@ -683,90 +674,10 @@ fun! s:diff_syntax_and_highlights()
   " diffFile
 endfun
 
-fun! s:c_syntax_and_highlights()
-  hi link cRepeat detailedRepeat
-  hi link cUserLabel detailedRepeat
-  hi link cInclude detailedModule
-  hi link cStatement detailedControl " return goto asm continue break
-  hi link cConstant detailedConstant
-  hi link cNumber detailedInteger
-  " Since the C details came after Ruby, the names could be redone a bit:
-  hi link cIncluded detailedString
-  hi link cStructure detailedClass
-  hi link cStorageClass detailedClass
-  hi link cOperator detailedDefine
-endfun
-
-fun! s:go_syntax_and_highlights()
-
-  " hi link goBlock detailedBlock
-  hi link goDirective detailedDirective
-  hi link goDeclaration detailedDeclaration
-  hi link goDeclType detailedDeclType
-  hi link goConstants detailedBoolean
-  hi link goStatement detailedControl
-  hi link goRawString detailedRawString
-  hi link goImaginary detailedImaginary
-  hi link goSpaceError BadWhitespace
-endfun
-
-fun! s:vim_syntax_and_highlights()
-  hi link vimFuncKey detailedDefine
-  hi link vimFunction detailedFunction
-  "hi link vimFuncBody detailedDefine
-endfun
-
-fun! s:javascript_syntax_and_highlights()
-  syn clear jsFuncArgs
-  syn clear jsFuncCall
-  syn clear jsObjectKey
-  syn match jsPropertyAccess '\.[$_[:alnum:]]\+' contains=jsPrototype,jsProbablyAClass
-  syn match jsFuncCall '\.\?\([$_[:alnum:]]\+\)(\@=' contains=jsPrototype,jsProbablyAClass
-  syn match jsProbablyAClass "\<[A-Z][_[:alnum:]]\{-}\>" contains=NONE
-  syn match jsFunctionKey '\<[a-zA-Z_$][0-9a-zA-Z_$]*\>\(\s*:\s*function\s*\)\@='
-  syn match jsObjectKey '\<[a-zA-Z_$][0-9a-zA-Z_$]*\>\(\s*:\)\@=' contains=jsFunctionKey
-  syn keyword jsFunction function
-  syn keyword jsPrototype prototype hasOwnProperty
-  syn region jsFuncArgs start='\(function\s*[$_[:alnum:]]\{-}(\)\@<=[$_a-zA-Z]' end='[$_[:alnum:]])\@='lc=1 contains=jsProbablyAClass, jsUndefined, jsNull, jsNamedFunction
-
-  syn match jsNamedFunction '\(function\s\)\@<=[$_[:alnum:]]\{-}\ze('
-
-  hi link javascriptFunction detailedDefine
-  hi link javascriptIdentifier Type
-  hi link javascriptRailsFunction detailedInstanceVariable
-  hi link jsFunction detailedDefine
-  hi link jsFunctionKey detailedFunction
-  hi link jsNamedFunction detailedFunction
-  hi link jsFuncCall detailedMethodBlock
-  hi link jsConditional Conditional
-  hi link jsFunction detailedDefine
-  hi link jsThis detailedPseudoVariable
-  hi link jsStorageClass detailedInstanceVariable
-  hi link jsOperator detailedOperator
-  hi link jsStringS detailedString
-  hi link jsStringD detailedInterpolatedString
-  hi link jsBooleanTrue detailedBoolean
-  hi link jsBooleanFalse detailedBoolean
-  hi link jsObjectKey detailedSymbol
-  hi link jsFuncName detailedInitialize
-  hi link jsReturn detailedControl
-  hi link jsFuncArgs detailedBlockParameter
-  hi link jsProbablyAClass detailedConstant
-  hi link jsGlobalObjects Type
-  hi link jsPrototype detailedPseudoVariable
-  hi link jsNoise Comment
-  hi link jsPropertyAccess detailedRepeatExpression
-  hi link jsLocal detailedMethodBlock
-endfun
-
-fun! JavascriptRefresh()
-  call s:javascript_syntax_and_highlights()
-endfun
-
 fun! s:detailed_syntax_addtions()
   call s:detailed_colors()
 
-  " TODO - somehow make the detail{Todo,Fixme,Xxx} work for non-ruby langs.
+  " TODO - FIXME somehow make the detail{Todo,Fixme,Xxx} work for non-ruby langs.
   " E.g., shTodo overrides them, so it will need something like:
   " syn match   rubyComment   "#.*" contains=rubySharpBang,rubySpaceError,
   "     \rubyFirstAndSecondCommentLine,detailedTodo,detailedFixme,detailedXxx,@Spell
@@ -776,133 +687,6 @@ fun! s:detailed_syntax_addtions()
 endfun
 call s:detailed_syntax_addtions() " Hrm, can this not be done with aucmd?
 
-fun! s:ruby_syntax_and_highlights()
-  " Steal this back from the too-generic 'rubyControl':
-  syn match detailedExits "\<\%(exit!\|\%(abort\|at_exit\|exit\|fork\|trap\)\>[?!]\@!\)"
-
-  " TODO: also handle %(…), etc
-  syn region detailedInterpolatedString matchgroup=detailedInterpolatedStringDelimiter start="\"" end="\"" skip="\\\\\|\\\"" contains=@rubyStringSpecial,@Spell fold
-  " TODO: Also, %x(). Anything else?
-  syn region detailedExecutedString matchgroup=detailedExecutedStringDelimiter start="`" end="`"  skip="\\\\\|\\`"  contains=@rubyStringSpecial fold
-
-  " The default syntax/ruby.vim gets this way wrong (only does 2 chars and is
-  " transparent):
-  syn match rubyBlockArgument "&[_[:lower:]][_[:alnum:]]*" contains=NONE display
-
-  " This was disabled in
-  " https://github.com/vim-ruby/vim-ruby/commit/074200ffa39b19baf9d9750d399d53d97f21ee07
-  " and removed in
-  " https://github.com/vim-ruby/vim-ruby/commit/eba523334fe14e5c9b9585a287a336317da26d70
-  hi def link rubyBlockParameter rubyIdentifier
-  syn match rubyBlockParameter "\%(\h\|[^\x00-\x7F]\)\%(\w\|[^\x00-\x7F]\)*" contained
-  syn cluster rubyDeclaration add=rubyBlockParameter
-  hi link rubyBlockParameter detailedBlockParameter
-  syn region rubyBlockParameterList start="\%(\%(\<do\>\|{\)\_s*\)\@32<=|" end="|" contains=rubyBlockParameter,rubySplatOperator,rubyDoubleSplatOperator,rubyProcOperator
-  " This is new though
-  syn match rubyNumberedBlockParam "_[1-9]" display
-  syn match rubyNumberedBlockParamError "_0" display
-  hi link rubyNumberedBlockParam rubyBlockParameter
-  hi def link rubyNumberedBlockParamError	rubyError
-
-  " Bonus!
-  syn match detailedInitialize '\<initialize\>' contained containedin=rubyMethodDeclaration
-
-  syn match   rubyComment   "#.*" contains=@rubyCommentSpecial,rubySpaceError,
-        \detailedTodo,detailedFixme,detailedXxx,@Spell
-
-  hi link rubyConditional  Conditional
-  hi link rubyExceptionHandler  rubyConditional " No-show.
-  hi link rubyStringEscape  Special
-  hi link rubyQuoteEscape  rubyStringEscape
-  hi link rubyException   Exception
-  hi link rubyKeyword     Keyword
-  hi link rubyConstant detailedConstant
-  hi link rubyEncoding detailedEncodingDirective
-  hi link rubyEntity detailedRailsARAssociationMethod
-  hi link rubySpaceError BadWhitespace
-  hi link rubyData detailedData
-  hi link rubyDataDirective detailedDataDirective
-  hi link rubyFirstAndSecondCommentLine rubySharpBang
-  hi link rubySharpBang detailedSharpBang
-  hi link rubyDoBlock detailedRepeatExpression
-  hi link rubyRepeatExpression detailedRepeatExpression
-  hi link rubyRepeatModifier detailedRepeatModifier
-  hi link rubyRepeat detailedRepeat
-  hi link rubyCaseExpression detailedConditionalExpression
-  hi link rubyConditionalExpression detailedConditionalExpression
-  hi link rubyConditionalModifier detailedConditionalModifier
-  hi link rubyControl detailedControl
-  hi link rubyBlockExpression detailedBlockExpression
-  hi link rubyClassBlock detailedBlock
-  hi link rubyModuleBlock detailedBlock
-  hi link rubyMethodBlock detailedMethodBlock
-  hi link rubyEval detailedEval
-  hi link rubyAttribute detailedAttribute
-  hi link rubyAccess detailedAccess
-  hi link rubyBeginEnd    Statement " TODO
-  hi link rubyPseudoOperator  rubyOperator " -= /= **= *= etc
-  hi link rubyOperator detailedOperator
-  hi link rubyBoolean detailedBoolean
-  hi link rubyPredefinedVariable detailedPredefinedVariable
-  hi link rubyPredefinedConstant detailedPredefinedConstant
-  hi link rubyBlockParameterList detailedBlockParameterList
-  hi link rubySymbol detailedSymbol
-  hi link rubyBlockArgument detailedBlockArgument
-  hi link rubyFloat detailedFloat
-  hi link rubyInteger detailedInteger
-  hi link rubyPseudoVariable detailedPseudoVariable
-  hi link rubyCharacter detailedASCIICode
-  hi link rubyRegexpDelimiter detailedRegexpDelimiter
-  hi link rubyRegexpDot detailedRegexpDot
-  hi link rubyRegexpAnchor detailedRegexpAnchor
-  hi link rubyRegexpEscape detailedRegexpEscape
-  hi link rubyRegexpQuantifier detailedRegexpQuantifier
-  hi link rubyRegexpCharClass detailedRegexpCharClass
-  hi link rubyRegexpSpecial detailedRegexpSpecial
-  hi link rubyInterpolationDelimiter detailedInterpolationDelimiter
-  hi link rubyStringDelimiter detailedStringDelimiter
-  hi link rubyInstanceVariable detailedInstanceVariable
-  hi link rubyFunction detailedFunction
-  hi link rubyInclude detailedInclude
-  hi link rubyDefine detailedDefine
-  hi link rubyModule detailedModule
-  hi link rubyClass detailedClass
-
-  " Only linked highlights, not actual syntax:
-  " call s:make_obvious('rubyIdentifier')
-  " call s:make_obvious('rubyError')
-
-  " Pretty much just the leftover default:
-  " call s:make_obvious('rubyLocalVariableOrMethod')
-
-  " Gets all [{()}] within any {}'s. Not very useful AFAICT:
-  " call s:make_obvious('rubyCurlyBlock')
-
-  " These mess up on first ] of [a[1]]. Seems plain busted.
-  " call s:make_obvious('rubyArrayDelimiter')
-  " call s:make_obvious('rubyArrayLiteral')
-
-  " Mere implementation details, AFAICT:
-  " call s:make_obvious('rubyNestedParentheses')
-  " call s:make_obvious('rubyNestedCurlyBraces')
-  " call s:make_obvious('rubyNestedAngleBrackets')
-  " call s:make_obvious('rubyNestedSquareBrackets')
-  " call s:make_obvious('rubyDelimEscape')
-  " call s:make_obvious('rubySymbolDelimiter')
-
-  " No-show: call s:make_obvious('rubyMethodDeclaration')
-  " Not quite sure why these don't show up:
-  " call s:make_obvious('rubyRegexpParens')
-  " call s:make_obvious('rubyRegexpBrackets')
-  " XXX no clue why this wont show up: call s:make_obvious('rubyHeredocStart')
-  " TODO: fix these: call s:make_obvious('rubyAliasDeclaration2')
-  "                  call s:make_obvious('rubyAliasDeclaration')
-  " TODO! call s:make_obvious('rubyClassDeclaration')
-  "       call s:make_obvious('rubyDeclaration')
-  " call s:make_obvious('rubyModuleDeclaration')
-  " TODO: call s:make_obvious('rubyOptionalDo')
-  " TODO: call s:make_obvious('rubyOptionalDoLine')
-endfun
 " }}}
 
 " Rainbow-Parens Improved {{{
@@ -927,6 +711,11 @@ fun! s:fatpacked_rainbow_parens()
   for each in range(1, max)
     let str .= ',lv'.each
   endfor
+  if filereadable(expand('~/.vim/autoload/rainbow_parentheses.vim'))
+    source '~/.vim/autoload/rainbow_parentheses.vim'
+  else
+    exe 'source '.expand('<sfile>:p:h').'/rainbow_parentheses.vim'
+  endif
   for [left , right] in [['(',')'],['\[','\]'],['{','}']]
     for each in range(1, max - 1)
       exe printf(cmd, 'lv'.each, 'lv'.each.'c', left, right, 'lv'.(each+1) , str)
@@ -942,6 +731,6 @@ fun! s:fatpacked_rainbow_parens()
 endfun
 " }}}
 
-let &cpo = s:save_cpo
+let &cpoptions = s:save_cpoptions
 
 " vim:foldmethod=marker

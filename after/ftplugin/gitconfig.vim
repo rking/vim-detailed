@@ -1,0 +1,4 @@
+highlight link gitConfigString detailedInterpolatedString
+highlight link gitconfigDelim detailedStringDelimiter
+highlight link gitconfigNone detailedOperator
+highlight link gitconfigVariable @variable

@@ -1,0 +1,5 @@
+highlight link vimFuncBody detailedMethodBlock
+highlight link vimFuncKey detailedDefine
+highlight link vimFunction detailedFunction
+highlight link vimTodo detailedTodo
+highlight link vimFor detailedRepeat

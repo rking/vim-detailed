@@ -1,0 +1,9 @@
+" highlight link goBlock detailedBlock
+highlight link goConstants detailedBoolean
+highlight link goDeclType detailedDeclType
+highlight link goDeclaration detailedDeclaration
+highlight link goDirective detailedDirective
+highlight link goImaginary detailedImaginary
+highlight link goRawString detailedRawString
+highlight link goSpaceError BadWhitespace
+highlight link goStatement detailedControl
